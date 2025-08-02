@@ -5,5 +5,27 @@
 }
 
 body{
-   background-image: url(/src/assets/Projeto-Quiz/telaInicial.jpg);
+   background-image: url(/src/assets/Projeto-Quiz/telaInicial.png);
 }
+
+@font-face{
+  font-family: 'fonteBotoes';
+  src: url(/src/assets/STENCIL.TTF) format('truetype');
+}
+
+.inicio button{
+  width: 300px;
+  height: 85px;
+  text-align: center;
+  font-family: 'fonteBotoes';
+  font-size: 30px;
+  border-radius: 5px;
+  background-color: rgb(175, 255, 179);
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+

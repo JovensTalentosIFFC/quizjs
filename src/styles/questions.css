@@ -5,5 +5,76 @@
 }
 
 body{
-   background-image: url(/src/assets/Projeto-Quiz/telaPadrao.jpg);
+   background-image: url(/src/assets/Projeto-Quiz/telaPadrao.png);
+}
+
+@font-face {
+  font-family: 'fonteFalas';
+  src: url(/src/assets/Luminari-Regular.ttf) format('truetype');
+}
+
+@font-face{
+  font-family: 'fonteBotoes';
+  src: url(/src/assets/STENCIL.TTF) format('truetype');
+}
+
+.botaoInicioFase button{
+  width: 300px;
+  height: 85px;
+  text-align: center;
+  font-family: 'fonteBotoes';
+  font-size: 30px;
+  border-radius: 5px;
+  background-color: rgb(175, 255, 179);
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.botaoAvancar button{
+  width: 300px;
+  height: 85px;
+  text-align: center;
+  font-family: 'fonteBotoes';
+  font-size: 30px;
+  border-radius: 5px;
+  background-color: rgb(175, 255, 179);
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.responder button{
+  font-family: 'fonteBotoes';
+  background-color: rgb(175, 255, 179);
+  border-radius: 5px;
+  text-align: center;
+  width: 200px;
+  height: 85px;
+  font-size: 25px;
+}
+
+.ajuda button{
+  font-family: 'fonteBotoes';
+  background-color: rgb(175, 255, 179);
+  border-radius: 5px;
+  text-align: center;
+  width: 200px;
+  height: 85px;
+  font-size: 25px;
+}
+
+.botoes{
+  bottom: 40px;           
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 20px;          
+  align-items: center;
+  position: relative;
+  align-items: center;
+  display: flex;
 }
