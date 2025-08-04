@@ -10,7 +10,8 @@ let setupQuestion = localStorage.getItem('setupQuestion') || '';
 const form = document.querySelector('form');
 
 class Question{
-  constructor(level, question, options, correct, clue){
+  constructor({id, level, question, options, correct, clue}){
+    this.id = id
     this.level = level;
     this.question = question;
     this.options = options;
@@ -39,7 +40,7 @@ let lifes, clues;
 
   questions = questions.reduce((acm, k, j) =>{
     const [id, level, question, a, b, c, d, correct, clue] = k.split(',');
-    acm.push({
+    acm.push(new Question({
       id,
       level,
       question,
@@ -51,7 +52,7 @@ let lifes, clues;
       },
       correct,
       clue,
-    })
+    }))
     return acm;
   }, [])
   const currentQuestion = questions[currentQuestionId];
