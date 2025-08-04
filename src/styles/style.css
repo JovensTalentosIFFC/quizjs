@@ -1,11 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;0,800;1,900&display=swap');
+
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 body{
    background-image: url(/src/assets/Projeto-Quiz/telaInicial.png);
+   background-size: 200vh;
+   background-repeat: no-repeat;
+   height: 100vh;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 @font-face{
@@ -17,15 +27,13 @@ body{
   width: 300px;
   height: 85px;
   text-align: center;
-  font-family: 'fonteBotoes';
+  border: none;
+  font-family: 'Poppins', sans-serif;
   font-size: 30px;
   border-radius: 5px;
   background-color: rgb(175, 255, 179);
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
   cursor: pointer;
+  margin-top: 600px;
 }
 
 
