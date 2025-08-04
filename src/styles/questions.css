@@ -91,6 +91,11 @@ button {
 
 }
 
+.respostas .labels .missed{
+  background-color: rgb(177, 91, 91);
+
+}
+
 .respostas form label:hover, .respostas form button:hover{
   background-color: rgb(191, 247, 186);
 }
