@@ -1,7 +1,9 @@
-const numberAnswer = document.querySelector('aside .perguntaContainer .pergunta span')
-const answer = document.querySelector('aside .perguntaContainer .pergunta p')
-
+const numberQuestion = document.querySelector('aside .perguntaContainer .pergunta span')
+const question = document.querySelector('aside .perguntaContainer .pergunta p')
+const answerButton = document.querySelector('form .answerButton');
+const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
+const optionsContainer = document.querySelector('.respostas form .labels');
 let currentLevel = localStorage.getItem('currentLevel') || 1;
 let currentQuestionIndex = localStorage.getItem('currentQuestion') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
@@ -38,9 +40,9 @@ let lifes, clues;
   
   const currentQuestion = questions[currentQuestionIndex-1];
 
-  numberAnswer.textContent = `Pergunta ${currentQuestion.level}`;
+  numberQuestion.textContent = `Pergunta ${currentQuestion.level}`;
 
-  answer.textContent = currentQuestion.question;
+  question.textContent = currentQuestion.question;
   let seenOption = [];
 
   if(setupQuestion.length<4){
@@ -80,21 +82,31 @@ let lifes, clues;
 
     return;
   }
-  form.style.pointerEvents='none';
+  optionsContainer.style.pointerEvents='none';
   let correctIndex = Array.from(setupQuestion).findIndex(opt => opt===currentQuestion.correct);
   if(selectedOptIndex !== correctIndex){
     selectedOpt.classList.add('missed');
     options[correctIndex].classList.add('selected');
-  } else{
-    // correct answer;
   }
-  if(currentQuestionIndex===5){
-    currentLevel++;
-    currentQuestionIndex=0;
-  }
-  currentQuestionIndex++;
-  localStorage.setItem('currentQuestion', currentQuestionIndex);
-  localStorage.setItem('currentLevel', currentLevel);
+
+  clueButton.style.display='none'
+  answerButton.textContent = 'Avançar'
+  answerButton.classList.add('skip');
+  const skipButton = document.querySelector('form .skip');
+
+
+  skipButton.addEventListener('click', () =>{
+  optionsContainer.style.pointerEvents='all';
+
+    if(currentQuestionIndex===5){
+      currentLevel++;
+      currentQuestionIndex=0;
+    }
+    currentQuestionIndex++;
+    localStorage.setItem('currentQuestion', currentQuestionIndex);
+    localStorage.setItem('currentLevel', currentLevel);
+    window.location.reload();
+  })
 
 })
 
