@@ -10,7 +10,7 @@
 
 body {
   background-image: url(/src/assets/Projeto-Quiz/telaPadrao.png);
-  background-size: 200vh;
+  background-size: cover;
   height: 100vh;
   display: flex;
   justify-content: center;
