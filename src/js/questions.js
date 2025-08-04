@@ -4,10 +4,27 @@ const answerButton = document.querySelector('form .answerButton');
 const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
-let currentLevel = localStorage.getItem('currentLevel') || 1;
-let currentQuestionIndex = localStorage.getItem('currentQuestion') || 1;
+let currentLevel = +localStorage.getItem('currentLevel') || 1;
+let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
 const form = document.querySelector('form');
+
+class Question{
+  constructor(level, question, options, correct, clue){
+    this.level = level;
+    this.question = question;
+    this.options = options;
+    this.correct = correct;
+    this.clue = clue;
+  }
+
+  getWrong(){
+    let wrongAnswer = parseInt(Math.random()*4);
+    while(wrongAnswer===this.correct){
+      wrongAnswer = parseInt(Math.random()*4);
+    }
+  }
+}
 
 let lifes, clues;
 
@@ -21,25 +38,23 @@ let lifes, clues;
 
 
   questions = questions.reduce((acm, k, j) =>{
-    const [level, question, a, b, c, d, correct, clue] = k.split(',');
+    const [id, level, question, a, b, c, d, correct, clue] = k.split(',');
     acm.push({
+      id,
       level,
       question,
       options: {
-        a,
-        b,
-        c,
-        d
+        0: a,
+        1: b,
+        2: c,
+        3: d
       },
-      correct: correct.toLowerCase(),
+      correct,
       clue,
-      questionIndex: j%5==0 ? 1 : parseInt((j+1)/level)
     })
     return acm;
   }, [])
-  
-  const currentQuestion = questions[currentQuestionIndex-1];
-
+  const currentQuestion = questions[currentQuestionId];
   numberQuestion.textContent = `Pergunta ${currentQuestion.level}`;
 
   question.textContent = currentQuestion.question;
@@ -47,20 +62,14 @@ let lifes, clues;
 
   if(setupQuestion.length<4){
     options.forEach(opt =>{
-        let randomOption = Object.values(currentQuestion.options)[parseInt(Math.random()*4)]
+        let randomOption = parseInt(Math.random()*4);
         while(seenOption.includes(randomOption)){
-          randomOption = Object.values(currentQuestion.options)[parseInt(Math.random()*4)];
+          randomOption = parseInt(Math.random()*4);
         }
-
-        for(const k of Object.keys(currentQuestion.options)){
-          if(currentQuestion.options[k] == randomOption){
-            setupQuestion+=k
-          }
-        }
-
-
-        opt.textContent = randomOption;
         seenOption.push(randomOption);
+        setupQuestion+=randomOption;
+
+        opt.textContent = currentQuestion.options[randomOption];
     })
   } else{
     options.forEach((opt, idx) =>{
@@ -69,21 +78,22 @@ let lifes, clues;
   }
   localStorage.setItem('setupQuestion', setupQuestion);
 
- 
-  
   form.addEventListener('submit', (e) =>{
   e.preventDefault();
   console.log('submt')
 
-  const selectedOptIndex = options.findIndex(opt => Array.from(opt.classList).includes('selected')) || 0
+  const selectedOptIndex = options.findIndex(opt => Array.from(opt.classList).includes('selected')) ?? -1
   const selectedOpt = options[selectedOptIndex];
-  if(!selectedOptIndex){
+  if(selectedOptIndex===-1){
     // show message asking for select one question
 
     return;
   }
+
   optionsContainer.style.pointerEvents='none';
-  let correctIndex = Array.from(setupQuestion).findIndex(opt => opt===currentQuestion.correct);
+  console.log(currentQuestion)
+  let correctIndex = Array.from(setupQuestion).findIndex(k => k===currentQuestion.correct);
+  console.log(correctIndex)
   if(selectedOptIndex !== correctIndex){
     selectedOpt.classList.add('missed');
     options[correctIndex].classList.add('selected');
@@ -98,12 +108,9 @@ let lifes, clues;
   skipButton.addEventListener('click', () =>{
   optionsContainer.style.pointerEvents='all';
 
-    if(currentQuestionIndex===5){
-      currentLevel++;
-      currentQuestionIndex=0;
-    }
-    currentQuestionIndex++;
-    localStorage.setItem('currentQuestion', currentQuestionIndex);
+    currentLevel++;
+    currentQuestionId++;
+    localStorage.setItem('currentQuestionId', currentQuestionId);
     localStorage.setItem('currentLevel', currentLevel);
     window.location.reload();
   })
