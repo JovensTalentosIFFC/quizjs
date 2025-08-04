@@ -15,28 +15,21 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 100px;
 }
 
 body img {
-  max-width: 150px;
+  max-width: 125px;
+  border-radius: 10px;
 }
 
-@font-face {
-  font-family: 'fonteFalas';
-  src: url(/src/assets/Luminari-Regular.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'fonteBotoes';
-  src: url(/src/assets/STENCIL.TTF) format('truetype');
-}
 
 button {
-  padding: 10px 40px;
+  padding: 10px 50px;
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
   border-radius: 5px;
-  background-color: rgb(141, 185, 137);
+  background-color: rgb(124, 183, 118);
   cursor: pointer;
   border: none;
   color: white;
@@ -56,11 +49,13 @@ button {
 }
 
 .respostas{
-  width: 900px;
-  height: 600px;
+  width: 600px;
+  height: 450px;
   background-color: rgb(255, 255, 255);
   padding: 30px;
   border-radius: 20px;
+  position: fixed;
+  top: 30%
 }
 
 .respostas form{
@@ -68,19 +63,19 @@ button {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 45px;
 }
 .respostas .labels{
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
 }
 
 .respostas .labels label{
   background-color: rgb(218, 224, 217);
   padding: 20px;
   border-radius: 20px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: .4s;
   color: black;
@@ -97,7 +92,7 @@ button {
 }
 
 .respostas form label:hover, .respostas form button:hover{
-  background-color: rgb(191, 247, 186);
+  background-color:  rgb(91, 169, 83);
 }
 
 aside {
@@ -108,7 +103,7 @@ aside {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: yellow;
+  background-color: rgb(124, 183, 118);
   padding: 60px;
 }
 
@@ -121,8 +116,8 @@ aside .perguntaContainer{
 }
 
 aside .perguntaContainer .pergunta{
-   background-color: rgb(228, 228, 228);
-   height: 150px;
+   background-color: aliceblue;
+   height: 125px;
    width: 500px;
    padding: 0 30px;
    display: flex;
@@ -139,9 +134,14 @@ aside .perguntaContainer .pergunta span{
 aside .menu{
   display: grid;
   grid-template-columns: auto auto auto;
-  gap: 20px;
+  gap: 5px;
 }
 
 aside .menu img{
   max-width: 50px;
 }
+
+aside .ajuda, aside .vida{
+  flex-direction: column;
+}
+
