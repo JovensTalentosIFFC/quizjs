@@ -86,6 +86,11 @@ button {
   color: black;
 }
 
+.respostas .labels .selected{
+  background-color: rgb(150, 201, 141);
+
+}
+
 .respostas form label:hover, .respostas form button:hover{
   background-color: rgb(191, 247, 186);
 }
@@ -122,8 +127,16 @@ aside .perguntaContainer .pergunta{
    border-radius: 10px;
 }
 
+aside .perguntaContainer .pergunta span{
+  font-size: 1.4rem;
+}
+
 aside .menu{
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 20px;
+}
+
+aside .menu img{
+  max-width: 50px;
 }

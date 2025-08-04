@@ -21,14 +21,14 @@
     <div class="perguntaContainer">
       <img src="/src/assets/Projeto-Quiz/personagem1.png">
       <div class="pergunta">
-        <p>Pergunta 1</p>
+        <span>Pergunta 1</span>
         <p>lakdlakdaklaksakslaskl</p>
       </div>
     </div>
     <div class="menu">
       <div class="ajuda">
         <p>AJUDA</p>
-        <img src="">
+        <img src="./assets/Projeto-Quiz/1ajuda.png">
       </div>
       <div class="avanco">
         <p>AVANÇO</p>
@@ -47,13 +47,13 @@
   <div class="respostas">
     <form>
       <div class="labels">
-        <label>Alternativa A</label>
-        <label>Alternativa B</label>
-        <label>Alternativa C</label>
-        <label>Alternativa D</label>
+        <label onclick="selectOption(event.target)">Alternativa A</label>
+        <label onclick="selectOption(event.target)">Alternativa B</label>
+        <label onclick="selectOption(event.target)">Alternativa C</label>
+        <label onclick="selectOption(event.target)">Alternativa D</label>
       </div>
       <div class="botoes">
-        <button>Responder</button>
+        <button action="submit()">Responder</button>
         <button>Ajuda</button>
       </div>
     </form>
