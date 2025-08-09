@@ -8,6 +8,34 @@ let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
 const form = document.querySelector('form');
+const background = Array.from(document.querySelectorAll('.background'))
+const startPopup = background[0].querySelector('.popupInicio');
+const endPopup = background[1].querySelector('.popupFim');
+const nextLevel = document.querySelector('.proximaFase');
+const startLevel = document.querySelector('.inicioFase');
+let lifes, clues, optionsLength=4, questionsPerLevel=5;
+
+if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
+  background[1].classList.add('shown');
+  setTimeout(() =>{
+    endPopup.classList.add('shown');
+  }, 500)
+}
+  nextLevel.addEventListener('click', () =>{
+    endPopup.classList.remove('shown');
+    background[1].classList.remove('shown');
+  })
+
+if(currentQuestionId===1){
+  background[0].classList.add('shown');
+  setTimeout(() =>{
+    startPopup.classList.add('shown');
+  }, 500)
+  startLevel.addEventListener('click', () =>{
+    startPopup.classList.remove('shown');
+    background[0].classList.remove('shown');
+  })
+}
 
 class Question{
   constructor({id, level, question, options, correct, clue}){
@@ -27,7 +55,6 @@ class Question{
   }
 }
 
-let lifes, clues;
 
 (async () => {
 
@@ -55,17 +82,17 @@ let lifes, clues;
     }))
     return acm;
   }, [])
-  const currentQuestion = questions[currentQuestionId];
-  numberQuestion.textContent = `Pergunta ${currentQuestion.level}`;
+  const currentQuestion = questions[currentQuestionId-1];
+  numberQuestion.textContent = `Fase ${currentQuestion.level}`;
 
   question.textContent = currentQuestion.question;
   let seenOption = [];
 
-  if(setupQuestion.length<4){
+  if(setupQuestion.length<optionsLength){
     options.forEach(opt =>{
-        let randomOption = parseInt(Math.random()*4);
+        let randomOption = parseInt(Math.random()*optionsLength);
         while(seenOption.includes(randomOption)){
-          randomOption = parseInt(Math.random()*4);
+          randomOption = parseInt(Math.random()*optionsLength);
         }
         seenOption.push(randomOption);
         setupQuestion+=randomOption;
@@ -81,7 +108,6 @@ let lifes, clues;
 
   form.addEventListener('submit', (e) =>{
   e.preventDefault();
-  console.log('submt')
 
   const selectedOptIndex = options.findIndex(opt => Array.from(opt.classList).includes('selected')) ?? -1
   const selectedOpt = options[selectedOptIndex];
@@ -92,9 +118,7 @@ let lifes, clues;
   }
 
   optionsContainer.style.pointerEvents='none';
-  console.log(currentQuestion)
   let correctIndex = Array.from(setupQuestion).findIndex(k => k===currentQuestion.correct);
-  console.log(correctIndex)
   if(selectedOptIndex !== correctIndex){
     selectedOpt.classList.add('missed');
     options[correctIndex].classList.add('selected');
@@ -108,7 +132,7 @@ let lifes, clues;
 
   skipButton.addEventListener('click', () =>{
   optionsContainer.style.pointerEvents='all';
-
+    
     currentLevel++;
     currentQuestionId++;
     localStorage.setItem('currentQuestionId', currentQuestionId);

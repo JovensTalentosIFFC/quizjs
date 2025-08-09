@@ -9,20 +9,20 @@
 </head>
 <body>
    <!-- Início de fase -->
-  <div class="popupInicio">
-    <h2>FASE X</h2>
-    <h2>Tema: Y</h2>
-    <div class="botaoInicioFase"> 
-    <button>Iniciar fase</button>
+  <div class="background">
+    <div class="popupInicio">
+      <h2>FASE X</h2>
+      <h2>Tema: Y</h2>
+      <button class="inicioFase">Iniciar fase</button>
+    </div>
   </div>
-</div> 
   <!-- Tela de perguntas -->
   <aside>
     <div class="perguntaContainer">
       <img src="/src/assets/Projeto-Quiz/personagem1.png">
       <div class="pergunta">
         <span>Pergunta 1</span>
-        <p>lakdlakdaklaksakslaskl</p>
+        <p>Enunciado</p>
       </div>
     </div>
     <div class="menu">
@@ -49,7 +49,7 @@
         <label onclick="selectOption(event.target)" class="option3">Alternativa D</label>
       </div>
       <div class="botoes">
-        <button action="submit()" class="answerButton">Responder</button>
+        <button type="submit" class="answerButton">Responder</button>
         <button class="clueButton">Ajuda</button>
       </div>
     </form>
@@ -57,16 +57,18 @@
    <div class="avanco">
         <p>AVANÇO</p>
         <img src="./assets/Projeto-Quiz/avanco5.png">
+   </div>
   <!-- Fim de fase -->
-  <div class="popupFim">
-    <img src="">
-    <div class='botaoAvancar'>
-    <button>Avançar</button>
+  <div class="background">
+    <div class="popupFim">
+      <img src="">
+      <button class="proximaFase">Avançar</button>
     </div>
+  </div>
   <!-- Fim de jogo -->
-    <div class="fim">
+    <!-- <div class="fim">
     <h2>printf("FIM!");</h2>
     <img src="/src/assets/Projeto-Quiz/medalhaVitoria.png">
-   </div> 
+   </div>  -->
 </body>
 </html>
