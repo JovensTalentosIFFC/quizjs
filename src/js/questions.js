@@ -5,12 +5,28 @@ const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
 
+let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme;
+
+const lifeImg = document.querySelector('.menu .vida img');
+const scoreImg = document.querySelector('.avanco img');
+const clueImg = document.querySelector('.menu .ajuda img');
+
+let lifes = +localStorage.getItem('lifes') || 3;
+let clues=+localStorage.getItem('clues') || 3;
+let score = 0 || +localStorage.getItem('score');
+
+scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
+lifeImg.src = `./assets/Projeto-Quiz/${lifes}vidas.png`;
+clueImg.src = `./assets/Projeto-Quiz/${clues-1}ajuda.png`;
+
+
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
 
 // CORREÇÃO: Verificar se wrongAnswer existe e fazer parse correto
 let wrongAnswer = localStorage.getItem('wrongAnswer');
+let removedOption = localStorage.getItem('removedOption');
 if (wrongAnswer && wrongAnswer !== 'false') {
   try {
     wrongAnswer = JSON.parse(wrongAnswer);
@@ -25,17 +41,28 @@ const form = document.querySelector('form');
 const background = Array.from(document.querySelectorAll('.background'))
 const startPopup = background[0].querySelector('.popupInicio');
 const endPopup = background[1].querySelector('.popupFim');
+const advicePopup = background[2].querySelector('.popupAviso');
+const restartButton = advicePopup.querySelector('button');
 const nextLevel = document.querySelector('.proximaFase');
 const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
-let lifes, clues, optionsLength=4, questionsPerLevel=5, currentFaseAndTheme;
 
 if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
+ // new level 
   background[1].classList.add('shown');
   setTimeout(() =>{
     endPopup.classList.add('shown');
   }, 500)
+  localStorage.setItem('score', 0);
+
+  lifes=3;
+  lifeImg.src=`./assets/Projeto-Quiz/${lifes}vidas.png`
+  localStorage.setItem('lifes', lifes)
+  score=0;
+  scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
+  localStorage.setItem('score', score);
+  
 }
 
 nextLevel.addEventListener('click', () =>{
@@ -72,11 +99,13 @@ class Question{
 
   getWrong(){
     let wrongAnswer = parseInt(Math.random()*4);
-    while(wrongAnswer===this.correct){
+    while(wrongAnswer=== +this.correct){
       wrongAnswer = parseInt(Math.random()*4);
     }
+    return wrongAnswer;
   }
 }
+
 
 function disableButtonsAndSkip(currentQuestion){
   clueButton.style.display='none'
@@ -100,7 +129,6 @@ function resetButtonsToDefault(){
   const data = await info.text();
   let questions = data.split('\n');
   questions.shift();
-
   questions = questions.reduce((acm, k, j) =>{
     const [id, level, question, a, b, c, d, correct, clue, explanation] = k.split(';');
     acm.push(new Question({
@@ -119,10 +147,8 @@ function resetButtonsToDefault(){
     }))
     return acm;
   }, [])
-  
   const currentQuestion = questions[currentQuestionId-1];
   numberQuestion.textContent = `Fase ${currentQuestion.level}`;
-
   // CORREÇÃO: Só mostra a pergunta se não há erro anterior
   if (!wrongAnswer) {
     question.textContent = currentQuestion.question;
@@ -168,6 +194,11 @@ function resetButtonsToDefault(){
     disableButtonsAndSkip(currentQuestion);
   }
 
+  if(removedOption){
+    options[removedOption].style.backgroundColor='grey';
+    clueButton.disabled=true;
+  }
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -182,22 +213,69 @@ function resetButtonsToDefault(){
     optionsContainer.style.pointerEvents = 'none';
     let correctIndex = Array.from(setupQuestion).findIndex(k => k == currentQuestion.correct);
     
+    //wrong answer
     if(selectedOptIndex !== correctIndex){
       selectedOpt.classList.add('missed');
       options[correctIndex].classList.add('selected');
-      // CORREÇÃO: Salva como JSON para manter array
       localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
-    } else {
-      // Se acertou, remove qualquer wrongAnswer anterior
+
+      lifes--;
+      if(lifes===0){
+        background[2].classList.add('shown');
+        setTimeout(() =>{
+          advicePopup.classList.add('shown');
+        }, 500)
+      }
+      if(lifes>0) lifeImg.src = `./assets/Projeto-Quiz/${lifes}vidas.png`;
+      localStorage.setItem('lifes', lifes)
+
+    } else { // correct answer
       localStorage.removeItem('wrongAnswer');
+      score++;
+      scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`
+      localStorage.setItem('score', score);
     }
 
     disableButtonsAndSkip(currentQuestion);
   })
+
+  clueButton.addEventListener('click', () =>{
+    clueButton.disabled=true;
+    const anyWrongIndex = currentQuestion.getWrong();
+    const correspondentIndex = Array.from(setupQuestion).findIndex(let => +let===anyWrongIndex);
+    options[correspondentIndex].style.backgroundColor = 'grey'
+    options[correspondentIndex].style.pointerEvents = 'none';
+    localStorage.setItem('removedOption', correspondentIndex);
+
+    clues--;
+    // if(clues===1){
+    //   clueImg
+    // }
+    if(clues===0){
+      background[2].classList.add('shown');
+        setTimeout(() =>{
+          advicePopup.querySelector('h2').textContent = 'Parece que você não tem mais dicas disponíveis...'
+          advicePopup.querySelector('button').textContent='Continuar';
+          advicePopup.classList.add('shown');
+        }, 500)
+    }
+    if(clues>0) clueImg.src = `./assets/Projeto-Quiz/${clues}ajuda.png`
+    localStorage.setItem('clues', clues);
+  })
+
+  restartButton.addEventListener('click', () =>{
+    if(restartButton.textContent==='Reiniciar'){
+      localStorage.clear();
+      window.location.reload();
+    } else{
+      advicePopup.classList.remove('shown');
+      background[2].classList.remove('shown');
+    }
+  })
+
 })()
 
 function selectOption(selectedOpt){
-  // CORREÇÃO: Só permite seleção se não há erro anterior
   if (wrongAnswer) {
     return;
   }
@@ -210,16 +288,13 @@ function selectOption(selectedOpt){
   })
 }
 
-// CORREÇÃO: Event listener do botão skip movido para fora e com verificações
 document.addEventListener('DOMContentLoaded', () => {
-  // Aguarda um pouco para garantir que o botão foi criado
   setTimeout(() => {
     const skipButton = document.querySelector('form .skip');
     if (skipButton) {
       skipButton.addEventListener('click', handleSkip);
     }
     
-    // Também adiciona listener ao botão original caso ele vire skip
     answerButton.addEventListener('click', (e) => {
       if (answerButton.classList.contains('skip')) {
         e.preventDefault();
@@ -231,28 +306,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleSkip() {
   console.log('Avançando questão...');
-  
-  // CORREÇÃO: Limpa TODOS os estados relacionados à questão atual
+  localStorage.removeItem('removedOption');
   localStorage.removeItem('wrongAnswer');
   localStorage.removeItem('setupQuestion');
   
-  // Restaura interface para estado normal
   optionsContainer.style.pointerEvents = 'all';
   
-  // Remove classes visuais de erro
   options.forEach(opt => {
     opt.classList.remove('selected', 'missed');
   });
   
-  // Restaura botões para estado inicial
   resetButtonsToDefault();
   
-  // Avança questão
   currentLevel++;
   currentQuestionId++;
   localStorage.setItem('currentQuestionId', currentQuestionId);
   localStorage.setItem('currentLevel', currentLevel);
   
-  // Recarrega página
   window.location.reload();
 }

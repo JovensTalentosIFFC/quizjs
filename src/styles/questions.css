@@ -43,7 +43,7 @@ button {
   gap: 20px;
 }
 
-.popupInicio, .popupFim{
+.popupInicio, .popupFim, .popupAviso{
   opacity: 0;
   width: 400px;
   height: 0;
@@ -58,7 +58,7 @@ button {
   border-radius: 20px;
   padding: 40px;
   overflow: hidden;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   text-overflow: ellipsis;
 }
 
@@ -196,13 +196,7 @@ aside .ajuda, aside .vida{
   height: 200px;
   width: 200px;
   border: 5px solid aliceblue;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-
-.avanco img{
-  width: 200px;
-  height: 200px;
-  align-content: flex-end;
-}
-
