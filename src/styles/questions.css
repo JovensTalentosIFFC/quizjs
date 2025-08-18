@@ -43,12 +43,17 @@ button {
   gap: 20px;
 }
 
+.popupFim img, .popupAviso img{
+  max-width: 125px;
+  border-radius: 10px;
+}
+
 .popupInicio, .popupFim, .popupAviso{
   opacity: 0;
   width: 400px;
   height: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 50px;
@@ -58,7 +63,7 @@ button {
   border-radius: 20px;
   padding: 40px;
   overflow: hidden;
-  /* white-space: nowrap; */
+/* white-space: nowrap;*/
   text-overflow: ellipsis;
 }
 
