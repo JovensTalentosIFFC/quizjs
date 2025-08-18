@@ -12,12 +12,12 @@ const scoreImg = document.querySelector('.avanco img');
 const clueImg = document.querySelector('.menu .ajuda img');
 
 let lifes = +localStorage.getItem('lifes') || 3;
-let clues=+localStorage.getItem('clues') || 3;
+let clues= +localStorage.getItem('clues') || 3;
 let score = 0 || +localStorage.getItem('score');
 
 scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
 lifeImg.src = `./assets/Projeto-Quiz/${lifes}vidas.png`;
-clueImg.src = `./assets/Projeto-Quiz/${clues-1}ajuda.png`;
+clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
 
 
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
@@ -243,15 +243,20 @@ function resetButtonsToDefault(){
     clueButton.disabled=true;
     const anyWrongIndex = currentQuestion.getWrong();
     const correspondentIndex = Array.from(setupQuestion).findIndex(let => +let===anyWrongIndex);
-    options[correspondentIndex].style.backgroundColor = 'grey'
-    options[correspondentIndex].style.pointerEvents = 'none';
-    localStorage.setItem('removedOption', correspondentIndex);
+    if(clues>1){
+      options[correspondentIndex].style.backgroundColor = 'grey'
+      options[correspondentIndex].style.pointerEvents = 'none';
+      localStorage.setItem('removedOption', correspondentIndex);
 
+    }
     clues--;
+    if(clues>0) clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
     // if(clues===1){
-    //   clueImg
-    // }
-    if(clues===0){
+      //   clueImg
+      // }
+      localStorage.setItem('clues', clues);
+      if(clues===0){
+      localStorage.setItem('clues', clues+1);
       background[2].classList.add('shown');
         setTimeout(() =>{
           advicePopup.querySelector('h2').textContent = 'Parece que você não tem mais dicas disponíveis...'
@@ -259,8 +264,7 @@ function resetButtonsToDefault(){
           advicePopup.classList.add('shown');
         }, 500)
     }
-    if(clues>0) clueImg.src = `./assets/Projeto-Quiz/${clues}ajuda.png`
-    localStorage.setItem('clues', clues);
+
   })
 
   restartButton.addEventListener('click', () =>{
