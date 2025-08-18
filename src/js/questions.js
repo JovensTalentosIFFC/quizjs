@@ -11,12 +11,12 @@ const lifeImg = document.querySelector('.menu .vida img');
 const scoreImg = document.querySelector('.avanco img');
 const clueImg = document.querySelector('.menu .ajuda img');
 
-let lifes = +localStorage.getItem('lifes') || 3;
+let lifes = +localStorage.getItem('lifes') || 4;
 let clues= +localStorage.getItem('clues') || 3;
 let score = 0 || +localStorage.getItem('score');
 
 scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
-lifeImg.src = `./assets/Projeto-Quiz/${lifes}vidas.png`;
+lifeImg.src = `./assets/Projeto-Quiz/${lifes-1}vidas.png`;
 clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
 
 
@@ -41,6 +41,8 @@ const form = document.querySelector('form');
 const background = Array.from(document.querySelectorAll('.background'))
 const startPopup = background[0].querySelector('.popupInicio');
 const endPopup = background[1].querySelector('.popupFim');
+const endText = endPopup.querySelector('p');
+const endSpan = endPopup.querySelector('span')
 const advicePopup = background[2].querySelector('.popupAviso');
 const restartButton = advicePopup.querySelector('button');
 const nextLevel = document.querySelector('.proximaFase');
@@ -51,6 +53,7 @@ const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-chi
 if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
  // new level 
   background[1].classList.add('shown');
+  endSpan.textContent = currentLevel+1;
   setTimeout(() =>{
     endPopup.classList.add('shown');
   }, 500)
@@ -220,7 +223,7 @@ function resetButtonsToDefault(){
       localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
 
       lifes--;
-      if(lifes===0){
+      if(lifes===1){
         background[2].classList.add('shown');
         setTimeout(() =>{
           advicePopup.classList.add('shown');
@@ -322,7 +325,10 @@ function handleSkip() {
   
   resetButtonsToDefault();
   
-  currentLevel++;
+  if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
+    currentLevel++;
+  }
+
   currentQuestionId++;
   localStorage.setItem('currentQuestionId', currentQuestionId);
   localStorage.setItem('currentLevel', currentLevel);
