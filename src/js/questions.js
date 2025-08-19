@@ -1,3 +1,4 @@
+
 const numberQuestion = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
 const answerButton = document.querySelector('form .answerButton');
@@ -10,6 +11,7 @@ let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme;
 const lifeImg = document.querySelector('.menu .vida img');
 const scoreImg = document.querySelector('.avanco img');
 const clueImg = document.querySelector('.menu .ajuda img');
+const personagem = document.querySelector('.perguntaContainer img');
 
 let lifes = +localStorage.getItem('lifes') || 4;
 let clues= +localStorage.getItem('clues') || 3;
@@ -65,6 +67,7 @@ if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
   score=0;
   scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
   localStorage.setItem('score', score);
+
   
 }
 
@@ -115,6 +118,7 @@ function disableButtonsAndSkip(currentQuestion){
   answerButton.textContent = 'Avançar'
   answerButton.classList.add('skip');
   // explanation
+  personagem.src = './assets/Projeto-Quiz/professor.png';
   question.textContent = currentQuestion.explanation;
   question.style.fontSize='.8rem'
 }
