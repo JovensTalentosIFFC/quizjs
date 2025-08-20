@@ -67,6 +67,40 @@ button {
   text-overflow: ellipsis;
 }
 
+.popupInicio .faseContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.popupInicio .faseContainer h2{
+  font-weight: 600;
+  letter-spacing: 5px;
+}
+
+.popupFim h2{
+  font-weight: 400;
+}
+
+.popupFim h2:first-child::after{
+  content: '';
+  display: block;
+  background-color: rgb(97, 185, 134);
+  width: 70%;
+  height: 2px;
+  margin-top: 20px;
+}
+
+.popupFim h2:nth-child(2){
+  font-size: 1.2rem;
+}
+
+.popupInicio .faseContainer h2:last-child, .popupFim img{
+  border-bottom: 2px solid rgb(97, 185, 134);
+}
+
 .background{
   opacity: 0;
   pointer-events: none;
