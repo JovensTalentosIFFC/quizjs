@@ -61,6 +61,7 @@ if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
   }, 500)
   localStorage.setItem('score', 0);
 
+  personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
   lifes=3;
   lifeImg.src=`./assets/Projeto-Quiz/${lifes}vidas.png`
   localStorage.setItem('lifes', lifes)
