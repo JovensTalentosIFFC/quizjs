@@ -25,6 +25,7 @@ clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
+personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel - 1) % 3) + 1}.png`;
 
 // CORREÇÃO: Verificar se wrongAnswer existe e fazer parse correto
 let wrongAnswer = localStorage.getItem('wrongAnswer');
