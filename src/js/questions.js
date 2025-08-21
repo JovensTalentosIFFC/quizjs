@@ -133,7 +133,7 @@ function resetButtonsToDefault(){
 }
 
 (async () => {
-  const info = await fetch('../../src/assets/answers.csv')
+  const info = await fetch('../../src/assets/answers.csv');
   const data = await info.text();
   let questions = data.split('\n');
   questions.shift();
@@ -297,6 +297,7 @@ function selectOption(selectedOpt){
     }
   })
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
