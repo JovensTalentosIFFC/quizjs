@@ -23,9 +23,7 @@ clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
 
 
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
-let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
-let setupQuestion = localStorage.getItem('setupQuestion') || '';
-personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel - 1) % 3) + 1}.png`;
+let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;let setupQuestion = localStorage.getItem('setupQuestion') || '';
 
 // CORREÇÃO: Verificar se wrongAnswer existe e fazer parse correto
 let wrongAnswer = localStorage.getItem('wrongAnswer');
@@ -62,6 +60,7 @@ if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
   }, 500)
   localStorage.setItem('score', 0);
 
+  
   personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
   lifes=3;
   lifeImg.src=`./assets/Projeto-Quiz/${lifes}vidas.png`
@@ -284,9 +283,7 @@ function resetButtonsToDefault(){
       advicePopup.classList.remove('shown');
       background[2].classList.remove('shown');
     }
-  })
-
-})()
+  });
 
 function selectOption(selectedOpt){
   if (wrongAnswer) {
@@ -340,4 +337,6 @@ function handleSkip() {
   localStorage.setItem('currentLevel', currentLevel);
   
   window.location.reload();
-}
+}})();
+
+
