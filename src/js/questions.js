@@ -290,10 +290,10 @@ function selectOption(selectedOpt){
     return;
   }
   
-  selectedOpt.classList.toggle('selected')
+  selectedOpt.classList.toggle('selected');
   options.forEach(opt =>{
     if(selectedOpt !== opt){
-      opt.classList.remove('selected')
+      opt.classList.remove('selected');
     }
   })
 }
