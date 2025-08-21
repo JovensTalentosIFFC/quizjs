@@ -62,8 +62,8 @@ if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
   localStorage.setItem('score', 0);
 
   //personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
-  lifes=3;
-  lifeImg.src=`./assets/Projeto-Quiz/${lifes}vidas.png`
+  lifes=4;
+  lifeImg.src=`./assets/Projeto-Quiz/${lifes-1}vidas.png`
   localStorage.setItem('lifes', lifes)
   score=0;
   scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
@@ -225,6 +225,7 @@ function resetButtonsToDefault(){
     
     //wrong answer
     if(selectedOptIndex !== correctIndex){
+      console.log(selectedOptIndex, correctIndex);
       selectedOpt.classList.add('missed');
       options[correctIndex].classList.add('selected');
       localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
