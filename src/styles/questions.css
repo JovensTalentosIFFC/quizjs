@@ -67,6 +67,20 @@ button {
   text-overflow: ellipsis;
 }
 
+.popupAviso h2, p{
+  text-align: center;
+}
+
+.popupAviso h2::after{
+  content: '';
+  display: block;
+  background-color: rgb(97, 185, 134);
+  width: 70%;
+  height: 1%;
+  margin-top: 20px;
+  margin: 20px auto 0;
+}
+
 .popupInicio .faseContainer{
   display: flex;
   flex-direction: column;
@@ -75,13 +89,28 @@ button {
   gap: 10px;
 }
 
+.popupInicio{
+  max-height: 300px;
+}
+
 .popupInicio .faseContainer h2{
   font-weight: 600;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
+}
+
+.popupInicio h2:last-child::after{
+  content: '';
+  display: block;
+  background-color: rgb(97, 185, 134);
+  width: 70%;
+  height: 3%;
+  margin-top: 18px;
+  margin: 18px auto 0;
 }
 
 .popupFim h2{
   font-weight: 400;
+  text-align: center;
 }
 
 .popupFim h2:first-child::after{
@@ -91,13 +120,14 @@ button {
   width: 70%;
   height: 2px;
   margin-top: 20px;
+  margin: 20px auto 0;
 }
 
 .popupFim h2:nth-child(2){
   font-size: 1.2rem;
 }
 
-.popupInicio .faseContainer h2:last-child, .popupFim img{
+.popupFim img{
   border-bottom: 2px solid rgb(97, 185, 134);
 }
 
