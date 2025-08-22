@@ -158,6 +158,9 @@ function resetButtonsToDefault(){
     return acm;
   }, [])
   const currentQuestion = questions[currentQuestionId-1];
+  if ((currentQuestionId - 1) % questionsPerLevel === 0) {
+  personagem.src = `./assets/Projeto-Quiz/coruja.png`; 
+}
   numberQuestion.textContent = `Fase ${currentQuestion.level}`;
   // CORREÇÃO: Só mostra a pergunta se não há erro anterior
   if (!wrongAnswer) {
@@ -225,7 +228,6 @@ function resetButtonsToDefault(){
     
     //wrong answer
     if(selectedOptIndex !== correctIndex){
-      console.log(selectedOptIndex, correctIndex);
       selectedOpt.classList.add('missed');
       options[correctIndex].classList.add('selected');
       localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
