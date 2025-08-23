@@ -6,7 +6,7 @@ const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
 
-let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=3;
+let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=40;
 
 const lifeImg = document.querySelector('.menu .vida img');
 const scoreImg = document.querySelector('.avanco img');
