@@ -6,7 +6,7 @@ const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
 
-let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme;
+let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=3;
 
 const lifeImg = document.querySelector('.menu .vida img');
 const scoreImg = document.querySelector('.avanco img');
@@ -215,6 +215,7 @@ function resetButtonsToDefault(){
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    
     const selectedOptIndex = options.findIndex(opt => Array.from(opt.classList).includes('selected')) ?? -1
     const selectedOpt = options[selectedOptIndex];
     
@@ -222,6 +223,7 @@ function resetButtonsToDefault(){
       alert('Por favor, selecione uma opção!');
       return;
     }
+    
 
     optionsContainer.style.pointerEvents = 'none';
     let correctIndex = Array.from(setupQuestion).findIndex(k => k == currentQuestion.correct);
@@ -322,6 +324,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleSkip() {
+  console.log(currentQuestionId, questionsLength)
+  if(currentQuestionId >= questionsLength){
+      window.location = './win.html'
+      return;
+  }
+
   console.log('Avançando questão...');
   localStorage.removeItem('removedOption');
   localStorage.removeItem('wrongAnswer');
