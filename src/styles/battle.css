@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;0,800;1,900&display=swap');
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-image: url(/src/assets/Projeto-Quiz/telaPadrao.png);
+  background-size: cover;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+body img {
+  max-width: 125px;
+  border-radius: 10px;
+}
+
+
+button {
+  padding: 10px 50px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: rgb(124, 183, 118);
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: .4s;
+}
+
+.botoes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.popupFim img, .popupAviso img{
+  max-width: 125px;
+  border-radius: 10px;
+}
+
+.popupInicio, .popupFim, .popupAviso{
+  opacity: 0;
+  width: 400px;
+  height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+  pointer-events: none;
+  transition: .8s;
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px;
+  overflow: hidden;
+/* white-space: nowrap;*/
+  text-overflow: ellipsis;
+}
+
+.popupAviso h2, p{
+  text-align: center;
+}
+
+.popupAviso h2::after{
+  content: '';
+  display: block;
+  background-color: rgb(97, 185, 134);
+  width: 70%;
+  height: 1%;
+  margin-top: 20px;
+  margin: 20px auto 0;
+}
+
+.popupInicio .faseContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.popupInicio{
+  max-height: 300px;
+}
+
+.popupInicio .faseContainer h2{
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+
+.popupInicio h2:last-child::after{
+  content: '';
+  display: block;
+  background-color: rgb(97, 185, 134);
+  width: 70%;
+  height: 3%;
+  margin-top: 18px;
+  margin: 18px auto 0;
+}
+
+.popupFim h2{
+  font-weight: 400;
+  text-align: center;
+}
+
+.popupFim h2:first-child::after{
+  content: '';
+  display: block;
+  background-color: rgb(97, 185, 134);
+  width: 70%;
+  height: 2px;
+  margin-top: 20px;
+  margin: 20px auto 0;
+}
+
+.popupFim h2:nth-child(2){
+  font-size: 1.2rem;
+}
+
+.popupFim img{
+  border-bottom: 2px solid rgb(97, 185, 134);
+}
+
+.background{
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.shown{
+  opacity: 1;
+  pointer-events: all;
+  height: 600px;
+}
+
+.background{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.658);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.respostas{
+  width: 600px;
+  height: 450px;
+  background-color: rgb(255, 255, 255);
+  padding: 30px;
+  border-radius: 20px;
+  position: fixed;
+  top: 30%
+}
+
+.respostas form{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+.respostas .labels{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.respostas .labels label{
+  background-color: rgb(218, 224, 217);
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: .4s;
+  color: black;
+}
+
+.respostas .labels .selected{
+  background-color: rgb(150, 201, 141);
+
+}
+
+.respostas .labels .missed{
+  background-color: rgb(177, 91, 91);
+
+}
+
+.respostas form label:hover, .respostas form button:hover{
+  background-color:  rgb(91, 169, 83);
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 170px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(124, 183, 118);
+  padding: 60px;
+}
+
+aside .perguntaContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  gap: 10px;
+}
+
+aside .perguntaContainer .pergunta{
+   background-color: aliceblue;
+   height: 125px;
+   width: 500px;
+   padding: 0 30px;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   gap: 10px;
+   border-radius: 10px;
+}
+
+aside .perguntaContainer .pergunta span{
+  font-size: 1.2rem;
+}
+
+aside .menu{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 5px;
+}
+
+aside .menu img{
+  max-width: 50px;
+}
+
+aside .ajuda, aside .vida{
+  flex-direction: column;
+}
+
+.avanco {  
+  position: fixed;                  
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;  
+  display: flex;          
+  bottom: 20px;
+  right: 20px;
+  height: 200px;
+  width: 200px;
+  border: 5px solid aliceblue;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/battle.css">
+  <script src="js/battle.js" defer></script>
+  <title>Document</title>
+</head>
+<body>
+   <!-- Início de fase -->
+  <div class="background">
+    <div class="popupInicio">
+      <div class="faseContainer">
+        <h2>Fase: 1</h2>
+        <h2>Tema: árvores</h2>
+      </div>
+      <button class="inicioFase">Iniciar fase</button>
+    </div>
+  </div>
+  <!-- Tela de perguntas -->
+  <aside>
+    <div class="perguntaContainer">
+      <img src="/src/assets/Projeto-Quiz/personagem3.png">
+      <div class="pergunta">
+        <span>Pergunta 1</span>
+        <p>Enunciado</p>
+      </div>
+    </div>
+    <!--<div class="menu">
+      <div class="ajuda">
+        <p>AJUDA</p>
+        <img src="./assets/Projeto-Quiz/2ajuda.png">
+      </div>
+      <br>
+      <div class="vida">
+        <p>VIDA</p>
+        <img src="./assets/Projeto-Quiz/3vidas.png">
+      </div>
+    </div>-->
+    <div class="medalha">
+      <img src="">
+    </div>
+  </aside>
+  <div class="respostas">
+    <form>
+      <div class="labels">
+        <label onclick="selectOption(event.target)" class="option0">Alternativa A</label>
+        <label onclick="selectOption(event.target)" class="option1">Alternativa B</label>
+        <label onclick="selectOption(event.target)" class="option2">Alternativa C</label>
+        <label onclick="selectOption(event.target)" class="option3">Alternativa D</label>
+      </div>
+      <div class="botoes">
+        <button type="submit" class="answerButton">Responder</button>
+       <!--<button type="button" class="clueButton">Ajuda</button>-->
+      </div>
+    </form>
+  </div>
+  <!--<div class="avanco">
+        <p>AVANÇO</p>
+        <img src="./assets/Projeto-Quiz/avanco0.png">
+  </div>-->
+  <!-- Fim de fase -->
+  <div class="background">
+    <div class="popupFim">
+      <h2>Vocês são impressionantes! O próximo desafio já começou, e só um time pode chegar à vitória.</h2>
+      <h2>Vamos para a fase <span>0</span></h2>
+      <img src="/src/assets/Projeto-Quiz/medalhaVitoria.png">
+      <button class="proximaFase">Avançar</button>
+    </div>
+  </div>
+
+  <div class="background">
+   <!-- <div class="popupAviso">
+        <h2>Ah!! Parece que você não tem mais vidas!</h2>
+        <p>Lembre-se que a única derrota é quando você desiste!</p>
+        <img src="/src/assets/Projeto-Quiz/medalhaDerrota.png">
+        <button>Reiniciar</button>
+    </div>-->
+</body>
+</html>
