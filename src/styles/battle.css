@@ -108,29 +108,6 @@ button {
   margin: 18px auto 0;
 }
 
-.popupFim h2{
-  font-weight: 400;
-  text-align: center;
-}
-
-.popupFim h2:first-child::after{
-  content: '';
-  display: block;
-  background-color: rgb(97, 185, 134);
-  width: 70%;
-  height: 2px;
-  margin-top: 20px;
-  margin: 20px auto 0;
-}
-
-.popupFim h2:nth-child(2){
-  font-size: 1.2rem;
-}
-
-.popupFim img{
-  border-bottom: 2px solid rgb(97, 185, 134);
-}
-
 .background{
   opacity: 0;
   pointer-events: none;
@@ -222,7 +199,10 @@ aside .perguntaContainer{
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+  margin-left: 376px;
+  margin-right: 376px;
   gap: 10px;
+
 }
 
 aside .perguntaContainer .pergunta{
@@ -235,6 +215,7 @@ aside .perguntaContainer .pergunta{
    flex-direction: column;
    gap: 10px;
    border-radius: 10px;
+   margin: 10px;
 }
 
 aside .perguntaContainer .pergunta span{
@@ -249,24 +230,4 @@ aside .menu{
 
 aside .menu img{
   max-width: 50px;
-}
-
-aside .ajuda, aside .vida{
-  flex-direction: column;
-}
-
-.avanco {  
-  position: fixed;                  
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;  
-  display: flex;          
-  bottom: 20px;
-  right: 20px;
-  height: 200px;
-  width: 200px;
-  border: 5px solid aliceblue;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
 }

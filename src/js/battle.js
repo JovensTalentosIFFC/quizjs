@@ -2,25 +2,14 @@
 const numberQuestion = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
 const answerButton = document.querySelector('form .answerButton');
-const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
 
 let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=40;
 
-const lifeImg = document.querySelector('.menu .vida img');
-const scoreImg = document.querySelector('.avanco img');
-const clueImg = document.querySelector('.menu .ajuda img');
 const personagem = document.querySelector('.perguntaContainer img');
 
-let lifes = +localStorage.getItem('lifes') || 4;
-let clues= +localStorage.getItem('clues') || 3;
 let score = 0 || +localStorage.getItem('score');
-
-scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
-lifeImg.src = `./assets/Projeto-Quiz/${lifes-1}vidas.png`;
-clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
-
 
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
@@ -61,12 +50,7 @@ if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
   }, 500)
   localStorage.setItem('score', 0);
 
-  //personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
-  lifes=4;
-  lifeImg.src=`./assets/Projeto-Quiz/${lifes-1}vidas.png`
-  localStorage.setItem('lifes', lifes)
   score=0;
-  scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
   localStorage.setItem('score', score);
 
   
@@ -94,13 +78,12 @@ if(currentQuestionId===1){
 }
 
 class Question{
-  constructor({id, level, question, options, correct, clue, explanation}){
+  constructor({id, level, question, options, correct, explanation}){
     this.id = id
     this.level = level;
     this.question = question;
     this.options = options;
     this.correct = correct;
-    this.clue = clue;
     this.explanation = explanation;
   }
 
@@ -115,7 +98,6 @@ class Question{
 
 
 function disableButtonsAndSkip(currentQuestion){
-  clueButton.style.display='none'
   answerButton.textContent = 'Avançar'
   answerButton.classList.add('skip');
   // explanation
@@ -126,7 +108,6 @@ function disableButtonsAndSkip(currentQuestion){
 
 function resetButtonsToDefault(){
   // CORREÇÃO: Restaura os botões para o estado inicial
-  clueButton.style.display='block'; // ou 'inline' dependendo do seu CSS
   answerButton.textContent = 'Responder'; // ou o texto original
   answerButton.classList.remove('skip');
   question.style.fontSize = ''; // Remove o fontSize customizado
@@ -140,7 +121,7 @@ function resetButtonsToDefault(){
   personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
   
   questions = questions.reduce((acm, k, j) =>{
-    const [id, level, question, a, b, c, d, correct, clue, explanation] = k.split(';');
+    const [id, level, question, a, b, c, d, correct, explanation] = k.split(';');
     acm.push(new Question({
       id,
       level,
@@ -152,7 +133,6 @@ function resetButtonsToDefault(){
         3: d
       },
       correct,
-      clue,
       explanation
     }))
     return acm;
@@ -209,7 +189,6 @@ function resetButtonsToDefault(){
 
   if(removedOption){
     options[removedOption].style.backgroundColor='grey';
-    clueButton.disabled=true;
   }
 
   form.addEventListener('submit', (e) => {
@@ -234,51 +213,16 @@ function resetButtonsToDefault(){
       options[correctIndex].classList.add('selected');
       localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
 
-      lifes--;
-      if(lifes===1){
-        background[2].classList.add('shown');
-        setTimeout(() =>{
-          advicePopup.classList.add('shown');
-        }, 500)
-      }
-      if(lifes>0) lifeImg.src = `./assets/Projeto-Quiz/${lifes}vidas.png`;
-      localStorage.setItem('lifes', lifes)
-
     } else { // correct answer
       localStorage.removeItem('wrongAnswer');
       score++;
-      scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`
       localStorage.setItem('score', score);
     }
 
     disableButtonsAndSkip(currentQuestion);
   })
 
-  clueButton.addEventListener('click', () =>{
-    clueButton.disabled=true;
-    const anyWrongIndex = currentQuestion.getWrong();
-    const correspondentIndex = Array.from(setupQuestion).findIndex(let => +let===anyWrongIndex);
-    if(clues>1){
-      options[correspondentIndex].style.backgroundColor = 'grey'
-      options[correspondentIndex].style.pointerEvents = 'none';
-      localStorage.setItem('removedOption', correspondentIndex);
-
-    }
-    clues--;
-    if(clues>0) clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
-    // if(clues===1){
-      //   clueImg
-      // }
-      localStorage.setItem('clues', clues);
-      if(clues===0){
-      localStorage.setItem('clues', clues+1);
-      background[2].classList.add('shown');
-        setTimeout(() =>{
-          advicePopup.querySelector('h2').textContent = 'Parece que você não tem mais dicas disponíveis...'
-          advicePopup.querySelector('button').textContent='Continuar';
-          advicePopup.classList.add('shown');
-        }, 500)
-    }
+  
 
   })
 
@@ -291,8 +235,6 @@ function resetButtonsToDefault(){
       background[2].classList.remove('shown');
     }
   })
-
-})()
 
 function selectOption(selectedOpt){
   if (wrongAnswer) {
