@@ -5,12 +5,22 @@ const answerButton = document.querySelector('form .answerButton');
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
 
+const scoreTime1Span = document.querySelector('.pontosTime1');
+const scoreTime2Span = document.querySelector('.pontosTime2');
+
 let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=40;
 
 const personagem = document.querySelector('.perguntaContainer img');
 
 let scoreTime1 = 0 || +localStorage.getItem('scoreTime1');
 let scoreTime2 = 0 || +localStorage.getItem('scoreTime2');
+scoreTime1Span.textContent = scoreTime1;
+scoreTime2Span.textContent = scoreTime2;
+
+// let scores = {
+//   scoreTime1: 0 || +localStorage.getItem('scoreTime1'),
+//   scoreTime2: 0 || +localStorage.getItem('scoreTime2')
+// }
 
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
@@ -78,12 +88,13 @@ if(currentQuestionId===1){
 }
 
 class Question{
-  constructor({id, level, question, options, correct, explanation}){
+  constructor({id, level, question, options, correct, clue,explanation}){
     this.id = id
     this.level = level;
     this.question = question;
     this.options = options;
     this.correct = correct;
+    this.clue = clue;
     this.explanation = explanation;
   }
 
@@ -98,6 +109,7 @@ class Question{
 
 
 function disableButtonsAndSkip(currentQuestion){
+  console.log(currentQuestion)
   answerButton.textContent = 'Avançar'
   answerButton.classList.add('skip');
   // explanation
@@ -120,7 +132,7 @@ function resetButtonsToDefault(){
   questions.shift();
   personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
   questions = questions.reduce((acm, k, j) =>{
-    const [id, level, question, a, b, c, d, correct, explanation] = k.split(';');
+    const [id, level, question, a, b, c, d, correct, clue, explanation] = k.split(';');
     acm.push(new Question({
       id,
       level,
@@ -132,6 +144,7 @@ function resetButtonsToDefault(){
         3: d
       },
       correct,
+      clue,
       explanation
     }))
     return acm;
@@ -198,6 +211,7 @@ function resetButtonsToDefault(){
     const selectedOpt = options[selectedOptIndex];
     
     if(selectedOptIndex === -1){
+      console.log(selectedOptIndex)
       alert('Por favor, selecione uma opção!');
       return;
     }
@@ -206,16 +220,37 @@ function resetButtonsToDefault(){
     optionsContainer.style.pointerEvents = 'none';
     let correctIndex = Array.from(setupQuestion).findIndex(k => k == currentQuestion.correct);
     
-    //wrong answer
+    // =========================== wrong answer
     if(selectedOptIndex !== correctIndex){
       selectedOpt.classList.add('missed');
       options[correctIndex].classList.add('selected');
       localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
 
-    } else { // correct answer
+      if(localStorage.getItem("currentTime") == "Time1"){
+        scoreTime2+=100;
+        localStorage.setItem('scoreTime2', scoreTime2);
+        scoreTime2Span.textContent = scoreTime2;
+      } else if(localStorage.getItem('currentTime') === "Time2"){
+        scoreTime1+=100;
+        localStorage.setItem('scoreTime1', scoreTime1);
+        scoreTime1Span.textContent = scoreTime1;
+      }
+
+    } else { // ============================================ correct answer
+
+
       localStorage.removeItem('wrongAnswer');
-      score++;
-      localStorage.setItem('score', score);
+      if(localStorage.getItem("currentTime") == "Time1"){
+        scoreTime1+=100;
+        localStorage.setItem('scoreTime1', scoreTime1);
+        scoreTime1Span.textContent = scoreTime1;
+      } else if(localStorage.getItem('currentTime') === "Time2"){
+        scoreTime2+=100;
+        localStorage.setItem('scoreTime2', scoreTime2);
+        scoreTime2Span.textContent = scoreTime2;
+      }
+
+
     }
 
     disableButtonsAndSkip(currentQuestion);
@@ -287,9 +322,11 @@ const selectTime1 = document.querySelector(".time1 button")
 const selectTime2 = document.querySelector(".time2 button")
 
 selectTime1.addEventListener('click', () =>{
+  selectTime1.disabled = true;
   localStorage.setItem( "currentTime" , "Time1" )
 })
 
 selectTime2.addEventListener('click', () =>{
+  selectTime2.disabled=true;
   localStorage.setItem( "currentTime", "Time2" )
 })
