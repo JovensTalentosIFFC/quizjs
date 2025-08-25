@@ -9,7 +9,8 @@ let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=4
 
 const personagem = document.querySelector('.perguntaContainer img');
 
-let score = 0 || +localStorage.getItem('score');
+let scoreTime1 = 0 || +localStorage.getItem('scoreTime1');
+let scoreTime2 = 0 || +localStorage.getItem('scoreTime2');
 
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
@@ -35,7 +36,6 @@ const endPopup = background[1].querySelector('.popupFim');
 const endText = endPopup.querySelector('p');
 const endSpan = endPopup.querySelector('span')
 const advicePopup = background[2].querySelector('.popupAviso');
-const restartButton = advicePopup.querySelector('button');
 const nextLevel = document.querySelector('.proximaFase');
 const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
@@ -119,7 +119,6 @@ function resetButtonsToDefault(){
   let questions = data.split('\n');
   questions.shift();
   personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
-  
   questions = questions.reduce((acm, k, j) =>{
     const [id, level, question, a, b, c, d, correct, explanation] = k.split(';');
     acm.push(new Question({
@@ -222,19 +221,7 @@ function resetButtonsToDefault(){
     disableButtonsAndSkip(currentQuestion);
   })
 
-  
-
-  })
-
-  restartButton.addEventListener('click', () =>{
-    if(restartButton.textContent==='Reiniciar'){
-      localStorage.clear();
-      window.location.reload();
-    } else{
-      advicePopup.classList.remove('shown');
-      background[2].classList.remove('shown');
-    }
-  })
+})();
 
 function selectOption(selectedOpt){
   if (wrongAnswer) {
@@ -295,3 +282,14 @@ function handleSkip() {
 
   window.location.reload();
 }
+
+const selectTime1 = document.querySelector(".time1 button")
+const selectTime2 = document.querySelector(".time2 button")
+
+selectTime1.addEventListener('click', () =>{
+  localStorage.setItem( "currentTime" , "Time1" )
+})
+
+selectTime2.addEventListener('click', () =>{
+  localStorage.setItem( "currentTime", "Time2" )
+})

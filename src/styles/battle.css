@@ -199,8 +199,6 @@ aside .perguntaContainer{
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  margin-left: 376px;
-  margin-right: 376px;
   gap: 10px;
 
 }
@@ -230,4 +228,33 @@ aside .menu{
 
 aside .menu img{
   max-width: 50px;
+}
+
+
+.times{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .8rem;
+  background-color: aliceblue;
+  gap: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  height: 250%;
+  width: 25%;
+}
+
+.escolhaTime{
+  font-size: 15px;
+  width: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.times .time1, .times .time2{
+  display: flex;
+  gap: 3px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
