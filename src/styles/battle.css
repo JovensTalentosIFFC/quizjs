@@ -220,6 +220,10 @@ aside .perguntaContainer .pergunta span{
   font-size: 1.2rem;
 }
 
+.pergunta p{
+  font-size: 1.3rem;
+}
+
 aside .menu{
   display: grid;
   grid-template-columns: auto auto auto;
@@ -249,6 +253,21 @@ aside .menu img{
   width: 10px;
   display: flex;
   justify-content: center;
+
+}
+
+.escolhaTime:disabled{
+  background-color: rgb(194, 194, 194);
+  pointer-events: none;
+}
+
+.topPergunta{
+  display: flex;
+  justify-content: space-between;
+}
+
+.topPergunta .numPergunta{
+  font-size: 2rem;
 }
 
 .times .time1, .times .time2{
@@ -257,4 +276,8 @@ aside .menu img{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.time1 p, .time2 p{
+  font-size: 1.2rem;
 }

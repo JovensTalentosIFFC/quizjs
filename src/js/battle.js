@@ -4,7 +4,8 @@ const question = document.querySelector('aside .perguntaContainer .pergunta p')
 const answerButton = document.querySelector('form .answerButton');
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
-
+const selectTime1 = document.querySelector(".time1 button")
+const selectTime2 = document.querySelector(".time2 button")
 const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
 
@@ -50,6 +51,11 @@ const nextLevel = document.querySelector('.proximaFase');
 const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
+const numPergunta = document.querySelector('.topPergunta .numPergunta');
+
+numPergunta.textContent = `${((currentQuestionId-1)%questionsPerLevel)+1}/${questionsPerLevel}`
+
+const currentTime = localStorage.getItem('currentTime');
 
 if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
  // new level 
@@ -215,6 +221,11 @@ function resetButtonsToDefault(){
       alert('Por favor, selecione uma opção!');
       return;
     }
+
+    if(!localStorage.getItem('currentTime')){
+      alert('Por favor, escolha um time!');
+      return;
+    }
     
 
     optionsContainer.style.pointerEvents = 'none';
@@ -227,11 +238,11 @@ function resetButtonsToDefault(){
       localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
 
       if(localStorage.getItem("currentTime") == "Time1"){
-        scoreTime2+=100;
+        scoreTime2+=50;
         localStorage.setItem('scoreTime2', scoreTime2);
         scoreTime2Span.textContent = scoreTime2;
       } else if(localStorage.getItem('currentTime') === "Time2"){
-        scoreTime1+=100;
+        scoreTime1+=50;
         localStorage.setItem('scoreTime1', scoreTime1);
         scoreTime1Span.textContent = scoreTime1;
       }
@@ -298,6 +309,7 @@ function handleSkip() {
   localStorage.removeItem('removedOption');
   localStorage.removeItem('wrongAnswer');
   localStorage.removeItem('setupQuestion');
+  localStorage.removeItem('currentTime')
   
   optionsContainer.style.pointerEvents = 'all';
   
@@ -315,18 +327,18 @@ function handleSkip() {
   localStorage.setItem('currentQuestionId', currentQuestionId);
   localStorage.setItem('currentLevel', currentLevel);
 
+
   window.location.reload();
 }
-
-const selectTime1 = document.querySelector(".time1 button")
-const selectTime2 = document.querySelector(".time2 button")
 
 selectTime1.addEventListener('click', () =>{
   selectTime1.disabled = true;
   localStorage.setItem( "currentTime" , "Time1" )
+  selectTime2.disabled = false;
 })
 
 selectTime2.addEventListener('click', () =>{
   selectTime2.disabled=true;
+  selectTime1.disabled=false;
   localStorage.setItem( "currentTime", "Time2" )
 })
