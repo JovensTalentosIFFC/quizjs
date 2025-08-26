@@ -300,9 +300,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleSkip() {
   console.log(currentQuestionId, questionsLength)
-  if(currentQuestionId >= questionsLength){
-      window.location = './win.html'
+  if(currentQuestionId >= questionsLength-1){
+    if(scoreTime1>scoreTime2){
+      window.location = './winTime1.html';
       return;
+    }
+    else if(scoreTime2>scoreTime1){
+      window.location = './winTime2.html';
+      return;
+    }
   }
 
   console.log('Avançando questão...');
