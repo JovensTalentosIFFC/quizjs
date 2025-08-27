@@ -1,6 +1,8 @@
 console.log("working")
 
 
+localStorage.clear();
+
 const redirectToQuestions = () =>{
   window.location = 'questions.html'
 }

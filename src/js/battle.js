@@ -9,36 +9,9 @@ const selectTime2 = document.querySelector(".time2 button")
 const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
 
-let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=40;
+let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=20;
 
 const personagem = document.querySelector('.perguntaContainer img');
-
-let scoreTime1 = 0 || +localStorage.getItem('scoreTime1');
-let scoreTime2 = 0 || +localStorage.getItem('scoreTime2');
-scoreTime1Span.textContent = scoreTime1;
-scoreTime2Span.textContent = scoreTime2;
-
-// let scores = {
-//   scoreTime1: 0 || +localStorage.getItem('scoreTime1'),
-//   scoreTime2: 0 || +localStorage.getItem('scoreTime2')
-// }
-
-let currentLevel = +localStorage.getItem('currentLevel') || 1;
-let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
-let setupQuestion = localStorage.getItem('setupQuestion') || '';
-
-// CORREÇÃO: Verificar se wrongAnswer existe e fazer parse correto
-let wrongAnswer = localStorage.getItem('wrongAnswer');
-let removedOption = localStorage.getItem('removedOption');
-if (wrongAnswer && wrongAnswer !== 'false') {
-  try {
-    wrongAnswer = JSON.parse(wrongAnswer);
-  } catch (e) {
-    wrongAnswer = false;
-  }
-} else {
-  wrongAnswer = false;
-}
 
 const form = document.querySelector('form');
 const background = Array.from(document.querySelectorAll('.background'))
@@ -53,10 +26,52 @@ const levelText = document.querySelector('.popupInicio .faseContainer h2:first-c
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
 const numPergunta = document.querySelector('.topPergunta .numPergunta');
 
+let scoreTime1 = 0 || +localStorage.getItem('scoreTime1');
+let scoreTime2 = 0 || +localStorage.getItem('scoreTime2');
+scoreTime1Span.textContent = scoreTime1;
+scoreTime2Span.textContent = scoreTime2;
+
+
+// let scores = {
+  //   scoreTime1: 0 || +localStorage.getItem('scoreTime1'),
+  //   scoreTime2: 0 || +localStorage.getItem('scoreTime2')
+  // }
+  
+  let currentLevel = +localStorage.getItem('currentLevel') || 1;
+  let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
+  let setupQuestion = localStorage.getItem('setupQuestion') || '';
+
+// CORREÇÃO: Verificar se wrongAnswer existe e fazer parse correto
+let wrongAnswer = localStorage.getItem('wrongAnswer');
+let removedOption = localStorage.getItem('removedOption');
+if (wrongAnswer && wrongAnswer !== 'false') {
+  try {
+    wrongAnswer = JSON.parse(wrongAnswer);
+  } catch (e) {
+    wrongAnswer = false;
+  }
+} else {
+  wrongAnswer = false;
+}
+
+
+
+
 numPergunta.textContent = `${((currentQuestionId-1)%questionsPerLevel)+1}/${questionsPerLevel}`
 
 const currentTime = localStorage.getItem('currentTime');
 
+if(currentTime==='Time1'){
+  selectTime1.disabled = true;
+  selectTime1.textContent = 'Selecionado';
+  localStorage.setItem( "currentTime" , "Time1" )
+  selectTime2.disabled = false;
+} else if(currentTime==='Time2'){
+  selectTime2.disabled=true;
+  selectTime2.textContent = 'Selecionado';
+  localStorage.setItem( "currentTime", "Time2" )
+  selectTime1.disabled=false;
+}
 if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
  // new level 
   background[1].classList.add('shown');
@@ -94,13 +109,12 @@ if(currentQuestionId===1){
 }
 
 class Question{
-  constructor({id, level, question, options, correct, clue,explanation}){
+  constructor({id, level, question, options, correct,explanation}){
     this.id = id
     this.level = level;
     this.question = question;
     this.options = options;
     this.correct = correct;
-    this.clue = clue;
     this.explanation = explanation;
   }
 
@@ -115,13 +129,12 @@ class Question{
 
 
 function disableButtonsAndSkip(currentQuestion){
-  console.log(currentQuestion)
   answerButton.textContent = 'Avançar'
   answerButton.classList.add('skip');
   // explanation
   personagem.src = './assets/Projeto-Quiz/professor.png';
   question.textContent = currentQuestion.explanation;
-  question.style.fontSize='.8rem'
+  question.style.fontSize='1rem'
 }
 
 function resetButtonsToDefault(){
@@ -132,13 +145,13 @@ function resetButtonsToDefault(){
 }
 
 (async () => {
-  const info = await fetch('../../src/assets/answers.csv')
+  const info = await fetch('../../src/assets/quiz_tecnologia.csv')
   const data = await info.text();
   let questions = data.split('\n');
   questions.shift();
   personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
   questions = questions.reduce((acm, k, j) =>{
-    const [id, level, question, a, b, c, d, correct, clue, explanation] = k.split(';');
+    const [id, level, question, a, b, c, d, correct, explanation] = k.split(';');
     acm.push(new Question({
       id,
       level,
@@ -150,12 +163,13 @@ function resetButtonsToDefault(){
         3: d
       },
       correct,
-      clue,
       explanation
     }))
     return acm;
   }, [])
+
   const currentQuestion = questions[currentQuestionId-1];
+  console.log(currentQuestion)
   if ((currentQuestionId - 1) % questionsPerLevel === 0) {
   personagem.src = `./assets/Projeto-Quiz/coruja.png`; 
 }
@@ -299,7 +313,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleSkip() {
-  console.log(currentQuestionId, questionsLength)
+
+
   if(currentQuestionId >= questionsLength-1){
     if(scoreTime1>scoreTime2){
       window.location = './winTime1.html';
@@ -339,12 +354,14 @@ function handleSkip() {
 
 selectTime1.addEventListener('click', () =>{
   selectTime1.disabled = true;
+  selectTime1.textContent = 'Selecionado';
   localStorage.setItem( "currentTime" , "Time1" )
   selectTime2.disabled = false;
 })
 
 selectTime2.addEventListener('click', () =>{
   selectTime2.disabled=true;
-  selectTime1.disabled=false;
+  selectTime2.textContent = 'Selecionado';
   localStorage.setItem( "currentTime", "Time2" )
+  selectTime1.disabled=false;
 })
