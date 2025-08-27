@@ -1,5 +1,5 @@
 
-const numberQuestion = document.querySelector('aside .perguntaContainer .pergunta span')
+const numberLevel = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
 const answerButton = document.querySelector('form .answerButton');
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
@@ -147,6 +147,18 @@ function resetButtonsToDefault(){
 (async () => {
   const info = await fetch('../../src/assets/quiz_tecnologia.csv')
   const data = await info.text();
+
+  const temaFasesCsv = await fetch('../../src/assets/temas_tecnologia.csv')
+  let levelThemes = await temaFasesCsv.text();
+  levelThemes = levelThemes.split('\n');
+  levelThemes.shift();
+  
+  levelThemes = levelThemes.reduce((acm, k) =>{
+    const [level, theme] = k.split(';');
+    acm[level] = theme;
+    return acm;
+  }, {})
+
   let questions = data.split('\n');
   questions.shift();
   personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
@@ -169,11 +181,10 @@ function resetButtonsToDefault(){
   }, [])
 
   const currentQuestion = questions[currentQuestionId-1];
-  console.log(currentQuestion)
   if ((currentQuestionId - 1) % questionsPerLevel === 0) {
   personagem.src = `./assets/Projeto-Quiz/coruja.png`; 
 }
-  numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+  numberLevel.textContent = `Fase ${currentQuestion.level}: ${levelThemes[currentLevel]}`;
   // CORREÇÃO: Só mostra a pergunta se não há erro anterior
   if (!wrongAnswer) {
     question.textContent = currentQuestion.question;
@@ -231,7 +242,6 @@ function resetButtonsToDefault(){
     const selectedOpt = options[selectedOptIndex];
     
     if(selectedOptIndex === -1){
-      console.log(selectedOptIndex)
       alert('Por favor, selecione uma opção!');
       return;
     }
