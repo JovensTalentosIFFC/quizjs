@@ -9,7 +9,7 @@ const selectTime2 = document.querySelector(".time2 button")
 const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
 
-let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=20;
+let optionsLength=4, questionsPerLevel= localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=20;
 
 const personagem = document.querySelector('.perguntaContainer img');
 
@@ -25,9 +25,12 @@ const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
 const numPergunta = document.querySelector('.topPergunta .numPergunta');
+const currentTime = localStorage.getItem('currentTime');
 
 let scoreTime1 = 0 || +localStorage.getItem('scoreTime1');
 let scoreTime2 = 0 || +localStorage.getItem('scoreTime2');
+let correctAnswersTeam1 = 0 || +localStorage.getItem('correctAnswersTeam1');
+let correctAnswersTeam2 = 0 || +localStorage.getItem('correctAnswersTeam2');
 scoreTime1Span.textContent = scoreTime1;
 scoreTime2Span.textContent = scoreTime2;
 
@@ -54,12 +57,24 @@ if (wrongAnswer && wrongAnswer !== 'false') {
   wrongAnswer = false;
 }
 
+if((currentQuestionId-1)%5===0 && currentQuestionId>1){
 
+ // new level 
+  background[1].classList.add('shown');
+  endSpan.textContent = currentLevel;
+  setTimeout(() =>{
+    endPopup.classList.add('shown');
+  }, 500)
+  localStorage.setItem('score', 0);
+  localStorage.setItem('correctAnswersTeam1', correctAnswersTeam1);
+  localStorage.setItem('correctAnswersTeam2', correctAnswersTeam2);
+  score=0;
+  localStorage.setItem('score', score);
 
+  
+}
+numPergunta.textContent = `${((currentQuestionId-1)%5)+1}/${questionsPerLevel}`
 
-numPergunta.textContent = `${((currentQuestionId-1)%questionsPerLevel)+1}/${questionsPerLevel}`
-
-const currentTime = localStorage.getItem('currentTime');
 
 if(currentTime==='Time1'){
   selectTime1.disabled = true;
@@ -72,20 +87,9 @@ if(currentTime==='Time1'){
   localStorage.setItem( "currentTime", "Time2" )
   selectTime1.disabled=false;
 }
-if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
- // new level 
-  background[1].classList.add('shown');
-  endSpan.textContent = currentLevel+1;
-  setTimeout(() =>{
-    endPopup.classList.add('shown');
-  }, 500)
-  localStorage.setItem('score', 0);
 
-  score=0;
-  localStorage.setItem('score', score);
 
-  
-}
+
 
 nextLevel.addEventListener('click', () =>{
   endPopup.classList.remove('shown');
@@ -279,10 +283,14 @@ function resetButtonsToDefault(){
         scoreTime1+=100;
         localStorage.setItem('scoreTime1', scoreTime1);
         scoreTime1Span.textContent = scoreTime1;
+        correctAnswersTeam1++;
+        localStorage.setItem('correctAnswersTeam1', correctAnswersTeam1);
       } else if(localStorage.getItem('currentTime') === "Time2"){
         scoreTime2+=100;
         localStorage.setItem('scoreTime2', scoreTime2);
         scoreTime2Span.textContent = scoreTime2;
+        correctAnswersTeam2++;
+        localStorage.setItem('correctAnswersTeam2', correctAnswersTeam2);
       }
 
 
@@ -341,7 +349,9 @@ function handleSkip() {
   localStorage.removeItem('wrongAnswer');
   localStorage.removeItem('setupQuestion');
   localStorage.removeItem('currentTime')
-  
+
+  // ==================== desempate
+
   optionsContainer.style.pointerEvents = 'all';
   
   options.forEach(opt => {
@@ -350,8 +360,20 @@ function handleSkip() {
   
   resetButtonsToDefault();
   
-  if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
+  if((currentQuestionId)%questionsPerLevel===0 && currentQuestionId>1){
     currentLevel++;
+    if(correctAnswersTeam1===correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)){
+      console.log('empate')
+      questionsPerLevel=5;
+      localStorage.setItem('questionsPerLevel', 5);
+      
+    } else if(correctAnswersTeam1!==correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)){
+      console.log('not empate')
+      questionsPerLevel=4;
+      currentQuestionId++;
+      localStorage.setItem('questionsPerLevel', 4)
+    }
+
   }
 
   currentQuestionId++;
