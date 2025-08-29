@@ -9,7 +9,7 @@ const selectTime2 = document.querySelector(".time2 button")
 const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
 
-let optionsLength=4, questionsPerLevel= localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=20;
+let optionsLength=4, questionsPerLevel= localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=25;
 
 const personagem = document.querySelector('.perguntaContainer img');
 
@@ -34,7 +34,7 @@ let correctAnswersTeam2 = 0 || +localStorage.getItem('correctAnswersTeam2');
 scoreTime1Span.textContent = scoreTime1;
 scoreTime2Span.textContent = scoreTime2;
 
-
+let finalLevels = [ 4, 9, 14, 19, 24 ];
 // let scores = {
   //   scoreTime1: 0 || +localStorage.getItem('scoreTime1'),
   //   scoreTime2: 0 || +localStorage.getItem('scoreTime2')
@@ -58,18 +58,19 @@ if (wrongAnswer && wrongAnswer !== 'false') {
 }
 
 if((currentQuestionId-1)%5===0 && currentQuestionId>1){
-
+  questionsPerLevel=4;
+  localStorage.setItem('questionsPerLevel', questionsPerLevel);
+  console.log('akdakjdkajdka')
  // new level 
   background[1].classList.add('shown');
   endSpan.textContent = currentLevel;
   setTimeout(() =>{
     endPopup.classList.add('shown');
   }, 500)
-  localStorage.setItem('score', 0);
+  correctAnswersTeam1=0;
+  correctAnswersTeam2=0;
   localStorage.setItem('correctAnswersTeam1', correctAnswersTeam1);
   localStorage.setItem('correctAnswersTeam2', correctAnswersTeam2);
-  score=0;
-  localStorage.setItem('score', score);
 
   
 }
@@ -185,9 +186,6 @@ function resetButtonsToDefault(){
   }, [])
 
   const currentQuestion = questions[currentQuestionId-1];
-  if ((currentQuestionId - 1) % questionsPerLevel === 0) {
-  personagem.src = `./assets/Projeto-Quiz/coruja.png`; 
-}
   numberLevel.textContent = `Fase ${currentQuestion.level}: ${levelThemes[currentLevel]}`;
   // CORREÇÃO: Só mostra a pergunta se não há erro anterior
   if (!wrongAnswer) {
@@ -237,7 +235,7 @@ function resetButtonsToDefault(){
   if(removedOption){
     options[removedOption].style.backgroundColor='grey';
   }
-
+  
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -360,8 +358,10 @@ function handleSkip() {
   
   resetButtonsToDefault();
   
-  if((currentQuestionId)%questionsPerLevel===0 && currentQuestionId>1){
+  if(finalLevels.includes(currentQuestionId)){
     currentLevel++;
+    questionsPerLevel=4;
+    localStorage.setItem('questionsPerLevel', 4)
     if(correctAnswersTeam1===correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)){
       console.log('empate')
       questionsPerLevel=5;
