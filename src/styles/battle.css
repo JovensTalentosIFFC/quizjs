@@ -265,8 +265,7 @@ aside .menu img{
 }
 
 .escolhaTime{
-  font-size: 15px;
-  width: 120px;
+  font-size: 1.4rem;
   display: flex;
   justify-content: center;
 }
@@ -294,5 +293,5 @@ aside .menu img{
 }
 
 .time1 p, .time2 p{
-  font-size: 1.2rem;
+  font-size: 1.6rem;
 }
