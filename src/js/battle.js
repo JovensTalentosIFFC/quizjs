@@ -12,6 +12,7 @@ const scoreTime2Span = document.querySelector('.pontosTime2');
 let optionsLength=4, questionsPerLevel= localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=25;
 
 const personagem = document.querySelector('.perguntaContainer img');
+const letters = ["A) ","B) ","C) ","D) "];
 
 const form = document.querySelector('form');
 const background = Array.from(document.querySelectorAll('.background'))
@@ -195,7 +196,7 @@ function resetButtonsToDefault(){
   let seenOption = [];
 
   if(setupQuestion.length < optionsLength){
-    options.forEach(opt =>{
+    options.forEach((opt, idx) =>{
         let randomOption = parseInt(Math.random()*optionsLength);
         while(seenOption.includes(randomOption)){
           randomOption = parseInt(Math.random()*optionsLength);
@@ -203,12 +204,12 @@ function resetButtonsToDefault(){
         seenOption.push(randomOption);
         setupQuestion += randomOption;
 
-        opt.textContent = currentQuestion.options[randomOption];
+        opt.textContent = `${letters[idx]} ${currentQuestion.options[randomOption]}`;
     })
     localStorage.setItem('setupQuestion', setupQuestion);
   } else{
     options.forEach((opt, idx) =>{
-      opt.textContent = currentQuestion.options[setupQuestion[idx]];
+      opt.textContent = `${letters[idx]} ${currentQuestion.options[setupQuestion[idx]]}`;
     })
   }
   
