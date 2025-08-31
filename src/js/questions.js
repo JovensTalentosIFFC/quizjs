@@ -5,6 +5,7 @@ const answerButton = document.querySelector('form .answerButton');
 const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
+const letters = ['A) ', 'B) ', 'C) ', 'D) '];
 
 let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=40;
 
@@ -133,7 +134,7 @@ function resetButtonsToDefault(){
 }
 
 (async () => {
-  const info = await fetch('../../src/assets/answers.csv')
+  const info = await fetch('../../src/assets/solo.csv')
   const data = await info.text();
   let questions = data.split('\n');
   questions.shift();
@@ -170,7 +171,7 @@ function resetButtonsToDefault(){
   let seenOption = [];
 
   if(setupQuestion.length < optionsLength){
-    options.forEach(opt =>{
+    options.forEach((opt, idx)=>{
         let randomOption = parseInt(Math.random()*optionsLength);
         while(seenOption.includes(randomOption)){
           randomOption = parseInt(Math.random()*optionsLength);
@@ -178,12 +179,12 @@ function resetButtonsToDefault(){
         seenOption.push(randomOption);
         setupQuestion += randomOption;
 
-        opt.textContent = currentQuestion.options[randomOption];
+        opt.textContent = letters[idx] + currentQuestion.options[randomOption];
     })
     localStorage.setItem('setupQuestion', setupQuestion);
   } else{
     options.forEach((opt, idx) =>{
-      opt.textContent = currentQuestion.options[setupQuestion[idx]];
+      opt.textContent = letters[idx] + currentQuestion.options[setupQuestion[idx]];
     })
   }
   
