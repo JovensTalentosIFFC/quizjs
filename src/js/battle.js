@@ -9,7 +9,7 @@ const selectTime2 = document.querySelector(".time2 button")
 const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
 
-let optionsLength=4, questionsPerLevel= localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=25;
+let optionsLength=4, questionsPerLevel= localStorage.getItem('questionsPerLevel') || 5, currentFaseAndTheme, questionsLength=25;
 
 const personagem = document.querySelector('.perguntaContainer img');
 const letters = ["A) ","B) ","C) ","D) "];

@@ -4,9 +4,9 @@ console.log("working")
 localStorage.clear();
 
 const redirectToQuestions = () =>{
-  window.location = 'questions.html'
+  window.location = 'selectTheme.html'
 }
 
 const redirectToBattle = () =>{
-  window.location = 'battle.html'
+  window.location = 'selectTheme.html'
 }
