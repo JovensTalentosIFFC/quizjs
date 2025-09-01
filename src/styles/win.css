@@ -1,0 +1,23 @@
+button {
+  width: 300px;
+  height: 85px;
+  text-align: center;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 30px;
+  border-radius: 5px;
+  background-color: rgb(175, 255, 179);
+  cursor: pointer;
+  margin-top: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+body{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
