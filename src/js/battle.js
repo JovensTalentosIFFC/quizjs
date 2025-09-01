@@ -1,4 +1,3 @@
-
 const numberLevel = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
 const answerButton = document.querySelector('form .answerButton');
@@ -8,8 +7,8 @@ const selectTime1 = document.querySelector(".time1 button")
 const selectTime2 = document.querySelector(".time2 button")
 const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
-
-let optionsLength=4, questionsPerLevel= localStorage.getItem('questionsPerLevel') || 5, currentFaseAndTheme, questionsLength=25;
+const themeEndPopup = document.querySelector('.theme');
+let optionsLength=4, questionsPerLevel= localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=15;
 
 const personagem = document.querySelector('.perguntaContainer img');
 const letters = ["A) ","B) ","C) ","D) "];
@@ -35,13 +34,14 @@ let correctAnswersTeam2 = 0 || +localStorage.getItem('correctAnswersTeam2');
 scoreTime1Span.textContent = scoreTime1;
 scoreTime2Span.textContent = scoreTime2;
 
-let finalLevels = [ 4, 9, 14, 19, 24 ];
+let finalLevels = [ 4, 9, 14];
 // let scores = {
   //   scoreTime1: 0 || +localStorage.getItem('scoreTime1'),
   //   scoreTime2: 0 || +localStorage.getItem('scoreTime2')
   // }
   
   let currentLevel = +localStorage.getItem('currentLevel') || 1;
+  let currentTheme = localStorage.getItem('currentTheme');
   let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
   let setupQuestion = localStorage.getItem('setupQuestion') || '';
 
@@ -61,10 +61,10 @@ if (wrongAnswer && wrongAnswer !== 'false') {
 if((currentQuestionId-1)%5===0 && currentQuestionId>1){
   questionsPerLevel=4;
   localStorage.setItem('questionsPerLevel', questionsPerLevel);
-  console.log('akdakjdkajdka')
  // new level 
   background[1].classList.add('shown');
   endSpan.textContent = currentLevel;
+  if(currentTheme) themeEndPopup.textContent = currentTheme;
   setTimeout(() =>{
     endPopup.classList.add('shown');
   }, 500)
@@ -151,10 +151,10 @@ function resetButtonsToDefault(){
 }
 
 (async () => {
-  const info = await fetch('../../src/assets/quiz_tecnologia.csv')
+  const info = await fetch(`../../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`)
   const data = await info.text();
 
-  const temaFasesCsv = await fetch('../../src/assets/temas_tecnologia.csv')
+  const temaFasesCsv = await fetch(`../../src/assets/temas_${localStorage.getItem('currentTheme').toLowerCase()}.csv`)
   let levelThemes = await temaFasesCsv.text();
   levelThemes = levelThemes.split('\n');
   levelThemes.shift();
@@ -188,6 +188,10 @@ function resetButtonsToDefault(){
 
   const currentQuestion = questions[currentQuestionId-1];
   numberLevel.textContent = `Fase ${currentQuestion.level}: ${levelThemes[currentLevel]}`;
+  themeText.textContent = levelThemes[currentLevel];
+  themeEndPopup.textContent = 'Tema: ' + levelThemes[currentLevel];
+  localStorage.setItem('currentTheme', levelThemes[currentLevel])
+  themeEndPopup.style.fontSize = '1.2rem'
   // CORREÇÃO: Só mostra a pergunta se não há erro anterior
   if (!wrongAnswer) {
     question.textContent = currentQuestion.question;

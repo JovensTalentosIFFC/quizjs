@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BYQuiz</title>
     <link rel="stylesheet" href="styles/selectTheme.css">
+    <script src="./js/selectTheme.js" defer></script>
 </head>
 <body>
     <p>Selecione o tema desejado</p>
     <div class="container">
-        <button onclick="redirectToBattle()">Esportes</button>
-        <button onclick="redirectToBattle()">Natureza</button>
+        <button onclick="redirectToBattle(event.target)">Esportes</button>
+        <button onclick="redirectToBattle(event.target)">Natureza</button>
     </div>
     <div class="lastButton">
-        <button onclick="redirectToBattle()">Tecnologia</button>
+        <button onclick="redirectToBattle(event.target)">Tecnologia</button>
     </div>   
 </body>
 </html>
