@@ -1,16 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;0,800;1,900&display=swap');
 
 body {
-    background-color: rgb(164, 193, 121);
+    background-image: url(/src/assets/Projeto-Quiz/telaEscolherTema.png);
     font-family: 'Poppins', sans-serif;
+    background-position: 20px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
 }    
 
 p{
     display: flex;
-    font-size: 5rem;
-    justify-content: center;
-    margin-top: 8rem;
+    font-size: 3rem;
+    margin-top: 5rem;
     font-family: 'Poppins', sans-serif;
+    color: white;
 }
 
 button{
@@ -18,26 +23,32 @@ button{
     font-weight: initial;
     text-align: center;
     justify-content: center;
-    font-size: 4.5rem;
-    width: 27rem;
-    height: 7rem;
+    font-size: 3.2rem;
+    width: 20rem;
+    height: 6rem;
     cursor: pointer;
     border-radius: 1rem;
     color: white;
-    background-color: rgb(124, 183, 118);
+    background-color: rgb(118, 179, 183);
 }
 
 .container{
     display: flex;
-    gap: 10rem;
-    justify-content: center;
-    margin-top: 6rem;
+    gap: 5rem;
+}
+
+.itens{
+    display: flex;
+    flex-direction: column;
+    margin-left: 6rem;
+    width: 700px;
+    align-items: center;
+    gap: 2rem;
 }
 
 .lastButton{
     display: flex;
-    justify-content: center;
-    margin-top: 4rem;
+    margin-top: 1.2rem;
 }
 
 img{
