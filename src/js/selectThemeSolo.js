@@ -1,5 +1,5 @@
-const redirectToBattle = (e) =>{
+const redirectToQuestions = (e) => {
   console.log(e.textContent);
   localStorage.setItem('theme', e.textContent);
-  window.location = 'battle.html'
-}
+  window.location = 'questions.html';
+};
