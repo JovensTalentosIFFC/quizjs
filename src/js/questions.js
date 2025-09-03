@@ -5,6 +5,8 @@ const answerButton = document.querySelector('form .answerButton');
 const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
+
+
 const letters = ['A) ', 'B) ', 'C) ', 'D) '];
 
 let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=40;
@@ -134,7 +136,7 @@ function resetButtonsToDefault(){
 }
 
 (async () => {
-  const info = await fetch('../../src/assets/solo.csv')
+  const info = await fetch(`../../src/assets/solo.csv`)
   const data = await info.text();
   let questions = data.split('\n');
   questions.shift();

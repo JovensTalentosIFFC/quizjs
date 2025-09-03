@@ -1,16 +1,16 @@
 id;fase;pergunta;alternativa_0;alternativa_1;alternativa_2;alternativa_3;resposta_correta;explicacao
-1;1;Qual parte da árvore realiza a fotossíntese?;Raiz;Folha;Tronco;Floema;1;As folhas contêm clorofila e são responsáveis pela fotossíntese, produzindo energia para a planta.
-2;1;Qual árvore é considerada a mais antiga do mundo, com mais de 4.800 anos?;Sequoia-gigante;Pinus longaeva;Eucalipto;Baobá;1;O Pinus longaeva (bristlecone pine) é conhecido por indivíduos com mais de 4.800 anos, sendo uma das árvores mais antigas.
-3;1;O anel de crescimento no tronco indica:;Idade da árvore;Altura da árvore;Quantidade de frutos;Tipo de raiz;0;Cada anel corresponde a um ciclo anual de crescimento, permitindo estimar a idade da árvore.
-4;1;Qual é a principal função do xilema nas árvores?;Produzir frutos;Transportar água e sais minerais;Armazenar açúcares;Realizar fotossíntese;1;O xilema conduz a seiva bruta das raízes até as folhas.
-5;1;Qual árvore brasileira é conhecida por sua madeira nobre e já foi alvo de exploração intensa?;Ipê;Pau-brasil;Castanheira;Jatobá;1;O pau-brasil foi muito explorado no período colonial, originando o nome do país.
-6;2;Qual é a porcentagem aproximada de água doce disponível na Terra?;3%;20%;50%;70%;0;Apenas 3% da água é doce, e a maior parte está em geleiras ou subterrânea.
-7;2;Qual processo natural transforma água líquida em vapor?;Congelamento;Condensação;Evaporação;Filtração;2;Na evaporação, a água líquida recebe calor e passa para o estado gasoso.
-8;2;Qual é o maior aquífero do Brasil?;Aquífero Alter do Chão;Aquífero Guarani;Aquífero Pantanal;Aquífero Bambuí;1;O Aquífero Guarani é um dos maiores reservatórios subterrâneos de água doce do mundo.
-9;2;Por que o gelo flutua na água?;É mais denso que a água líquida;É menos denso que a água líquida;Não contém sais;Possui bolhas de ar;1;O gelo é menos denso, permitindo que flutue e mantenha ecossistemas aquáticos protegidos no inverno.
-10;2;Qual oceano cobre a maior área do planeta?;Atlântico;Pacífico;Índico;Ártico;1;O Oceano Pacífico cobre cerca de 1/3 da superfície terrestre, sendo o maior.
-11;3;Na coleta seletiva, qual cor representa o papel?;Azul;Verde;Vermelho;Amarelo;0;O azul é usado para identificar lixeiras destinadas ao papel e papelão.
-12;3;O que significa a sigla dos 3Rs na gestão de resíduos?;Recolher, Reaproveitar, Reciclar;Reduzir, Reutilizar, Reciclar;Recuperar, Renovar, Reduzir;Reutilizar, Reciclar, Restaurar;1;A política dos 3Rs busca diminuir o impacto ambiental reduzindo, reutilizando e reciclando materiais.
-13;3;Qual resíduo demora mais para se decompor?;Papel;Plástico;Vidro;Restos orgânicos;2;O vidro pode levar milhares de anos para se decompor, permanecendo no ambiente por muito tempo.
-14;3;O que caracteriza o lixo orgânico?;Restos de alimentos e materiais biodegradáveis;Garrafas PET e sacolas;Latas e metais;Vidros e espelhos;0;O lixo orgânico é formado por restos de alimentos e outros materiais biodegradáveis, podendo ser usado em compostagem.
-15;3;Qual país é considerado referência mundial em reciclagem de garrafas PET?;Brasil;Alemanha;Estados Unidos;Japão;0;O Brasil está entre os países que mais reciclam garrafas PET, reaproveitando grande parte da produção.
+1;1;Qual parte da planta é responsável por produzir alimento através da fotossíntese?;Raiz;Folha;Tronco;Flor;1;As folhas contêm clorofila e realizam a fotossíntese, transformando luz em energia.
+2;1;Qual dessas árvores é conhecida por viver por milhares de anos?;Sequoia;Pinheiro;Eucalipto;Baobá;0;Sequoias são árvores que podem viver por mais de 2.000 anos, sendo muito antigas.
+3;1;O que os anéis de crescimento em uma árvore indicam principalmente?;Idade da árvore;Altura da árvore;Quantidade de frutos;Tipo de folha;0;Cada anel corresponde a um ano de crescimento, permitindo estimar a idade da árvore.
+4;1;Qual é a função do xilema nas plantas?;Produzir frutos;Transportar água e nutrientes;Realizar fotossíntese;Armazenar sementes;1;O xilema leva água e sais minerais das raízes até as folhas e outras partes da planta.
+5;1;Qual árvore brasileira teve grande importância histórica por sua madeira?;Ipê;Pau-brasil;Castanheira;Jatobá;1;O pau-brasil foi explorado intensamente no período colonial, sendo histórico para o país.
+6;2;A maior parte da água doce do planeta está disponível para uso humano?;Sim, mais da metade;Não, apenas uma pequena parte;Sim, cerca de 50%;Sim, cerca de 30%;1;Apenas cerca de 3% da água do planeta é doce, e nem toda está disponível para consumo.
+7;2;Qual processo transforma água líquida em vapor?;Congelamento;Condensação;Evaporação;Precipitação;2;A evaporação ocorre quando a água aquece e passa do estado líquido para gasoso.
+8;2;Qual é um dos maiores reservatórios subterrâneos de água doce do mundo?;Aquífero Alter do Chão;Aquífero Guarani;Aquífero Pantanal;Aquífero Amazonas;1;O Aquífero Guarani é um dos maiores aquíferos de água doce do planeta.
+9;2;Por que o gelo flutua na água?;Porque é mais pesado;Porque é menos denso;Porque não contém sais;Porque contém ar;1;O gelo é menos denso que a água líquida, permitindo que flutue e proteja ecossistemas aquáticos.
+10;2;Qual oceano ocupa a maior área do planeta?;Atlântico;Pacífico;Índico;Ártico;1;O Oceano Pacífico cobre cerca de 1/3 da superfície terrestre, sendo o maior oceano.
+11;3;Na coleta seletiva, qual cor indica o lixo de papel?;Azul;Verde;Vermelho;Amarelo;0;O azul identifica lixeiras destinadas ao papel e papelão na coleta seletiva.
+12;3;O que significam os 3Rs da sustentabilidade?;Recolher, Reaproveitar, Reciclar;Reduzir, Reutilizar, Reciclar;Recuperar, Renovar, Reduzir;Reutilizar, Reciclar, Restaurar;1;Os 3Rs incentivam reduzir o consumo, reutilizar materiais e reciclar resíduos.
+13;3;Qual tipo de resíduo demora mais para se decompor?;Papel;Plástico;Vidro;Restos de alimentos;2;O vidro é muito resistente e pode levar milhares de anos para se decompor.
+14;3;O que caracteriza o lixo orgânico?;Restos de alimentos e materiais biodegradáveis;Plásticos e embalagens;Metais e latas;Vidros e cerâmicas;0;Lixo orgânico é formado por restos de alimentos e outros materiais que podem se decompor naturalmente.
+15;3;Qual país é referência em reciclagem de garrafas PET?;Brasil;Alemanha;Estados Unidos;Japão;1;A Alemanha é conhecida por suas políticas avançadas de reciclagem e reaproveitamento de materiais plásticos.

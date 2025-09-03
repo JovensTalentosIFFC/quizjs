@@ -1,16 +1,16 @@
 id;fase;pergunta;alternativa_0;alternativa_1;alternativa_2;alternativa_3;resposta_correta;explicacao
-1;1;Qual foi o primeiro nome dado à rede que deu origem à Internet?;WebNet;Arpanet;Usenet;Cybernet;1;A Arpanet, criada em 1969 nos EUA, foi a precursora da Internet moderna.
-2;1;Qual protocolo é responsável por traduzir nomes de domínio em endereços IP?;HTTP;FTP;DNS;SMTP;2;O DNS (Domain Name System) converte nomes como www.exemplo.com em endereços IP, permitindo a navegação.
-3;1;Qual camada do modelo OSI é responsável pelo roteamento de pacotes?;Aplicação;Transporte;Rede;Enlace;2;A camada de Rede define endereçamento lógico e roteamento de pacotes, fundamental para a comunicação.
-4;1;Qual é a porta padrão do protocolo HTTPS?;21;25;80;443;3;O HTTPS utiliza a porta 443 para comunicações seguras com criptografia SSL/TLS.
-5;1;Quem é considerado o inventor da World Wide Web?;Bill Gates;Steve Jobs;Tim Berners-Lee;Vint Cerf;2;Tim Berners-Lee criou a WWW em 1989, desenvolvendo HTTP, HTML e o primeiro navegador.
-6;2;Qual componente é considerado o “cérebro” do computador?;HD;Memória RAM;CPU;Fonte de energia;2;A CPU (Unidade Central de Processamento) executa instruções e coordena o funcionamento do sistema.
-7;2;Qual empresa desenvolveu o sistema operacional Windows?;Apple;IBM;Microsoft;Intel;2;A Microsoft criou o Windows em 1985, tornando-se o sistema operacional mais usado em desktops.
-8;2;Qual tecnologia de armazenamento é mais rápida?;Disco rígido (HD);SSD;CD-ROM;DVD;1;O SSD não possui partes móveis e é muito mais rápido que os HDs tradicionais.
-9;2;Qual barramento substituiu o padrão PCI nas placas de vídeo modernas?;ISA;AGP;PCI Express;SATA;2;O PCI Express (PCIe) substituiu AGP e PCI, oferecendo maior velocidade e largura de banda.
-10;2;Qual linguagem é usada para programar sistemas operacionais como Linux e Windows?;Java;Python;C;PHP;2;A linguagem C é amplamente usada para o desenvolvimento de sistemas operacionais devido à sua eficiência e baixo nível.
-11;3;Qual empresa lançou o primeiro smartphone com sistema Android?;Apple;Nokia;HTC;Samsung;2;O HTC Dream, lançado em 2008, foi o primeiro smartphone com Android.
-12;3;Qual processador é usado nos iPhones modernos?;Snapdragon;Exynos;Apple Silicon (A-series);Mediatek;2;A Apple desenvolve seus próprios chips da linha A-series, otimizados para iPhones.
-13;3;Qual tecnologia permite realizar pagamentos por aproximação com celulares?;Bluetooth;NFC;Wi-Fi;QR Code;1;A tecnologia NFC (Near Field Communication) permite pagamentos sem contato.
-14;3;Qual sistema operacional móvel foi descontinuado pela Microsoft em 2017?;Symbian;BlackBerry OS;Windows Phone;Palm OS;2;O Windows Phone foi encerrado oficialmente pela Microsoft em 2017 por baixa adesão.
-15;3;Qual foi o primeiro celular comercial do mundo?;Motorola DynaTAC 8000X;Nokia 3310;Siemens S10;Ericsson GH688;0;O Motorola DynaTAC 8000X, lançado em 1983, foi o primeiro celular comercializado.
+1;1;O que é a Internet?;Uma rede mundial de computadores;Um programa de computador;Um tipo de smartphone;Um vírus;0;A Internet é uma rede global que conecta computadores e permite troca de informações.
+2;1;Qual é a função principal de um navegador de internet?;Proteger o computador contra vírus;Exibir e acessar páginas web;Editar fotos e vídeos;Gerenciar arquivos locais;1;O navegador permite navegar e visualizar conteúdo na Internet.
+3;1;O que é um protocolo de rede?;Uma regra que define como os dados são transmitidos;Um programa antivírus;Um tipo de hardware;Um aplicativo de mensagens;0;Protocolos definem padrões para comunicação entre computadores em rede.
+4;1;Qual dessas opções identifica corretamente um endereço na Internet?;IP;CPU;SSD;RAM;0;O endereço IP identifica dispositivos na Internet para enviar e receber informações.
+5;1;O que significa “HTTP” em sites?;Protocolo de transferência de hipertexto;Software de proteção;Hardware de rede;Sistema operacional;0;HTTP é o protocolo usado para transmitir páginas web entre servidores e navegadores.
+6;2;Qual componente realiza os cálculos e executa programas no computador?;CPU;Memória RAM;HD;Placa-mãe;0;A CPU processa informações e executa instruções dos programas.
+7;2;Qual é a principal função da memória RAM?;Armazenar dados permanentemente;Armazenar temporariamente dados em uso;Exibir imagens no monitor;Controlar impressoras;1;A RAM guarda temporariamente informações que estão sendo usadas pelo sistema e programas.
+8;2;O que é um sistema operacional?;Um aplicativo de edição;O software que gerencia hardware e programas;Um tipo de memória;Um protocolo de rede;1;O sistema operacional controla o computador e possibilita a execução de programas.
+9;2;Qual dispositivo armazena dados de forma permanente?;Teclado;SSD;Monitor;Mouse;1;O SSD (ou HD) guarda informações permanentemente, mesmo quando o computador é desligado.
+10;2;O que significa “open source” em software?;Programa gratuito;Código que pode ser visto e alterado por qualquer pessoa;Programa que roda somente em computadores;Software de edição de imagens;1;Open source significa que o código-fonte é aberto e qualquer pessoa pode estudar, modificar ou distribuir.
+11;3;Qual empresa desenvolveu o sistema operacional Windows?;Apple;Microsoft;Google;Linux Foundation;1;A Microsoft é responsável pelo Windows, sistema operacional mais usado em computadores.
+12;3;Qual a principal diferença entre um smartphone e um celular antigo?;O smartphone não faz ligações;O smartphone tem acesso à internet e aplicativos;O celular antigo tinha touch screen;O celular antigo era portátil;1;Smartphones permitem usar aplicativos, acessar a internet e realizar várias funções além de ligações.
+13;3;Qual é a função de um firewall?;Bloquear vírus automaticamente;Filtrar e controlar o tráfego de rede;Aumentar a memória RAM;Fazer backup de arquivos;1;O firewall protege a rede controlando quais dados podem entrar ou sair do computador.
+14;3;O que é um endereço MAC?;Número que identifica um dispositivo de rede;Endereço de e-mail;Número do processador;Código de segurança de software;0;O endereço MAC identifica de forma única cada dispositivo em uma rede.
+15;3;Qual desses é considerado um dispositivo de saída do computador?;Teclado;Mouse;Monitor;Scanner;2;O monitor exibe informações do computador, sendo um dispositivo de saída.
