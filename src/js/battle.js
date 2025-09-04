@@ -10,10 +10,6 @@ const scoreTime2Span = document.querySelector('.pontosTime2');
 const themeEndPopup = document.querySelector('.theme');
 const tiebreak = document.querySelector('.desempate');
 let optionsLength=4, questionsPerLevel= +localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=10;
-
-
-
-
 const personagem = document.querySelector('.perguntaContainer img');
 const letters = ["A) ","B) ","C) ","D) "];
 
@@ -46,10 +42,8 @@ let finalLevels = [ 4, 9];
   // }
   
   let currentLevel = +localStorage.getItem('currentLevel') || 1;
-
-  let seenIdQuestions=[] || JSON.parse(localStorage.getItem('seenIdQuestions'));
-  let seenQuestions = +localStorage.getItem('seenQuestions') || 0;
-
+  let seenIdQuestions = JSON.parse(localStorage.getItem('seenIdQuestions')) || [];
+  let seenQuestions = +localStorage.getItem('seenQuestions') || 1;
   let currentTheme = localStorage.getItem('theme');
   document.querySelector('body').style.backgroundImage = `url('./assets/Projeto-Quiz/tela${currentTheme}.png')`
   let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
@@ -70,7 +64,7 @@ if (wrongAnswer && wrongAnswer !== 'false') {
 
 
 
-if((currentQuestionId-1)%5===0 && currentQuestionId>1){
+if(currentLevel===2 && seenQuestions===1){
   questionsPerLevel=4;
   localStorage.setItem('questionsPerLevel', questionsPerLevel);
  // new level 
@@ -87,7 +81,7 @@ if((currentQuestionId-1)%5===0 && currentQuestionId>1){
 
   
 }
-numPergunta.textContent = `${((currentQuestionId-1)%5)+1}/${questionsPerLevel}`
+numPergunta.textContent = `${((seenQuestions-1)%5)+1}/${questionsPerLevel}`
 
 if(questionsPerLevel===5) {
   
@@ -95,6 +89,7 @@ if(questionsPerLevel===5) {
   setTimeout(() =>{
     tiebreak.classList.remove('shown');
   }, 2000);
+  seenQuestions--;
 }
 
 if(currentTime==='Time1'){
@@ -117,7 +112,7 @@ nextLevel.addEventListener('click', () =>{
   background[1].classList.remove('shown');
 })
 
-if(currentQuestionId===1){
+if(seenQuestions===1 && currentLevel===1){
   currentFaseAndTheme = [1, 'Árvores']
 
   levelText.textContent = `Fase: ${currentFaseAndTheme[0]}`;
@@ -205,8 +200,15 @@ function resetButtonsToDefault(){
     return acm;
   }, [])
 
-  const currentQuestion = questions[currentQuestionId-1];
-  numberLevel.textContent = `Fase ${currentQuestion.level}: ${levelThemes[currentLevel]}`;
+  let currentQuestion = currentLevel===1 ?  questions[parseInt(Math.random()*5)] : questions[parseInt(Math.random()*5)+5]
+  while(seenIdQuestions.includes(currentQuestion.id)){
+    currentQuestion = currentLevel===1 ?  questions[parseInt(Math.random()*5)] : questions[parseInt(Math.random()*5)+5]
+  }
+  seenIdQuestions.push(currentQuestion.id);
+  localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
+  
+
+  numberLevel.textContent = `Fase ${currentLevel}: ${levelThemes[currentLevel]}`;
   themeText.textContent = levelThemes[currentLevel];
   themeEndPopup.textContent = 'Tema: ' + levelThemes[currentLevel];
   themeEndPopup.style.fontSize = '1.2rem'
@@ -354,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function handleSkip() {
 
 
-  if(currentQuestionId >= questionsLength-1){
+  if(seenQuestions===4 && currentLevel===2){
       if(correctAnswersTeam1!==correctAnswersTeam2 || (correctAnswersTeam1 === correctAnswersTeam2 && (scoreTime1>scoreTime2 || scoreTime1<scoreTime2))){ 
         if(scoreTime1>scoreTime2){
             window.location = './winTime1.html';
@@ -384,8 +386,7 @@ function handleSkip() {
   
   resetButtonsToDefault();
   
-  if(finalLevels.includes(currentQuestionId)){
-    currentLevel++;
+  if(seenQuestions===4){
     questionsPerLevel=4;
     localStorage.setItem('questionsPerLevel', 4)
     if(correctAnswersTeam1===correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)){
@@ -394,17 +395,19 @@ function handleSkip() {
       localStorage.setItem('questionsPerLevel', 5);
       
     } else if((correctAnswersTeam1!==correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)) || correctAnswersTeam1===0 && correctAnswersTeam2===0){
+      seenQuestions=0;
+      localStorage.setItem('seenQuestions', seenQuestions)
       console.log('not empate')
       questionsPerLevel=4;
-      currentQuestionId++;
-      localStorage.setItem('questionsPerLevel', 4)
+      currentLevel++;
+      localStorage.setItem('questionsPerLevel', questionsPerLevel)
     }
 
   }
 
-  currentQuestionId++;
-  localStorage.setItem('currentQuestionId', currentQuestionId);
+  seenQuestions++;
   localStorage.setItem('currentLevel', currentLevel);
+  localStorage.setItem('seenQuestions', seenQuestions);
 
   window.location.reload();
 }
