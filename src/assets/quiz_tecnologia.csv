@@ -1,11 +1,41 @@
 id;fase;pergunta;alternativa_0;alternativa_1;alternativa_2;alternativa_3;resposta_correta;explicacao
-1;1;Qual é a principal diferença entre a Internet e a World Wide Web?;A Internet é a rede, e a Web é um serviço dentro dela;Ambas são exatamente a mesma coisa;A Web conecta computadores sem cabos, e a Internet usa cabos;A Web é hardware e a Internet é software;0;A Internet é a infraestrutura global de redes, enquanto a Web é um serviço que funciona sobre ela, usando protocolos como HTTP.
-2;1;Qual é a função de um navegador em relação ao protocolo HTTP?;Traduzir código HTML em conteúdo visual;Gerenciar segurança de hardware;Substituir o sistema operacional;Armazenar dados permanentemente;0;O navegador interpreta o HTML recebido via HTTP e exibe páginas de forma compreensível para o usuário.
-3;1;Qual é o propósito do protocolo TCP em redes?;Garantir entrega confiável dos dados;Aumentar a velocidade do Wi-Fi;Codificar mensagens em vídeo;Detectar vírus automaticamente;0;O TCP assegura que os pacotes de dados sejam entregues de forma ordenada e sem erros.
-4;1;Qual é a principal diferença entre IPv4 e IPv6?;Quantidade de endereços possíveis;O IPv6 é um tipo de firewall;O IPv4 é apenas usado em Wi-Fi;O IPv6 é um protocolo de criptografia;0;O IPv6 foi criado para expandir o número de endereços disponíveis, muito além do limite do IPv4.
-5;1;Por que o HTTPS é considerado mais seguro que o HTTP?;Porque utiliza criptografia para proteger dados;Porque é mais rápido;Porque não usa servidores;Porque não funciona em navegadores antigos;0;O HTTPS usa SSL/TLS para criptografar a comunicação, protegendo dados contra interceptação.
-6;2;Qual componente do computador é responsável por coordenar a comunicação entre processador, memória e periféricos?;Chipset;Placa de vídeo;Fonte de energia;Cooler;0;O chipset é responsável por gerenciar a comunicação entre os principais componentes do sistema.
-7;2;Por que a memória RAM é considerada volátil?;Porque perde dados quando o computador é desligado;Porque armazena informações criptografadas;Porque funciona apenas em notebooks;Porque não pode ser expandida;0;A RAM é volátil pois depende de energia para manter os dados temporários em uso.
-8;2;Qual é a principal função de um kernel em um sistema operacional?;Gerenciar recursos de hardware e processos;Executar apenas aplicativos de rede;Detectar vírus e malwares;Armazenar arquivos permanentemente;0;O kernel é o núcleo do sistema operacional, responsável por controlar o acesso ao hardware e a execução de processos.
-9;2;Qual é a vantagem principal de um SSD em relação a um HD?;Maior velocidade de leitura e escrita;Capacidade de armazenamento ilimitada;Não precisa de energia elétrica;Não utiliza protocolos de comunicação;0;O SSD é muito mais rápido que o HD, proporcionando melhor desempenho no sistema.
-10;2;Por que software open source é importante para a comunidade?;Permite auditoria, colaboração e melhorias coletivas;É sempre gratuito;Só funciona em Linux;Garante que nunca terá falhas;0;O código aberto permite que qualquer pessoa estude, modifique e distribua, promovendo inovação e segurança.
+1;1;Qual é a principal diferença entre a Internet e a World Wide Web?;A Internet é a rede, e a Web é um serviço dentro dela;A Internet é apenas um serviço;A Web é a rede inteira;São exatamente a mesma coisa;0;A Internet é a infraestrutura global de redes, enquanto a Web é um serviço que funciona sobre ela.
+2;1;Qual protocolo garante que os dados cheguem corretamente a um computador na rede?;TCP;IP;HTTP;FTP;0;O TCP garante a entrega confiável de pacotes de dados, mesmo que sejam enviados em partes.
+3;1;O que significa URL?;Uniform Resource Locator;Universal Resource Link;Unique Resource Location;Unified Resource Line;0;URL identifica endereços de sites na Web de forma padronizada.
+4;1;Por que o HTTPS é mais seguro que o HTTP?;Usa criptografia para proteger dados;É mais rápido;Funciona offline;Evita vírus;0;HTTPS combina HTTP com criptografia SSL/TLS para proteger a comunicação.
+5;1;O que significa Wi-Fi?;Wireless Fidelity;Wide Fiber;World File;Wireless Function;0;Wi-Fi permite conexão sem fio de dispositivos à Internet.
+6;1;Qual tecnologia permite que um computador obtenha automaticamente um endereço IP?;DHCP;DNS;SMTP;FTP;0;O DHCP atribui endereços IP automaticamente, simplificando a conexão em redes.
+7;1;Qual é a função do DNS?;Traduzir nomes de sites em endereços IP;Enviar arquivos grandes;Gerar senhas;Proteger contra vírus;0;O DNS converte nomes de sites em endereços que os computadores conseguem entender.
+8;1;O que é phishing?;Tentativa de fraude online;Criptografia de dados;Atualização automática;Protocolo de rede;0;Phishing é uma técnica que engana usuários para roubar dados pessoais.
+9;1;Qual é a função de um firewall?;Bloquear acessos não autorizados;Aumentar a velocidade da Internet;Gerar senhas automaticamente;Traduzir endereços IP;0;O firewall protege redes e computadores contra tráfego indesejado.
+10;1;Qual serviço permite hospedar sites na Internet?;Web hosting;FTP;DNS;VPN;0;Web hosting oferece espaço em servidores para publicar sites.
+11;1;O que significa VPN?;Virtual Private Network;Verified Personal Network;Virtual Public Network;Virtual Protected Node;0;VPN cria uma conexão segura entre dispositivos na Internet.
+12;1;Qual protocolo é usado para enviar e-mails?;SMTP;IMAP;POP3;HTTP;0;SMTP é o protocolo padrão para envio de mensagens de e-mail.
+13;1;Qual protocolo permite acessar e-mails armazenados em servidores?;IMAP;SMTP;FTP;DNS;0;IMAP permite gerenciar e-mails diretamente no servidor, sem precisar baixar.
+14;1;Qual recurso permite que sites carreguem mais rápido armazenando dados temporários?;Cache;Firewall;Proxy;VPN;0;O cache mantém dados temporários localmente para acelerar o carregamento.
+15;1;O que significa HTTPS?;HTTP seguro com criptografia;HTTP rápido;Protocolo de servidor;HTTP offline;0;HTTPS usa criptografia para proteger a comunicação entre navegador e site.
+16;1;Qual tecnologia permite a comunicação sem fio entre dispositivos próximos?;Bluetooth;Wi-Fi;NFC;Infrared;0;O Bluetooth conecta dispositivos próximos de forma sem fio.
+17;1;Qual navegador foi criado pelo Google?;Chrome;Firefox;Edge;Safari;0;O Google lançou o navegador Chrome em 2008.
+18;1;Qual é a função de um proxy?;Armazenar conteúdo temporário;Bloquear vírus;Gerar endereços IP;Gerenciar hardware;0;Um proxy armazena conteúdo em cache, acelerando o acesso a sites visitados.
+19;1;O que é um endereço IP?;Identificador de dispositivo na rede;Senha de acesso;Protocolo de e-mail;Site na Web;0;O IP identifica cada dispositivo conectado a uma rede.
+20;1;O que é um navegador web?;Programa que exibe páginas da Internet;Software antivírus;Hardware de conexão;Servidor de e-mail;0;O navegador interpreta códigos de páginas e exibe o conteúdo para o usuário.
+21;2;Qual componente é considerado o “cérebro” do computador?;CPU;GPU;RAM;SSD;0;A CPU executa instruções e coordena as operações do computador.
+22;2;O que faz a GPU?;Renderiza gráficos e imagens;Armazena dados;Processa cálculos matemáticos;Controla energia;0;A GPU processa gráficos em jogos e programas visuais.
+23;2;Qual é a função principal da RAM?;Armazenar dados temporários;Processar gráficos;Executar cálculos;Resfriar a CPU;0;A RAM guarda temporariamente dados em uso pelo computador.
+24;2;O que faz o SSD?;Armazena dados rapidamente;Renderiza imagens;Executa cálculos;Controla energia;0;O SSD é usado para armazenamento rápido de dados.
+25;2;O que faz a placa-mãe?;Conecta e coordena componentes do computador;Renderiza gráficos;Resfria a CPU;Criptografa dados;0;A placa-mãe conecta CPU, memória, GPU e outros componentes.
+26;2;Qual dispositivo é usado para entrada de dados?;Teclado;Monitor;Impressora;Caixa de som;0;O teclado permite digitar e enviar informações ao computador.
+27;2;Qual memória mantém dados mesmo sem energia?;ROM;RAM;Cache;Registrador;0;A memória ROM mantém dados gravados permanentemente.
+28;2;Qual software protege contra vírus?;Antivírus;Editor de texto;Navegador;Planilha;0;O antivírus detecta e remove softwares maliciosos.
+29;2;O que significa BIOS?;Basic Input Output System;Binary Input Output System;Basic Internal Operating System;Basic Internet Output System;0;BIOS é um firmware essencial que inicia o computador.
+30;2;Qual é a função de um cooler?;Resfriar componentes;Aumentar armazenamento;Processar gráficos;Executar instruções;0;O cooler mantém a temperatura do processador em níveis adequados.
+31;2;Qual software é usado para criar e editar documentos?;Editor de texto;Planilha;Antivírus;Navegador;0;Um editor de texto permite criar e modificar arquivos.
+32;2;O que é software open source?;Código aberto que pode ser estudado e modificado;Software sempre gratuito;Software exclusivo para servidores;Software sem atualizações;0;Open source permite auditoria, colaboração e melhorias no código.
+33;2;Qual componente armazena dados permanentemente?;HD/SSD;RAM;Cache;GPU;0;Discos rígidos e SSDs mantêm informações mesmo sem energia.
+34;2;O que significa GUI?;Graphical User Interface;General User Input;Global User Interaction;Graphics Unified Interface;0;GUI é a interface gráfica que facilita o uso de programas.
+35;2;Qual componente processa cálculos e instruções?;CPU;GPU;RAM;SSD;0;A CPU executa cálculos e coordena processos do computador.
+36;2;O que faz a memória cache?;Armazena dados temporários para agilizar a CPU;Guarda arquivos grandes;Processa gráficos;Resfria componentes;0;A cache agiliza o acesso da CPU a dados frequentemente usados.
+37;2;Qual dispositivo conecta o computador a redes?;Placa de rede;Placa de vídeo;Cooler;Fonte;0;A placa de rede permite comunicação com a internet e outros dispositivos.
+38;2;Qual componente processa imagens e vídeos?;GPU;CPU;RAM;SSD;0;A GPU é especializada em gráficos e vídeos.
+39;2;Qual é a função principal do sistema operacional?;Gerenciar hardware e recursos;Criar gráficos;Armazenar dados;Conectar dispositivos;0;O sistema operacional coordena hardware, software e recursos do computador.
+40;2;Qual é a vantagem de software open source?;Permite colaboração e auditoria;Sempre gratuito;Nunca falha;Funciona apenas em Linux;0;Código aberto permite que qualquer pessoa estude, modifique e compartilhe melhorias.

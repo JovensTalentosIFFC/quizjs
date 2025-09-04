@@ -200,7 +200,7 @@ function resetButtonsToDefault(){
     return acm;
   }, [])
 
-  let currentQuestion = currentLevel===1 ?  questions[parseInt(Math.random()*5)] : questions[parseInt(Math.random()*5)+5]
+  let currentQuestion = currentLevel===1 ?  questions[parseInt(Math.random()*20)] : questions[parseInt(Math.random()*20)+20]
   while(seenIdQuestions.includes(currentQuestion.id)){
     currentQuestion = currentLevel===1 ?  questions[parseInt(Math.random()*5)] : questions[parseInt(Math.random()*5)+5]
   }

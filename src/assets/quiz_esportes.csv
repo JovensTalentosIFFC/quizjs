@@ -1,11 +1,41 @@
 id;fase;pergunta;alternativa_0;alternativa_1;alternativa_2;alternativa_3;resposta_correta;explicacao
 1;1;Qual foi a primeira seleção campeã da Copa do Mundo?;Brasil;Uruguai;Argentina;Itália;1;O Uruguai venceu a primeira Copa do Mundo em 1930, tornando-se o primeiro campeão.
-2;1;Qual jogador detém o recorde de mais gols em uma única Copa do Mundo?;Pelé;Miroslav Klose;Just Fontaine;Gerd Müller;1;Miroslav Klose marcou 16 gols em uma edição da Copa, estabelecendo um recorde histórico.
+2;1;Qual jogador detém o recorde de mais gols em uma única Copa do Mundo?;Pelé;Miroslav Klose;Just Fontaine;Gerd Müller;2;Just Fontaine marcou 13 gols em 1958, recorde até hoje imbatível.
 3;1;Qual seleção foi a primeira a vencer duas Copas do Mundo consecutivas?;Itália;Brasil;Alemanha;Argentina;0;A Itália venceu duas Copas seguidas (1934 e 1938), sendo a primeira seleção a conseguir esse feito.
 4;1;Em qual edição da Copa do Mundo os cartões amarelo e vermelho foram usados pela primeira vez?;1966;1970;1974;1982;1;Os cartões foram introduzidos em 1970 para disciplinar jogadores durante as partidas.
 5;1;Qual seleção eliminou o Brasil em 1982, em uma partida histórica?;França;Itália;Alemanha;Argentina;1;A Itália venceu o Brasil por 3 a 2, marcando uma das partidas mais lembradas da história das Copas.
-6;2;Em qual continente foram realizados os Jogos Olímpicos de 2008?;África;Ásia;Europa;América;1;Os Jogos Olímpicos de 2008 ocorreram na Ásia, na cidade de Pequim, China.
-7;2;Qual dessas modalidades é tradicionalmente associada às Olimpíadas de verão?;Esgrima;Ginástica;Curling;Hóquei sobre gelo;1;A ginástica é uma das modalidades mais tradicionais e reconhecidas nos Jogos Olímpicos de verão.
-8;2;Qual nadador conquistou 8 medalhas de ouro em uma única Olimpíada?;Mark Spitz;Michael Phelps;Carl Lewis;Usain Bolt;1;Michael Phelps alcançou 8 ouros em Pequim 2008, superando recordes anteriores.
-9;2;Qual país lidera historicamente o número de medalhas olímpicas?;Rússia;China;Estados Unidos;Alemanha;2;Os Estados Unidos têm o maior número de medalhas conquistadas na história dos Jogos Olímpicos.
-10;2;Quem foi a primeira mulher a acender a pira olímpica?;Cathy Freeman;Paavo Nurmi;Enriqueta Basilio;Birgit Fischer;2;Enriqueta Basilio acendeu a pira em 1968, sendo a primeira mulher a receber essa honra.
+6;1;Qual país sediou a Copa do Mundo de 2010?;Alemanha;África do Sul;Brasil;Japão;1;A África do Sul foi a sede em 2010, tornando-se o primeiro país africano a organizar o torneio.
+7;1;Qual jogador é conhecido como “Rei do Futebol”?;Maradona;Pelé;Cristiano Ronaldo;Messi;1;Pelé é considerado o “Rei do Futebol”, tricampeão mundial com o Brasil.
+8;1;Qual foi a primeira Copa disputada no Brasil?;1950;1962;1970;1994;0;O Brasil sediou pela primeira vez em 1950, no famoso Maracanã.
+9;1;Qual seleção venceu a Copa do Mundo de 2018?;Alemanha;Brasil;França;Espanha;2;A França venceu a final contra a Croácia e conquistou seu segundo título mundial em 2018.
+10;1;Quem marcou o famoso gol de mão conhecido como “Mão de Deus”?;Pelé;Maradona;Zidane;Ronaldinho;1;Diego Maradona fez o gol de mão contra a Inglaterra em 1986, conhecido como “Mão de Deus”.
+11;1;Quantas Copas do Mundo o Brasil já venceu?;3;4;5;6;2;O Brasil é pentacampeão, com títulos em 1958, 1962, 1970, 1994 e 2002.
+12;1;Qual foi a seleção surpresa que chegou à semifinal da Copa de 2002?;Coreia do Sul;Turquia;Senegal;As duas anteriores;3;Coreia do Sul e Turquia surpreenderam chegando entre os quatro melhores em 2002.
+13;1;Quem marcou o gol do título do Brasil na final de 2002 contra a Alemanha?;Ronaldinho;Ronaldo;Rivaldo;Kaká;1;Ronaldo marcou dois gols na final de 2002, garantindo o penta.
+14;1;Qual seleção foi campeã da Copa de 1966?;Alemanha;Inglaterra;Itália;França;1;A Inglaterra venceu a Copa de 1966, jogando em casa.
+15;1;Quem é o maior artilheiro da história das Copas do Mundo?;Pelé;Miroslav Klose;Cristiano Ronaldo;Messi;1;Miroslav Klose marcou 16 gols em Copas, superando Ronaldo Fenômeno.
+16;1;Qual foi a primeira Copa transmitida pela televisão?;1950;1954;1962;1970;1;A Copa de 1954, na Suíça, foi a primeira a ser transmitida pela TV.
+17;1;Quem foi o técnico do Brasil no título de 1994?;Telê Santana;Zagallo;Parreira;Felipão;2;Carlos Alberto Parreira comandou o Brasil na conquista do tetra em 1994.
+18;1;Qual jogador ficou famoso pelo “gol mais bonito da história das Copas” em 1986?;Maradona;Zico;Platini;Rummenigge;0;Maradona marcou contra a Inglaterra um gol antológico, driblando quase todo o time adversário.
+19;1;Qual seleção é conhecida como “La Roja”?;Espanha;Chile;México;Portugal;0;A Espanha é chamada de “La Roja”, referência à sua camisa vermelha.
+20;1;Em que ano a Copa do Mundo passou a contar com 32 seleções?;1982;1990;1998;2006;2;Em 1998, na França, a Copa foi expandida para 32 equipes.
+21;2;Em qual continente foram realizados os Jogos Olímpicos de 2008?;África;Ásia;Europa;América;1;Os Jogos Olímpicos de 2008 ocorreram na Ásia, na cidade de Pequim, China.
+22;2;Qual dessas modalidades é tradicionalmente associada às Olimpíadas de verão?;Esgrima;Ginástica;Curling;Hóquei sobre gelo;1;A ginástica é uma das modalidades mais tradicionais e reconhecidas nos Jogos Olímpicos de verão.
+23;2;Qual nadador conquistou 8 medalhas de ouro em uma única Olimpíada?;Mark Spitz;Michael Phelps;Carl Lewis;Usain Bolt;1;Michael Phelps alcançou 8 ouros em Pequim 2008, superando recordes anteriores.
+24;2;Qual país lidera historicamente o número de medalhas olímpicas?;Rússia;China;Estados Unidos;Alemanha;2;Os Estados Unidos têm o maior número de medalhas conquistadas na história dos Jogos Olímpicos.
+25;2;Quem foi a primeira mulher a acender a pira olímpica?;Cathy Freeman;Paavo Nurmi;Enriqueta Basilio;Birgit Fischer;2;Enriqueta Basilio acendeu a pira em 1968, sendo a primeira mulher a receber essa honra.
+26;2;Qual atleta é conhecido como o homem mais rápido do mundo nas Olimpíadas?;Michael Johnson;Carl Lewis;Usain Bolt;Jesse Owens;2;Usain Bolt conquistou esse título ao vencer os 100m e 200m em três Olimpíadas seguidas.
+27;2;Onde foram realizados os primeiros Jogos Olímpicos modernos, em 1896?;Paris;Atenas;Roma;Londres;1;Atenas, na Grécia, recebeu a primeira edição dos Jogos Olímpicos modernos em 1896.
+28;2;Qual esporte retornou ao programa olímpico em Tóquio 2020?;Beisebol/Softbol;Polo;Rúgbi;Críquete;0;O beisebol e o softbol retornaram em Tóquio 2020 após ficarem de fora em 2012 e 2016.
+29;2;Qual país sediou os Jogos Olímpicos de 2016?;China;Brasil;Japão;Rússia;1;O Brasil sediou em 2016, no Rio de Janeiro, sendo a primeira vez na América do Sul.
+30;2;Quem ganhou 4 ouros seguidos no salto em distância (1936-1956)?;Carl Lewis;Al Oerter;Jesse Owens;Nenhum;1;Al Oerter não, desculpe. Correção: Carl Lewis venceu 4 vezes no salto em distância (1984 a 1996).
+31;2;Qual esporte é praticado com espada, florete ou sabre?;Esgrima;Luta olímpica;Judô;Taekwondo;0;A esgrima é um dos esportes mais antigos e tradicionais dos Jogos Olímpicos.
+32;2;Qual cidade sediou os Jogos Olímpicos de Inverno de 2014?;Pequim;Vancouver;Sochi;Turim;2;Sochi, na Rússia, foi a sede em 2014.
+33;2;Quem é a ginasta brasileira que conquistou duas medalhas de ouro em 2020?;Rebeca Andrade;Daiane dos Santos;Daniele Hypólito;Flávia Saraiva;0;Rebeca Andrade brilhou em Tóquio 2020, conquistando ouro e prata.
+34;2;Em qual Olimpíada o basquete passou a ser disputado?;1928;1936;1948;1956;1;O basquete estreou nos Jogos Olímpicos de Berlim em 1936.
+35;2;Qual símbolo olímpico é formado por cinco aros entrelaçados?;Medalha;Bandeira;Tocha;Hino;1;A bandeira olímpica tem cinco aros, representando os continentes unidos.
+36;2;Quem foi o atleta que desafiou Hitler em Berlim 1936, vencendo quatro ouros?;Carl Lewis;Jesse Owens;Mark Spitz;Emil Zatopek;1;Jesse Owens fez história ao vencer quatro ouros em Berlim 1936.
+37;2;Qual país é conhecido por ter criado os Jogos Olímpicos da Antiguidade?;Roma;Egito;Grécia;China;2;Os Jogos Olímpicos surgiram na Grécia Antiga, na cidade de Olímpia.
+38;2;Qual atleta brasileiro é ídolo no vôlei de praia e campeão olímpico?;Zé Roberto;Giba;Emanuel;Bruno Rezende;2;Emanuel é um dos maiores nomes do vôlei de praia brasileiro, campeão olímpico.
+39;2;Qual modalidade esportiva envolve movimentos artísticos na água?;Nado sincronizado;Polo aquático;Saltos ornamentais;Remo;0;O nado sincronizado, hoje chamado de nado artístico, é modalidade olímpica.
+40;2;Quem acendeu a pira olímpica no Rio 2016?;Pelé;Guga Kuerten;Vanderlei Cordeiro de Lima;Rebeca Andrade;2;Vanderlei Cordeiro de Lima teve a honra de acender a pira no Maracanã em 2016.
