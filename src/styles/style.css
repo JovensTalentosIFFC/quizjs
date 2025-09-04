@@ -19,27 +19,27 @@ body{
 }
 
 .inicio button, .gincana button {
-  width: 300px;
-  height: 305px;
+  width: 350px;
+  height: 135px;
   font-family: 'Poppins', sans-serif;
-  font-size: 28px;
+  font-size: 40px;
   font-weight: 600;
-  color: white;
+  color: rgb(253, 255, 227);
   text-align: center;
-  border: none;
   border-radius: 12px;
-  background: linear-gradient(135deg, #afffB3, #70e000);
+  background: linear-gradient(135deg, #0b9033, #88b14d);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  margin-top: 500px;
-  margin-right: 50px;
-  margin-left: 50px;
+  margin-top: 770px;
+  margin-right: 90px;
+  margin-left: 90px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
   transition: all 0.3s ease;
+  border: none;
 }
 
 button p{
