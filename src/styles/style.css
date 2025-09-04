@@ -18,29 +18,41 @@ body{
    align-items: center;
 }
 
-@font-face{
-  font-family: 'fonteBotoes';
-  src: url(/src/assets/STENCIL.TTF) format('truetype');
-}
-
-.inicio button, .gincana button{
+.inicio button, .gincana button {
   width: 300px;
-  height: 85px;
+  height: 305px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: white;
   text-align: center;
   border: none;
-  font-family: 'Poppins', sans-serif;
-  font-size: 30px;
-  border-radius: 5px;
-  background-color: rgb(175, 255, 179);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #afffB3, #70e000);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  margin-top: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 50px;
+  margin-top: 500px;
   margin-right: 50px;
   margin-left: 50px;
-  
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  transition: all 0.3s ease;
 }
 
+button p{
+  font-size: 1rem;
+  width: 90%;
+}
 
+.inicio button:hover, .gincana button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.inicio button:active, .gincana button:active {
+  transform: translateY(1px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}

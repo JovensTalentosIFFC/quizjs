@@ -9,7 +9,7 @@ const optionsContainer = document.querySelector('.respostas form .labels');
 
 const letters = ['A) ', 'B) ', 'C) ', 'D) '];
 
-let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=40;
+let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=15;
 
 const lifeImg = document.querySelector('.menu .vida img');
 const scoreImg = document.querySelector('.avanco img');

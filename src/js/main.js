@@ -5,7 +5,7 @@ localStorage.clear();
 
 const redirectToQuestions = () =>{
   localStorage.setItem('solo', 1);
-  window.location = 'selectTheme.html'
+  window.location = 'questions.html'
 }
 
 const redirectToBattle = () =>{
