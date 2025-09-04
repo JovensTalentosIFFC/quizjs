@@ -1,4 +1,6 @@
 
+localStorage.clear();
+
 const redirectToBattle = (e) =>{
   console.log(e.textContent);
   localStorage.setItem('theme', e.textContent);

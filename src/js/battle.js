@@ -9,7 +9,11 @@ const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
 const themeEndPopup = document.querySelector('.theme');
 const tiebreak = document.querySelector('.desempate');
-let optionsLength=4, questionsPerLevel= +localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=15;
+let optionsLength=4, questionsPerLevel= +localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=10;
+
+
+
+
 const personagem = document.querySelector('.perguntaContainer img');
 const letters = ["A) ","B) ","C) ","D) "];
 
@@ -34,13 +38,18 @@ let correctAnswersTeam2 = 0 || +localStorage.getItem('correctAnswersTeam2');
 scoreTime1Span.textContent = scoreTime1;
 scoreTime2Span.textContent = scoreTime2;
 
-let finalLevels = [ 4, 9, 14];
+
+let finalLevels = [ 4, 9];
 // let scores = {
   //   scoreTime1: 0 || +localStorage.getItem('scoreTime1'),
   //   scoreTime2: 0 || +localStorage.getItem('scoreTime2')
   // }
   
   let currentLevel = +localStorage.getItem('currentLevel') || 1;
+
+  let seenIdQuestions=[] || JSON.parse(localStorage.getItem('seenIdQuestions'));
+  let seenQuestions = +localStorage.getItem('seenQuestions') || 0;
+
   let currentTheme = localStorage.getItem('theme');
   document.querySelector('body').style.backgroundImage = `url('./assets/Projeto-Quiz/tela${currentTheme}.png')`
   let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
@@ -58,6 +67,8 @@ if (wrongAnswer && wrongAnswer !== 'false') {
 } else {
   wrongAnswer = false;
 }
+
+
 
 if((currentQuestionId-1)%5===0 && currentQuestionId>1){
   questionsPerLevel=4;
@@ -344,13 +355,16 @@ function handleSkip() {
 
 
   if(currentQuestionId >= questionsLength-1){
-    if(scoreTime1>scoreTime2){
-      window.location = './winTime1.html';
-      return;
-    }
-    else if(scoreTime2>scoreTime1){
-      window.location = './winTime2.html';
-      return;
+      if(correctAnswersTeam1!==correctAnswersTeam2 || (correctAnswersTeam1 === correctAnswersTeam2 && (scoreTime1>scoreTime2 || scoreTime1<scoreTime2))){ 
+        if(scoreTime1>scoreTime2){
+            window.location = './winTime1.html';
+            return;
+          
+        }
+        else if(scoreTime2>scoreTime1){
+          window.location = './winTime2.html';
+          return;
+        }
     }
   }
 
@@ -392,13 +406,13 @@ function handleSkip() {
   localStorage.setItem('currentQuestionId', currentQuestionId);
   localStorage.setItem('currentLevel', currentLevel);
 
-
   window.location.reload();
 }
 
 selectTime1.addEventListener('click', () =>{
   selectTime1.disabled = true;
   selectTime1.textContent = 'Selecionado';
+  if(selectTime2.textContent==='Selecionado') selectTime2.textContent='Selecionar';
   localStorage.setItem( "currentTime" , "Time1" )
   selectTime2.disabled = false;
 })
@@ -406,6 +420,7 @@ selectTime1.addEventListener('click', () =>{
 selectTime2.addEventListener('click', () =>{
   selectTime2.disabled=true;
   selectTime2.textContent = 'Selecionado';
+  if(selectTime1.textContent==='Selecionado') selectTime1.textContent='Selecionar';
   localStorage.setItem( "currentTime", "Time2" )
   selectTime1.disabled=false;
 })

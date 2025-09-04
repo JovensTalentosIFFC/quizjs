@@ -185,7 +185,7 @@ button {
 
 .respostas{
   width: 600px;
-  height: 450px;
+  max-height: 750px;
   background-color: rgb(255, 255, 255);
   padding: 30px;
   border-radius: 20px;
