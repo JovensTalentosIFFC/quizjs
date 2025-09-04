@@ -154,7 +154,6 @@ function disableButtonsAndSkip(currentQuestion){
   // explanation
   personagem.src = './assets/Projeto-Quiz/professor.png';
   question.textContent = currentQuestion.explanation;
-  question.style.fontSize='1rem'
 }
 
 function resetButtonsToDefault(){
@@ -389,7 +388,7 @@ function handleSkip() {
   if(seenQuestions===4){
     questionsPerLevel=4;
     localStorage.setItem('questionsPerLevel', 4)
-    if(correctAnswersTeam1===correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)){
+    if((correctAnswersTeam1===correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)) || (scoreTime1===scoreTime2 && currentLevel===2)){
       console.log('empate')
       questionsPerLevel=5;
       localStorage.setItem('questionsPerLevel', 5);
@@ -412,18 +411,28 @@ function handleSkip() {
   window.location.reload();
 }
 
-selectTime1.addEventListener('click', () =>{
+const selectTime1Function = () =>{
   selectTime1.disabled = true;
   selectTime1.textContent = 'Selecionado';
   if(selectTime2.textContent==='Selecionado') selectTime2.textContent='Selecionar';
   localStorage.setItem( "currentTime" , "Time1" )
   selectTime2.disabled = false;
-})
+}
 
-selectTime2.addEventListener('click', () =>{
+const selectTime2Function = () =>{
   selectTime2.disabled=true;
   selectTime2.textContent = 'Selecionado';
   if(selectTime1.textContent==='Selecionado') selectTime1.textContent='Selecionar';
   localStorage.setItem( "currentTime", "Time2" )
   selectTime1.disabled=false;
+}
+
+selectTime1.addEventListener('click', selectTime1Function)
+document.addEventListener('keydown', ({ key }) =>{
+  if(key==='1') selectTime1Function();
+})
+
+selectTime2.addEventListener('click', selectTime2Function);
+document.addEventListener('keydown', ({ key }) =>{
+  if(key==='2') selectTime2Function();
 })

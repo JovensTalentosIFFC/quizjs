@@ -2,7 +2,7 @@ id;fase;pergunta;alternativa_0;alternativa_1;alternativa_2;alternativa_3;respost
 1;1;Qual é a principal diferença entre a Internet e a World Wide Web?;A Internet é a rede, e a Web é um serviço dentro dela;A Internet é apenas um serviço;A Web é a rede inteira;São exatamente a mesma coisa;0;A Internet é a infraestrutura global de redes, enquanto a Web é um serviço que funciona sobre ela.
 2;1;Qual protocolo garante que os dados cheguem corretamente a um computador na rede?;TCP;IP;HTTP;FTP;0;O TCP garante a entrega confiável de pacotes de dados, mesmo que sejam enviados em partes.
 3;1;O que significa URL?;Uniform Resource Locator;Universal Resource Link;Unique Resource Location;Unified Resource Line;0;URL identifica endereços de sites na Web de forma padronizada.
-4;1;Por que o HTTPS é mais seguro que o HTTP?;Usa criptografia para proteger dados;É mais rápido;Funciona offline;Evita vírus;0;HTTPS combina HTTP com criptografia SSL/TLS para proteger a comunicação.
+4;1;Por que o HTTPS é mais seguro que o HTTP?;Porque utiliza criptografia para proteger a comunicação;Porque autentica a identidade do servidor;Porque impede modificações nas páginas durante a transmissão;Porque reduz o risco de ataques de interceptação;0;O HTTPS combina HTTP com SSL/TLS, adicionando criptografia para proteger os dados transmitidos.
 5;1;O que significa Wi-Fi?;Wireless Fidelity;Wide Fiber;World File;Wireless Function;0;Wi-Fi permite conexão sem fio de dispositivos à Internet.
 6;1;Qual tecnologia permite que um computador obtenha automaticamente um endereço IP?;DHCP;DNS;SMTP;FTP;0;O DHCP atribui endereços IP automaticamente, simplificando a conexão em redes.
 7;1;Qual é a função do DNS?;Traduzir nomes de sites em endereços IP;Enviar arquivos grandes;Gerar senhas;Proteger contra vírus;0;O DNS converte nomes de sites em endereços que os computadores conseguem entender.
@@ -14,24 +14,24 @@ id;fase;pergunta;alternativa_0;alternativa_1;alternativa_2;alternativa_3;respost
 13;1;Qual protocolo permite acessar e-mails armazenados em servidores?;IMAP;SMTP;FTP;DNS;0;IMAP permite gerenciar e-mails diretamente no servidor, sem precisar baixar.
 14;1;Qual recurso permite que sites carreguem mais rápido armazenando dados temporários?;Cache;Firewall;Proxy;VPN;0;O cache mantém dados temporários localmente para acelerar o carregamento.
 15;1;O que significa HTTPS?;HTTP seguro com criptografia;HTTP rápido;Protocolo de servidor;HTTP offline;0;HTTPS usa criptografia para proteger a comunicação entre navegador e site.
-16;1;Qual tecnologia permite a comunicação sem fio entre dispositivos próximos?;Bluetooth;Wi-Fi;NFC;Infrared;0;O Bluetooth conecta dispositivos próximos de forma sem fio.
+16;1;Qual tecnologia sem fio é mais indicada para conectar dispositivos pessoais, como fones de ouvido, teclados e mouses, a curtas distâncias?;Bluetooth;Wi-Fi;NFC;Infrared;0;O Bluetooth é ideal para conectar dispositivos pessoais sem fio a curta distância, enquanto Wi-Fi é voltado para redes maiores e NFC/Infrared têm alcance ainda menor ou aplicações mais específicas.
 17;1;Qual navegador foi criado pelo Google?;Chrome;Firefox;Edge;Safari;0;O Google lançou o navegador Chrome em 2008.
 18;1;Qual é a função de um proxy?;Armazenar conteúdo temporário;Bloquear vírus;Gerar endereços IP;Gerenciar hardware;0;Um proxy armazena conteúdo em cache, acelerando o acesso a sites visitados.
 19;1;O que é um endereço IP?;Identificador de dispositivo na rede;Senha de acesso;Protocolo de e-mail;Site na Web;0;O IP identifica cada dispositivo conectado a uma rede.
 20;1;O que é um navegador web?;Programa que exibe páginas da Internet;Software antivírus;Hardware de conexão;Servidor de e-mail;0;O navegador interpreta códigos de páginas e exibe o conteúdo para o usuário.
 21;2;Qual componente é considerado o “cérebro” do computador?;CPU;GPU;RAM;SSD;0;A CPU executa instruções e coordena as operações do computador.
 22;2;O que faz a GPU?;Renderiza gráficos e imagens;Armazena dados;Processa cálculos matemáticos;Controla energia;0;A GPU processa gráficos em jogos e programas visuais.
-23;2;Qual é a função principal da RAM?;Armazenar dados temporários;Processar gráficos;Executar cálculos;Resfriar a CPU;0;A RAM guarda temporariamente dados em uso pelo computador.
+23;2;Qual é a função principal da RAM?;Armazenar dados temporários;Processar gráficos;Executar cálculos;Armazenar dados permanentes de forma aleatória;0;A RAM guarda temporariamente dados em uso pelo computador.
 24;2;O que faz o SSD?;Armazena dados rapidamente;Renderiza imagens;Executa cálculos;Controla energia;0;O SSD é usado para armazenamento rápido de dados.
 25;2;O que faz a placa-mãe?;Conecta e coordena componentes do computador;Renderiza gráficos;Resfria a CPU;Criptografa dados;0;A placa-mãe conecta CPU, memória, GPU e outros componentes.
 26;2;Qual dispositivo é usado para entrada de dados?;Teclado;Monitor;Impressora;Caixa de som;0;O teclado permite digitar e enviar informações ao computador.
 27;2;Qual memória mantém dados mesmo sem energia?;ROM;RAM;Cache;Registrador;0;A memória ROM mantém dados gravados permanentemente.
-28;2;Qual software protege contra vírus?;Antivírus;Editor de texto;Navegador;Planilha;0;O antivírus detecta e remove softwares maliciosos.
+28;2;Qual é a função principal, presente em praticamente todos os antivírus modernos?;Monitorar o sistema em tempo real;Bloquear sites suspeitos;Detectar tentativas de phishing;Verificar anexos de e-mail;0;Embora antivírus atuais possam incluir bloqueio de sites e filtros de phishing, a função essencial e comum a todos é o monitoramento em tempo real para prevenir infecções.
 29;2;O que significa BIOS?;Basic Input Output System;Binary Input Output System;Basic Internal Operating System;Basic Internet Output System;0;BIOS é um firmware essencial que inicia o computador.
 30;2;Qual é a função de um cooler?;Resfriar componentes;Aumentar armazenamento;Processar gráficos;Executar instruções;0;O cooler mantém a temperatura do processador em níveis adequados.
-31;2;Qual software é usado para criar e editar documentos?;Editor de texto;Planilha;Antivírus;Navegador;0;Um editor de texto permite criar e modificar arquivos.
+31;2;Qual característica distingue principalmente um software de planilhas em relação a um editor de texto?;Permite cálculos automáticos e fórmulas;Aceita apenas textos sem imagens;Não pode salvar arquivos;Funciona apenas conectado à internet;0;Os softwares de planilhas permitem organizar dados em tabelas e aplicar fórmulas, o que os diferencia dos editores de texto.
 32;2;O que é software open source?;Código aberto que pode ser estudado e modificado;Software sempre gratuito;Software exclusivo para servidores;Software sem atualizações;0;Open source permite auditoria, colaboração e melhorias no código.
-33;2;Qual componente armazena dados permanentemente?;HD/SSD;RAM;Cache;GPU;0;Discos rígidos e SSDs mantêm informações mesmo sem energia.
+33;2;Qual componente armazena dados permanentemente?;HD/SSD;Memória RAM;Memória Cache;GPU;0;Discos rígidos e SSDs mantêm informações mesmo sem energia.
 34;2;O que significa GUI?;Graphical User Interface;General User Input;Global User Interaction;Graphics Unified Interface;0;GUI é a interface gráfica que facilita o uso de programas.
 35;2;Qual componente processa cálculos e instruções?;CPU;GPU;RAM;SSD;0;A CPU executa cálculos e coordena processos do computador.
 36;2;O que faz a memória cache?;Armazena dados temporários para agilizar a CPU;Guarda arquivos grandes;Processa gráficos;Resfria componentes;0;A cache agiliza o acesso da CPU a dados frequentemente usados.
