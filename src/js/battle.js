@@ -29,8 +29,6 @@ const currentTime = localStorage.getItem('currentTime');
 
 let scoreTime1 = 0 || +localStorage.getItem('scoreTime1');
 let scoreTime2 = 0 || +localStorage.getItem('scoreTime2');
-let correctAnswersTeam1 = 0 || +localStorage.getItem('correctAnswersTeam1');
-let correctAnswersTeam2 = 0 || +localStorage.getItem('correctAnswersTeam2');
 scoreTime1Span.textContent = scoreTime1;
 scoreTime2Span.textContent = scoreTime2;
 
@@ -74,12 +72,6 @@ if(currentLevel===2 && seenQuestions===1){
   setTimeout(() =>{
     endPopup.classList.add('shown');
   }, 500)
-  correctAnswersTeam1=0;
-  correctAnswersTeam2=0;
-  localStorage.setItem('correctAnswersTeam1', correctAnswersTeam1);
-  localStorage.setItem('correctAnswersTeam2', correctAnswersTeam2);
-
-  
 }
 numPergunta.textContent = `${((seenQuestions-1)%5)+1}/${questionsPerLevel}`
 
@@ -305,14 +297,10 @@ function resetButtonsToDefault(){
         scoreTime1+=100;
         localStorage.setItem('scoreTime1', scoreTime1);
         scoreTime1Span.textContent = scoreTime1;
-        correctAnswersTeam1++;
-        localStorage.setItem('correctAnswersTeam1', correctAnswersTeam1);
       } else if(localStorage.getItem('currentTime') === "Time2"){
         scoreTime2+=100;
         localStorage.setItem('scoreTime2', scoreTime2);
         scoreTime2Span.textContent = scoreTime2;
-        correctAnswersTeam2++;
-        localStorage.setItem('correctAnswersTeam2', correctAnswersTeam2);
       }
 
 
@@ -356,7 +344,7 @@ function handleSkip() {
 
 
   if(seenQuestions===4 && currentLevel===2){
-      if(correctAnswersTeam1!==correctAnswersTeam2 || (correctAnswersTeam1 === correctAnswersTeam2 && (scoreTime1>scoreTime2 || scoreTime1<scoreTime2))){ 
+      if(scoreTime1!==scoreTime2){ 
         if(scoreTime1>scoreTime2){
             window.location = './winTime1.html';
             return;
