@@ -388,12 +388,12 @@ function handleSkip() {
   if(seenQuestions===4){
     questionsPerLevel=4;
     localStorage.setItem('questionsPerLevel', 4)
-    if((correctAnswersTeam1===correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)) || (scoreTime1===scoreTime2 && currentLevel===2)){
+    if(scoreTime1===scoreTime2 && currentLevel===2){
       console.log('empate')
       questionsPerLevel=5;
       localStorage.setItem('questionsPerLevel', 5);
       
-    } else if((correctAnswersTeam1!==correctAnswersTeam2 && (correctAnswersTeam1>0 || correctAnswersTeam2>0)) || correctAnswersTeam1===0 && correctAnswersTeam2===0){
+    } else{
       seenQuestions=0;
       localStorage.setItem('seenQuestions', seenQuestions)
       console.log('not empate')
