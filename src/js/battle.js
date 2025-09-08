@@ -33,7 +33,6 @@ scoreTime1Span.textContent = scoreTime1;
 scoreTime2Span.textContent = scoreTime2;
 
 
-let finalLevels = [ 4, 9];
 // let scores = {
   //   scoreTime1: 0 || +localStorage.getItem('scoreTime1'),
   //   scoreTime2: 0 || +localStorage.getItem('scoreTime2')

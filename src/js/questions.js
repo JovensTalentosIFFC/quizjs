@@ -1,4 +1,3 @@
-
 const numberQuestion = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
 const answerButton = document.querySelector('form .answerButton');
@@ -6,11 +5,10 @@ const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
 
-
 const letters = ['A) ', 'B) ', 'C) ', 'D) '];
 
-let optionsLength=4, questionsPerLevel=5, currentFaseAndTheme, questionsLength=15;
-
+let optionsLength=4, questionsPerLevel=4, currentFaseAndTheme, questionsLength=15;
+let totalLevels=3, totalQuestionsPerLevel=5;
 const lifeImg = document.querySelector('.menu .vida img');
 const scoreImg = document.querySelector('.avanco img');
 const clueImg = document.querySelector('.menu .ajuda img');
@@ -24,23 +22,15 @@ scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
 lifeImg.src = `./assets/Projeto-Quiz/${lifes-1}vidas.png`;
 clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
 
-
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
-let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
+let seenQuestions = +localStorage.getItem('seenQuestions') || 1;
+let seenIdQuestions = JSON.parse(localStorage.getItem('seenIdQuestions')) || [];
 
-// CORREÇÃO: Verificar se wrongAnswer existe e fazer parse correto
-let wrongAnswer = localStorage.getItem('wrongAnswer');
+// Restaurar estado salvo
+let wrongAnswer = JSON.parse(localStorage.getItem('wrongAnswer') || 'false');
+let correctAnswer = JSON.parse(localStorage.getItem('correctAnswer') || 'false');
 let removedOption = localStorage.getItem('removedOption');
-if (wrongAnswer && wrongAnswer !== 'false') {
-  try {
-    wrongAnswer = JSON.parse(wrongAnswer);
-  } catch (e) {
-    wrongAnswer = false;
-  }
-} else {
-  wrongAnswer = false;
-}
 
 const form = document.querySelector('form');
 const background = Array.from(document.querySelectorAll('.background'))
@@ -55,8 +45,7 @@ const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
 
-if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
- // new level 
+if(currentLevel===totalLevels && seenQuestions===1){
   background[1].classList.add('shown');
   endSpan.textContent = currentLevel+1;
   setTimeout(() =>{
@@ -64,15 +53,12 @@ if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
   }, 500)
   localStorage.setItem('score', 0);
 
-  //personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
   lifes=4;
   lifeImg.src=`./assets/Projeto-Quiz/${lifes-1}vidas.png`
   localStorage.setItem('lifes', lifes)
   score=0;
   scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
   localStorage.setItem('score', score);
-
-  
 }
 
 nextLevel.addEventListener('click', () =>{
@@ -80,7 +66,7 @@ nextLevel.addEventListener('click', () =>{
   background[1].classList.remove('shown');
 })
 
-if(currentQuestionId===1){
+if(seenQuestions===1 && currentLevel===1){
   currentFaseAndTheme = [1, 'Árvores']
 
   levelText.textContent = `Fase: ${currentFaseAndTheme[0]}`;
@@ -116,23 +102,20 @@ class Question{
   }
 }
 
-
 function disableButtonsAndSkip(currentQuestion){
   clueButton.style.display='none'
   answerButton.textContent = 'Avançar'
   answerButton.classList.add('skip');
-  // explanation
   personagem.src = './assets/Projeto-Quiz/professor.png';
   question.textContent = currentQuestion.explanation;
-  question.style.fontSize='.8rem'
+  question.style.fontSize='1.2rem'
 }
 
 function resetButtonsToDefault(){
-  // CORREÇÃO: Restaura os botões para o estado inicial
-  clueButton.style.display='block'; // ou 'inline' dependendo do seu CSS
-  answerButton.textContent = 'Responder'; // ou o texto original
+  clueButton.style.display='block';
+  answerButton.textContent = 'Responder';
   answerButton.classList.remove('skip');
-  question.style.fontSize = ''; // Remove o fontSize customizado
+  question.style.fontSize = '';
 }
 
 (async () => {
@@ -148,32 +131,72 @@ function resetButtonsToDefault(){
       id,
       level,
       question,
-      options: {
-        0: a,
-        1: b,
-        2: c,
-        3: d
-      },
+      options: { 0: a, 1: b, 2: c, 3: d },
       correct,
       clue,
       explanation
     }))
     return acm;
   }, [])
-  const currentQuestion = questions[currentQuestionId-1];
-  if ((currentQuestionId - 1) % questionsPerLevel === 0) {
-  personagem.src = `./assets/Projeto-Quiz/coruja.png`; 
-}
-  numberQuestion.textContent = `Fase ${currentQuestion.level}`;
-  // CORREÇÃO: Só mostra a pergunta se não há erro anterior
-  if (!wrongAnswer) {
-    question.textContent = currentQuestion.question;
-  }
-  
-  let seenOption = [];
 
-  if(setupQuestion.length < optionsLength){
-    options.forEach((opt, idx)=>{
+  let currentQuestion;
+
+  // Restauração de questão errada
+  if (wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 3) {
+    const [selectedIndex, correctIndex, wrongQuestionId] = wrongAnswer;
+    currentQuestion = questions[wrongQuestionId - 1];
+
+    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+    question.textContent = currentQuestion.question;
+
+    options.forEach((opt, idx) =>{
+      opt.textContent = letters[idx] + currentQuestion.options[idx];
+    });
+
+    options[selectedIndex]?.classList.add('missed');
+    options[correctIndex]?.classList.add('selected');
+
+    optionsContainer.style.pointerEvents = 'none';
+    disableButtonsAndSkip(currentQuestion);
+
+  // Restauração de questão correta
+  } else if (correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length === 2) {
+    const [correctIndex, correctQuestionId] = correctAnswer;
+    currentQuestion = questions[correctQuestionId - 1];
+
+    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+    question.textContent = currentQuestion.question;
+
+    options.forEach((opt, idx) =>{
+      opt.textContent = letters[idx] + currentQuestion.options[idx];
+    });
+
+    options[correctIndex]?.classList.add('selected');
+
+    optionsContainer.style.pointerEvents = 'none';
+    disableButtonsAndSkip(currentQuestion);
+
+  } else {
+    // Carregar nova questão normalmente
+    currentQuestion = currentLevel===1 ?  
+      questions[parseInt(Math.random()*totalQuestionsPerLevel)] : 
+      questions[parseInt(Math.random()*totalQuestionsPerLevel)+totalQuestionsPerLevel];
+
+    while(seenIdQuestions.includes(currentQuestion.id)){
+      currentQuestion = currentLevel===1 ?  
+        questions[parseInt(Math.random()*5)] : 
+        questions[parseInt(Math.random()*5)+5];
+    }
+
+    seenIdQuestions.push(currentQuestion.id);
+    localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
+
+    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+    question.textContent = currentQuestion.question;
+
+    let seenOption = [];
+    if(setupQuestion.length < optionsLength){
+      options.forEach((opt, idx)=>{
         let randomOption = parseInt(Math.random()*optionsLength);
         while(seenOption.includes(randomOption)){
           randomOption = parseInt(Math.random()*optionsLength);
@@ -182,34 +205,15 @@ function resetButtonsToDefault(){
         setupQuestion += randomOption;
 
         opt.textContent = letters[idx] + currentQuestion.options[randomOption];
-    })
-    localStorage.setItem('setupQuestion', setupQuestion);
-  } else{
-    options.forEach((opt, idx) =>{
-      opt.textContent = letters[idx] + currentQuestion.options[setupQuestion[idx]];
-    })
+      })
+      localStorage.setItem('setupQuestion', setupQuestion);
+    } else{
+      options.forEach((opt, idx) =>{
+        opt.textContent = letters[idx] + currentQuestion.options[setupQuestion[idx]];
+      })
+    }
   }
   
-  // CORREÇÃO: Verifica se tem erro anterior e restaura estado
-  if(wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 2){
-    console.log('Restaurando estado de erro anterior...');
-    const [selectedIndex, correctIndex] = wrongAnswer;
-    
-    // Marca visualmente as respostas
-    if(options[selectedIndex]) {
-      options[selectedIndex].classList.add('missed');
-    }
-    if(options[correctIndex]) {
-      options[correctIndex].classList.add('selected');
-    }
-    
-    // Desabilita interação
-    optionsContainer.style.pointerEvents = 'none';
-    
-    // Configura interface para modo "já respondida"
-    disableButtonsAndSkip(currentQuestion);
-  }
-
   if(removedOption){
     options[removedOption].style.backgroundColor='grey';
     clueButton.disabled=true;
@@ -218,7 +222,6 @@ function resetButtonsToDefault(){
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    
     const selectedOptIndex = options.findIndex(opt => Array.from(opt.classList).includes('selected')) ?? -1
     const selectedOpt = options[selectedOptIndex];
     
@@ -226,16 +229,16 @@ function resetButtonsToDefault(){
       alert('Por favor, selecione uma opção!');
       return;
     }
-    
 
     optionsContainer.style.pointerEvents = 'none';
     let correctIndex = Array.from(setupQuestion).findIndex(k => k == currentQuestion.correct);
     
-    //wrong answer
     if(selectedOptIndex !== correctIndex){
+      // ERRO
       selectedOpt.classList.add('missed');
       options[correctIndex].classList.add('selected');
-      localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
+      localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex, +currentQuestion.id]));
+      localStorage.removeItem('correctAnswer');
 
       lifes--;
       if(lifes===1){
@@ -247,8 +250,11 @@ function resetButtonsToDefault(){
       if(lifes>0) lifeImg.src = `./assets/Projeto-Quiz/${lifes}vidas.png`;
       localStorage.setItem('lifes', lifes)
 
-    } else { // correct answer
+    } else { 
+      // ACERTO
       localStorage.removeItem('wrongAnswer');
+      localStorage.setItem('correctAnswer', JSON.stringify([correctIndex, +currentQuestion.id]));
+
       score++;
       scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`
       localStorage.setItem('score', score);
@@ -265,24 +271,19 @@ function resetButtonsToDefault(){
       options[correspondentIndex].style.backgroundColor = 'grey'
       options[correspondentIndex].style.pointerEvents = 'none';
       localStorage.setItem('removedOption', correspondentIndex);
-
     }
     clues--;
     if(clues>0) clueImg.src = clues-1 ? `./assets/Projeto-Quiz/${clues-1}ajuda.png` : null;
-    // if(clues===1){
-      //   clueImg
-      // }
-      localStorage.setItem('clues', clues);
-      if(clues===0){
+    localStorage.setItem('clues', clues);
+    if(clues===0){
       localStorage.setItem('clues', clues+1);
       background[2].classList.add('shown');
-        setTimeout(() =>{
-          advicePopup.querySelector('h2').textContent = 'Parece que você não tem mais dicas disponíveis...'
-          advicePopup.querySelector('button').textContent='Continuar';
-          advicePopup.classList.add('shown');
-        }, 500)
+      setTimeout(() =>{
+        advicePopup.querySelector('h2').textContent = 'Parece que você não tem mais dicas disponíveis...'
+        advicePopup.querySelector('button').textContent='Continuar';
+        advicePopup.classList.add('shown');
+      }, 500)
     }
-
   })
 
   restartButton.addEventListener('click', () =>{
@@ -298,7 +299,7 @@ function resetButtonsToDefault(){
 })()
 
 function selectOption(selectedOpt){
-  if (wrongAnswer) {
+  if (wrongAnswer || correctAnswer) {
     return;
   }
   
@@ -327,15 +328,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleSkip() {
-  console.log(currentQuestionId, questionsLength)
-  if(currentQuestionId >= questionsLength){
+  if(seenQuestions===4 && currentLevel===totalLevels){
       window.location = './win.html'
       return;
   }
 
-  console.log('Avançando questão...');
   localStorage.removeItem('removedOption');
   localStorage.removeItem('wrongAnswer');
+  localStorage.removeItem('correctAnswer');
   localStorage.removeItem('setupQuestion');
   
   optionsContainer.style.pointerEvents = 'all';
@@ -346,13 +346,13 @@ function handleSkip() {
   
   resetButtonsToDefault();
   
-  if((currentQuestionId-1)%questionsPerLevel===0 && currentQuestionId>1){
+  if(seenQuestions===4){
     currentLevel++;
+    seenQuestions=0;
   }
-
-  currentQuestionId++;
-  localStorage.setItem('currentQuestionId', currentQuestionId);
+  seenQuestions++;
   localStorage.setItem('currentLevel', currentLevel);
+  localStorage.setItem('seenQuestions', seenQuestions);
 
   window.location.reload();
 }
