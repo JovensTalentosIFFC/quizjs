@@ -11,3 +11,11 @@ const redirectToQuestions = () =>{
 const redirectToBattle = () =>{
   window.location = 'selectTheme.html'
 }
+
+const redirectToCustomization = () =>{
+  window.location = 'customization.html'  
+}
+
+const redirectToInfo = () =>{
+  window.location = 'info.html'
+}
