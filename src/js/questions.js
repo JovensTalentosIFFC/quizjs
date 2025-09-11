@@ -140,58 +140,32 @@ function resetButtonsToDefault(){
   }, [])
 
   let currentQuestion;
+  
 
-  // Restauração de questão errada
-  if (wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 3) {
-    const [selectedIndex, correctIndex, wrongQuestionId] = wrongAnswer;
-    currentQuestion = questions[wrongQuestionId - 1];
+// Se já existe questão salva, restaura
+if (localStorage.getItem('currentQuestionId')) {
+  const savedId = localStorage.getItem('currentQuestionId');
+  currentQuestion = questions.find(q => q.id == savedId);
+} else {
+  // Sorteia nova questão conforme fase
+  currentQuestion = currentLevel === 1
+    ? questions[parseInt(Math.random() * totalQuestionsPerLevel)]
+    : questions[parseInt(Math.random() * totalQuestionsPerLevel) + totalQuestionsPerLevel];
 
-    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
-    question.textContent = currentQuestion.question;
+  // Garante que não repita
+  while (seenIdQuestions.includes(currentQuestion.id)) {
+    currentQuestion = currentLevel === 1
+      ? questions[parseInt(Math.random() * totalQuestionsPerLevel)]
+      : questions[parseInt(Math.random() * totalQuestionsPerLevel) + totalQuestionsPerLevel];
+  }
 
-    options.forEach((opt, idx) =>{
-      opt.textContent = letters[idx] + currentQuestion.options[idx];
-    });
+  // Salva imediatamente a questão sorteada
+  localStorage.setItem('currentQuestionId', currentQuestion.id);
+  seenIdQuestions.push(currentQuestion.id);
+  localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
+}
 
-    options[selectedIndex]?.classList.add('missed');
-    options[correctIndex]?.classList.add('selected');
-
-    optionsContainer.style.pointerEvents = 'none';
-    disableButtonsAndSkip(currentQuestion);
-
-  // Restauração de questão correta
-  } else if (correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length === 2) {
-    const [correctIndex, correctQuestionId] = correctAnswer;
-    currentQuestion = questions[correctQuestionId - 1];
-
-    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
-    question.textContent = currentQuestion.question;
-
-    options.forEach((opt, idx) =>{
-      opt.textContent = letters[idx] + currentQuestion.options[idx];
-    });
-
-    options[correctIndex]?.classList.add('selected');
-
-    optionsContainer.style.pointerEvents = 'none';
-    disableButtonsAndSkip(currentQuestion);
-
-  } else {
-    // Carregar nova questão normalmente
-    currentQuestion = currentLevel===1 ?  
-      questions[parseInt(Math.random()*totalQuestionsPerLevel)] : 
-      questions[parseInt(Math.random()*totalQuestionsPerLevel)+totalQuestionsPerLevel];
-
-    while(seenIdQuestions.includes(currentQuestion.id)){
-      currentQuestion = currentLevel===1 ?  
-        questions[parseInt(Math.random()*5)] : 
-        questions[parseInt(Math.random()*5)+5];
-    }
-
-    seenIdQuestions.push(currentQuestion.id);
-    localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
-
-    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+  numberQuestion.textContent = `Fase ${currentQuestion.level}`;
     question.textContent = currentQuestion.question;
 
     let seenOption = [];
@@ -212,7 +186,39 @@ function resetButtonsToDefault(){
         opt.textContent = letters[idx] + currentQuestion.options[setupQuestion[idx]];
       })
     }
-  }
+
+  // Restauração de questão errada
+  if (wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 2) {
+    const [selectedIndex, correctIndex] = wrongAnswer;
+
+    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+    question.textContent = currentQuestion.question;
+
+    options.forEach((opt, idx) =>{
+      opt.textContent = letters[idx] + currentQuestion.options[idx];
+    });
+
+    options[selectedIndex]?.classList.add('missed');
+    options[correctIndex]?.classList.add('selected');
+
+    optionsContainer.style.pointerEvents = 'none';
+    disableButtonsAndSkip(currentQuestion);
+
+  // Restauração de questão correta
+  } else if (correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length === 1) {
+    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+    question.textContent = currentQuestion.question;
+
+    options.forEach((opt, idx) =>{
+      opt.textContent = letters[idx] + currentQuestion.options[idx];
+    });
+
+    options[correctAnswer]?.classList.add('selected');
+
+    optionsContainer.style.pointerEvents = 'none';
+    disableButtonsAndSkip(currentQuestion);
+
+  } 
   
   if(removedOption){
     options[removedOption].style.backgroundColor='grey';
@@ -237,7 +243,7 @@ function resetButtonsToDefault(){
       // ERRO
       selectedOpt.classList.add('missed');
       options[correctIndex].classList.add('selected');
-      localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex, +currentQuestion.id]));
+      localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
       localStorage.removeItem('correctAnswer');
 
       lifes--;
@@ -253,7 +259,7 @@ function resetButtonsToDefault(){
     } else { 
       // ACERTO
       localStorage.removeItem('wrongAnswer');
-      localStorage.setItem('correctAnswer', JSON.stringify([correctIndex, +currentQuestion.id]));
+      localStorage.setItem('correctAnswer', JSON.stringify([correctIndex]));
 
       score++;
       scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`
@@ -328,6 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleSkip() {
+  localStorage.removeItem('currentQuestionId')
   if(seenQuestions===4 && currentLevel===totalLevels){
       window.location = './win.html'
       return;
