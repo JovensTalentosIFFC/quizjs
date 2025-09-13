@@ -1,6 +1,6 @@
 id;fase;pergunta;alternativa_0;alternativa_1;alternativa_2;alternativa_3;resposta_correta;explicacao
 1;1;Qual foi a primeira seleção campeã da Copa do Mundo?;Brasil;Uruguai;Argentina;Itália;1;O Uruguai venceu a primeira Copa do Mundo em 1930, tornando-se o primeiro campeão.
-2;1;Qual jogador detém o recorde de mais gols em uma única Copa do Mundo?;Pelé;Miroslav Klose;Just Fontaine;Gerd Müller;2;Just Fontaine marcou 13 gols em 1958, recorde até hoje imbatível.
+2;1;Qual jogador detém o recorde de mais gols em uma única Copa do Mundo?;Pelé;Miroslav Klose;Just Fontaine;Gerd Müller;1;Just Fontaine marcou 13 gols em uma única copa do mundo, recorde até hoje imbatível.
 3;1;Qual seleção foi a primeira a vencer duas Copas do Mundo consecutivas?;Itália;Brasil;Alemanha;Argentina;0;A Itália venceu duas Copas seguidas (1934 e 1938), sendo a primeira seleção a conseguir esse feito.
 4;1;Em qual edição da Copa do Mundo os cartões amarelo e vermelho foram usados pela primeira vez?;1966;1970;1974;1982;1;Os cartões foram introduzidos em 1970 para disciplinar jogadores durante as partidas.
 5;1;Qual seleção eliminou o Brasil em 1982, em uma partida histórica?;França;Itália;Alemanha;Argentina;1;A Itália venceu o Brasil por 3 a 2, marcando uma das partidas mais lembradas da história das Copas.
@@ -28,13 +28,13 @@ id;fase;pergunta;alternativa_0;alternativa_1;alternativa_2;alternativa_3;respost
 27;2;Onde foram realizados os primeiros Jogos Olímpicos modernos, em 1896?;Paris;Atenas;Roma;Londres;1;Atenas, na Grécia, recebeu a primeira edição dos Jogos Olímpicos modernos em 1896.
 28;2;Qual esporte retornou ao programa olímpico em Tóquio 2020?;Beisebol/Softbol;Polo;Rúgbi;Críquete;0;O beisebol e o softbol retornaram em Tóquio 2020 após ficarem de fora em 2012 e 2016.
 29;2;Qual país sediou os Jogos Olímpicos de 2016?;China;Brasil;Japão;Rússia;1;O Brasil sediou em 2016, no Rio de Janeiro, sendo a primeira vez na América do Sul.
-30;2;Quem ganhou 4 ouros seguidos no salto em distância (1936-1956)?;Carl Lewis;Al Oerter;Jesse Owens;Nenhum;1;Al Oerter não, desculpe. Correção: Carl Lewis venceu 4 vezes no salto em distância (1984 a 1996).
+30;2;Quem ganhou 4 ouros seguidos no salto em distância (1936-1956)?;Carl Lewis;Al Oerter;Jesse Owens;Nenhum;1;Jesse Owens venceu 4 vezes no salto em distância nas olimpíadas em Berlim (1936).
 31;2;Qual esporte é praticado com espada, florete ou sabre?;Esgrima;Luta olímpica;Judô;Taekwondo;0;A esgrima é um dos esportes mais antigos e tradicionais dos Jogos Olímpicos.
 32;2;Qual cidade sediou os Jogos Olímpicos de Inverno de 2014?;Pequim;Vancouver;Sochi;Turim;2;Sochi, na Rússia, foi a sede em 2014.
 33;2;Quem é a ginasta brasileira que conquistou duas medalhas de ouro em 2020?;Rebeca Andrade;Daiane dos Santos;Daniele Hypólito;Flávia Saraiva;0;Rebeca Andrade brilhou em Tóquio 2020, conquistando ouro e prata.
 34;2;Em qual Olimpíada o basquete passou a ser disputado?;1928;1936;1948;1956;1;O basquete estreou nos Jogos Olímpicos de Berlim em 1936.
 35;2;Qual símbolo olímpico é formado por cinco aros entrelaçados?;Medalha;Bandeira;Tocha;Hino;1;A bandeira olímpica tem cinco aros, representando os continentes unidos.
-36;2;Quem foi o atleta que desafiou Hitler em Berlim 1936, vencendo quatro ouros?;Carl Lewis;Jesse Owens;Mark Spitz;Emil Zatopek;1;Jesse Owens fez história ao vencer quatro ouros em Berlim 1936.
+36;2;Qual é o nome dos mascotes dos jogos Olimpícos e Paralímpicos de 2016 (Rio de Janeiro, Brasil);Job e Garry;Pedro e Lucas;Vinícius e Tom;Emil e Robert;2;Vinícius e tom foram criados pela empresa de animação "Birdo". O design do Vinícius representa a vida selvagem brasileira, enquanto o design de Tom representa a vida vegetal brasileira.
 37;2;Qual país é conhecido por ter criado os Jogos Olímpicos da Antiguidade?;Roma;Egito;Grécia;China;2;Os Jogos Olímpicos surgiram na Grécia Antiga, na cidade de Olímpia.
 38;2;Qual atleta brasileiro é ídolo no vôlei de praia e campeão olímpico?;Zé Roberto;Giba;Emanuel;Bruno Rezende;2;Emanuel é um dos maiores nomes do vôlei de praia brasileiro, campeão olímpico.
 39;2;Qual modalidade esportiva envolve movimentos artísticos na água?;Nado sincronizado;Polo aquático;Saltos ornamentais;Remo;0;O nado sincronizado, hoje chamado de nado artístico, é modalidade olímpica.

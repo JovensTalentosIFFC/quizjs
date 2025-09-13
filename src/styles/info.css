@@ -1,0 +1,56 @@
+body{
+    background-image: url(/src/assets/Projeto-Quiz/Informações.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    flex-direction: column;
+    
+}
+
+h1, p, ul, li, button {
+    color: black;
+    text-align: center;
+    margin: 10px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 20px;
+}
+
+button{
+    background-color: rgb(37, 37, 74);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.botoes {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
