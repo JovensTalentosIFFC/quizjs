@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYQuiz</title>
+</head>
+<body>
+    <form>
+        <label for="slider1">Digite o número de fases que deseja: </label>
+        <input type="range" id="slider1" name="fases" min="1" max="10" value="5" oninput="atualizarValor('slider1')">
+        <span id="valor-slider1">5</span>
+        <input type="number" id="fase" min="1" max="10" placeholder="Digite o valor" onkeydown="verificaEnter(event, 'slider1', 'fase')">
+
+        <label for="slider2">Digite o número de questões por fase que deseja: </label>
+        <input type="range" id="slider2" name="questoes" min="2" max="50" value="24" oninput="atualizarValor('slider2')">
+        <span id="valor-slider2">24</span>
+        <input type="number" id="questao" min="2" max="50" placeholder="Digite o valor" onkeydown="verificaEnter(event, 'slider2', 'questao')">
+
+        <label for="slider3">Digite o número de vidas que deseja: </label>
+        <input type="range" id="slider3" name="vidas" min="1" max="10" value="5" oninput="atualizarValor('slider3')">
+        <span id="valor-slider3">5</span>
+        <input type="number" id="vida" min="1" max="10" placeholder="Digite o valor" onkeydown="verificaEnter(event, 'slider3', 'vida')">
+
+        <label for="slider4">Digite o número de ajudas que deseja: </label>
+        <input type="range" id="slider4" name="ajudas" min="1" max="10" value="5" oninput="atualizarValor('slider4')">
+        <span id="valor-slider4">5</span>
+        <input type="number" id="ajuda" min="1" max="10" placeholder="Digite o valor" onkeydown="verificaEnter(event, 'slider4', 'ajuda')">
+        
+        <p>Deseja personalizar os personagens?</p>
+        <button type="button" onclick="responder('sim') ">Sim</button>
+        <button type="button" onclick="responder('nao')">Não</button>
+        <p id="resposta"></p>
+        <div id="caixapersonagem" style="display: none; margin-top: 10px;">
+            <input type="personagem" id="personagem" min="1" max="10" placeholder="Ex: 5" onkeydown="verificaEnter(event)">
+        </div>
+        <div id="imagem" style="display: none;">
+            <input type="file" id="upload" accept="image/*">
+            <img id="preview" src="#" alt="Prévia da imagem">
+        </div>
+        <div id="botoes" style="display: none;">
+            <button type="button" onclick="answer('sim') ">Sim</button>
+            <button type="button" onclick="answer('nao')">Não</button>
+        </div>   
+        <div id="fundo" style="display: none;">
+            <input type="file" id="upload" accept="image/*">
+            <img id="fundo" src="#" alt="Sua imagem">
+        </div>
+        <script src="personalizacao.js"></script>
+    </form>
+</body>
+</html>
