@@ -13,7 +13,7 @@ const redirectToBattle = () =>{
 }
 
 const redirectToCustomization = () =>{
-  window.location = 'customization.html'  
+  window.location = 'personalizacao.html'  
 }
 
 const redirectToInfo = () =>{
