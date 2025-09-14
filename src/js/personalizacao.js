@@ -32,32 +32,104 @@ function verificaEnter(event, sliderId, inputId) {
   if (event.key === "Enter") {
     event.preventDefault();
     moverSlider(sliderId, inputId);
-    const personagem = document.getElementById('personagem').value;
   }
 }
 
 function responder(resposta) {
-      const resultado = document.getElementById('resposta');
+  const respostaP = document.getElementById('resposta');
+  const caixapersonagem = document.getElementById('caixapersonagem');
+  const uploadsContainer = document.getElementById('uploadsContainer');
+  const botoes = document.getElementById('botoes');
 
-      if (resposta === 'sim') {
-        resultado.textContent = 'Quantos?';
-        for(let i=0; i<document.getElementById('personagem'); i++) {
-        document.getElementById('imagem').style.display = 'block';
-        }
-        document.getElementById('imagem').style.display = 'block';
-        document.getElementById('caixapersonagem').style.display = 'block';
-      } else {
-        resultado.textContent = 'Deseja personalizar o fundo?';
-        document.getElementById('caixapersonagem').style.display = 'none';
-        document.getElementById('imagem').style.display = 'none';
-        document.getElementById('botoes').style.display = 'block';
-      }
-    }
+  if (resposta === 'sim') {
+    respostaP.textContent = 'Quantos personagens?';
+    caixapersonagem.style.display = 'block';
+    uploadsContainer.innerHTML = '';
+    botoes.style.display = 'none';
+  } else {
+    respostaP.textContent = 'Deseja personalizar o fundo?';
+    caixapersonagem.style.display = 'none';
+    uploadsContainer.innerHTML = '';
+    botoes.style.display = 'block';
+  }
+}
 
 function answer(resp) {
-    if(resp === 'sim') {
-       document.getElementById('fundo') .style.display = 'block ';
-    } else {
-        document.getElementById('fundo').style.display = 'none';
-    }
+  const fundo = document.getElementById('fundo');
+  if (resp === 'sim') {
+    fundo.style.display = 'block';
+  } else {
+    fundo.style.display = 'none';
+  }
 }
+
+function verEnter(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    const inputNum = event.target;
+    const n = parseInt(inputNum.value);
+    const container = document.getElementById('uploadsContainer');
+
+    container.innerHTML = '';
+
+    if (!isNaN(n) && n > 0 && n <= 10) {
+      for (let i = 1; i <= n; i++) {
+        const div = document.createElement('div');
+        div.className = 'upload-container';
+
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.id = `upload_${i}`;
+
+        const imgPreview = document.createElement('img');
+        imgPreview.id = `preview_${i}`;
+        imgPreview.className = 'preview';
+        imgPreview.style.display = 'none';
+        imgPreview.style.maxWidth = '150px';
+        imgPreview.style.marginTop = '5px';
+        imgPreview.style.borderRadius = '6px';
+        imgPreview.style.boxShadow = '0 0 5px rgba(0,0,0,0.3)';
+
+        fileInput.addEventListener('change', function(event) {
+          const file = event.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              imgPreview.src = e.target.result;
+              imgPreview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+          } else {
+            imgPreview.src = '';
+            imgPreview.style.display = 'none';
+          }
+        });
+
+        div.appendChild(fileInput);
+        div.appendChild(imgPreview);
+        container.appendChild(div);
+      }
+    } else {
+      alert('Digite um número válido, entre 1 e 10.');
+    }
+
+    inputNum.value = '';
+  }
+}
+
+document.getElementById('uploadFundo').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  const previewFundo = document.getElementById('previewFundo');
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      previewFundo.src = e.target.result;
+      previewFundo.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+  } else {
+    previewFundo.src = '';
+    previewFundo.style.display = 'none';
+  }
+});

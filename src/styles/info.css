@@ -1,19 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;0,800;1,900&display=swap');
+
 body{
     background-image: url(/src/assets/Projeto-Quiz/Informações.png);
-    background-repeat: no-repeat;
+    
     background-size: 100% 100%;
     height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 50px;
     flex-direction: column;
-    
+    gap: 30px;
 }
 
 h1, p, ul, li, button {
     color: black;
-    text-align: center;
+    text-align: start;
     margin: 10px;
     font-family: 'Poppins', sans-serif;
     margin-top: 20px;
