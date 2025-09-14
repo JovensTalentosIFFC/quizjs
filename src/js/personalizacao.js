@@ -1,17 +1,17 @@
-
 function atualizarValor(sliderId) {
   const slider = document.getElementById(sliderId);
   const span = document.getElementById('valor-' + sliderId);
   span.textContent = slider.value;
-  if (sliderId === 'slider1') {
-    document.getElementById('fase').value = slider.value;
-  } else if (sliderId === 'slider2') {
-    document.getElementById('questao').value = slider.value;
-  } else if (sliderId === 'slider3') {
-    document.getElementById('vida').value = slider.value;
-  } else{
-    document.getElementById('ajuda').value = slider.value;
-  }
+
+  const map = {
+    slider1: 'fase',
+    slider2: 'questao',
+    slider3: 'vida',
+    slider4: 'ajuda'
+  };
+
+  const input = document.getElementById(map[sliderId]);
+  input.value = slider.value;
 }
 
 function moverSlider(sliderId, inputId) {
@@ -43,23 +43,36 @@ function responder(resposta) {
 
   if (resposta === 'sim') {
     respostaP.textContent = 'Quantos personagens?';
-    caixapersonagem.style.display = 'block';
+    caixapersonagem.classList.add('mostrar');
     uploadsContainer.innerHTML = '';
     botoes.style.display = 'none';
   } else {
     respostaP.textContent = 'Deseja personalizar o fundo?';
-    caixapersonagem.style.display = 'none';
+    caixapersonagem.classList.remove('mostrar');
     uploadsContainer.innerHTML = '';
-    botoes.style.display = 'block';
+    botoes.style.display = 'flex';
   }
 }
 
 function answer(resp) {
   const fundo = document.getElementById('fundo');
-  if (resp === 'sim') {
-    fundo.style.display = 'block';
+  fundo.style.display = resp === 'sim' ? 'block' : 'none';
+}
+
+function verificarTodosArquivosSelecionados(total) {
+  const container = document.getElementById('uploadsContainer');
+  const botoesB = document.getElementById('botoes');
+  const respostaP = document.getElementById('Resp');
+
+  const inputs = container.querySelectorAll('input[type="file"]');
+  const todosSelecionados = Array.from(inputs).every(input => input.files.length > 0);
+
+  if (todosSelecionados && inputs.length === total) {
+    respostaP.textContent = 'Deseja personalizar o fundo?';
+    botoesB.style.display = 'flex';
   } else {
-    fundo.style.display = 'none';
+    respostaP.textContent = '';
+    botoesB.style.display = 'none';
   }
 }
 
@@ -89,20 +102,22 @@ function verEnter(event) {
         imgPreview.style.maxWidth = '150px';
         imgPreview.style.marginTop = '5px';
         imgPreview.style.borderRadius = '6px';
-        imgPreview.style.boxShadow = '0 0 5px rgba(0,0,0,0.3)';
+        imgPreview.style.boxShadow = '0 0 5px rgba(44, 157, 170, 0.3)';
 
-        fileInput.addEventListener('change', function(event) {
-          const file = event.target.files[0];
+        fileInput.addEventListener('change', function () {
+          const file = fileInput.files[0];
           if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
               imgPreview.src = e.target.result;
               imgPreview.style.display = 'block';
-            }
+              verificarTodosArquivosSelecionados(n);
+            };
             reader.readAsDataURL(file);
           } else {
             imgPreview.src = '';
             imgPreview.style.display = 'none';
+            verificarTodosArquivosSelecionados(n);
           }
         });
 
@@ -118,15 +133,16 @@ function verEnter(event) {
   }
 }
 
-document.getElementById('uploadFundo').addEventListener('change', function(event) {
+document.getElementById('uploadFundo').addEventListener('change', function (event) {
   const file = event.target.files[0];
   const previewFundo = document.getElementById('previewFundo');
+
   if (file) {
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       previewFundo.src = e.target.result;
       previewFundo.style.display = 'block';
-    }
+    };
     reader.readAsDataURL(file);
   } else {
     previewFundo.src = '';

@@ -11,8 +11,91 @@
 form{
     display: flex;
     flex-direction: column;
+    font-size: 1.5rem;
+    margin-top: 30px;
 }
 
 input[type="number"] {
     margin-bottom: 1.5%;
+}
+
+.pergunta{
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.respPersonalizar{
+    display: flex;
+    flex-direction: column;
+}
+
+.pergBotao, .botoes{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.pergBotao button, .botoes button{
+    cursor: pointer;
+    background-color: aliceblue;
+    font-size: 2rem;
+    width: 5vw;
+    border-radius: .6rem;
+    margin-top: 10px;
+    border-color: rgba(132, 228, 227);
+    box-shadow: 4px 4px 0 rgb(133, 186, 209);
+    transition: box-shadow 0.2s ease;
+}
+
+.pergBotao button:active, .botoes button:active {
+  box-shadow: 0 2px 3px rgb(86, 146, 207);
+}
+
+.pergBotao button:hover, .botoes button:active {
+  box-shadow: 4px 4px 0 rgb(10, 142, 185);
+  transform: translateY(2px);
+}
+
+.botoes{
+    background-color: aqua;
+}
+
+#resposta{
+    display: flex;
+    white-space: nowrap;
+    margin-top: 70px;
+}
+
+.caixapersonagem {
+    display: none;
+}
+
+#caixapersonagem.mostrar {
+  display: flex;
+}
+
+#personagem {
+  display: flex;
+  background: aliceblue;
+  border: 2px solid black;
+  border-radius: .2rem;
+}
+
+#uploadsContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-container input[type=file]{
+    font-size: 1rem;
+}
+
+.upload-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
 }
