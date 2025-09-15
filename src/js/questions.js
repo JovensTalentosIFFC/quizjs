@@ -11,19 +11,16 @@ let optionsLength = 4, totalLevels = 3, totalQuestionsPerLevel = 5;
 
 const lifeSpan = document.querySelector('.menu .vida .lifes');
 const clueSpan = document.querySelector('.menu .ajuda .clues');
-const scoreImg = document.querySelector('.avanco img');
 const personagem = document.querySelector('.perguntaContainer img');
 
 let lifes = +localStorage.getItem('lifes') || 3;
 let clues = +localStorage.getItem('clues') || 2;
-let score = +localStorage.getItem('score') || 0;
 
 function updateLives() { if (lifeSpan) lifeSpan.textContent = '❤️'.repeat(lifes); }
 function updateClues() { if (clueSpan) clueSpan.textContent = '💡'.repeat(clues); }
 
 updateLives();
 updateClues();
-scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
 
 let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
@@ -50,9 +47,7 @@ if(currentLevel===totalLevels && seenQuestions===1){
   background[1].classList.add('shown');
   endSpan.textContent = currentLevel+1;
   setTimeout(() => { endPopup.classList.add('shown'); }, 500)
-  localStorage.setItem('score', 0);
   lifes=3; localStorage.setItem('lifes', lifes); updateLives();
-  score=0; scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`; localStorage.setItem('score', score);
 }
 
 nextLevel.addEventListener('click', () =>{
@@ -180,10 +175,6 @@ function resetButtonsToDefault(){
     } else {
         localStorage.removeItem('wrongAnswer');
         localStorage.setItem('correctAnswer',JSON.stringify([correctIndex]));
-
-        score++;
-        scoreImg.src = `./assets/Projeto-Quiz/avanco${score}.png`;
-        localStorage.setItem('score',score);
     }
 
     disableButtonsAndSkip(currentQuestion);

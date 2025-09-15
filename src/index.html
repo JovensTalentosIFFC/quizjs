@@ -1,25 +1,28 @@
 <!-- home page -->
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <script src="js/main.js" defer></script>
   <title>BYQuiz</title>
 </head>
+<body>
   <div class="inicio">
-  <button onclick="redirectToQuestions()">Modo solo</button>
+    <button onclick="redirectToQuestions()">Modo solo</button>
   </div>
   <div class="gincana">
     <button onclick="redirectToBattle()">Modo gincana</button>
   </div>
-  <div class="personalizar">
-    <button onclick="redirectToCustomization()">Personalizar</button>
-  </div>
-  <div class="informaçoes">
-    <button onclick="redirectToInfo()">Informações</button>
+  <div class="menu">
+    <div class="personalizar">
+      <button onclick="redirectToCustomization()">Personalizar</button>
+    </div>
+    <div class="informaçoes">
+      <button onclick="redirectToInfo()">Informações</button>
+    </div>
   </div>
 </body>
 </html>
