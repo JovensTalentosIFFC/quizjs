@@ -1,8 +1,15 @@
+let values = {
+  slider1: 5,
+  slider2: 25,
+  slider3: 5,
+  slider4: 5
+}
+const form = document.querySelector('form');
 function atualizarValor(sliderId) {
   const slider = document.getElementById(sliderId);
   const span = document.getElementById('valor-' + sliderId);
   span.textContent = slider.value;
-
+  values[sliderId] = +slider.value
   const map = {
     slider1: 'fase',
     slider2: 'questao',
@@ -29,10 +36,9 @@ function moverSlider(sliderId, inputId) {
 }
 
 function verificaEnter(event, sliderId, inputId) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    moverSlider(sliderId, inputId);
-  }
+  event.preventDefault();
+  moverSlider(sliderId, inputId);
+  atualizarValor(sliderId)
 }
 
 function responder(resposta) {
@@ -149,3 +155,9 @@ document.getElementById('uploadFundo').addEventListener('change', function (even
     previewFundo.style.display = 'none';
   }
 });
+
+
+form.addEventListener('submit', (e) =>{
+  e.preventDefault();
+  console.log(values);
+})

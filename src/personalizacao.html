@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BYQuiz</title>
     <link rel="stylesheet" href=".\styles\personalizacao.css">
+      <script src="./js/personalizacao.js" defer></script>
 </head>
 <body>
   <form>
@@ -13,23 +14,23 @@
       <label for="slider1">Número de fases:</label>
       <input type="range" id="slider1" name="fases" min="1" max="10" value="5" oninput="atualizarValor('slider1')">
       <span id="valor-slider1">5</span>
-      <input type="number" id="fase" min="1" max="10" placeholder="Digite o valor" onkeydown="verificaEnter(event, 'slider1', 'fase')">
+      <input type="number" id="fase" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'slider1', 'fase')">
 
       <label for="slider2">Número de questões por fase:</label>
       <input type="range" id="slider2" name="questoes" min="2" max="50" value="25" oninput="atualizarValor('slider2')">
       <span id="valor-slider2">25</span>
-      <input type="number" id="questao" min="2" max="50" placeholder="Digite o valor" onkeydown="verificaEnter(event, 'slider2', 'questao')">
+      <input type="number" id="questao" min="2" max="50" placeholder="Digite o valor" onchange="verificaEnter(event, 'slider2', 'questao')">
 
       <label for="slider3">Número de vidas:</label>
       <input type="range" id="slider3" name="vidas" min="1" max="10" value="5" oninput="atualizarValor('slider3')">
       <span id="valor-slider3">5</span>
-      <input type="number" id="vida" min="1" max="10" placeholder="Digite o valor" onkeydown="verificaEnter(event, 'slider3', 'vida')">
+      <input type="number" id="vida" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'slider3', 'vida')">
 
       <label for="slider4">Número de ajudas:</label>
       <input type="range" id="slider4" name="ajudas" min="1" max="10" value="5" oninput="atualizarValor('slider4')">
       <span id="valor-slider4">5</span>
-      <input type="number" id="ajuda" min="1" max="10" placeholder="Digite o valor" onkeydown="verificaEnter(event, 'slider4', 'ajuda')">
-  
+      <input type="number" id="ajuda" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'slider4', 'ajuda')">
+      <button type="submit" >Enviar</button>
   </form>
 
   <section class="pergunta">
@@ -52,15 +53,15 @@
   <p id="Resp"></p>
 
   <div id="botoes" style="display: none;">
-    <button type="button" onclick="answer('sim')">Sim</button>
-    <button type="button" onclick="answer('nao')">Não</button>
+    <div class="pergBotao">
+      <button type="button" onclick="answer('sim')">Sim</button>
+      <button type="button" onclick="answer('nao')">Não</button>
+    </div>
   </div>
 
   <section id="fundo" style="display: none;">
     <input type="file" id="uploadFundo" accept="image/*">
     <img id="previewFundo" src="#" alt="" style="max-width:200px; display:none; margin-top:10px;">
   </section>
-
-  <script src="./js/personalizacao.js"></script>
 </body>
 </html>

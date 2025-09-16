@@ -145,6 +145,47 @@ function resetButtonsToDefault(){
     })
   }
 
+
+          // Restauração de questão errada
+
+
+  if (wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 2) {
+    const [selectedIndex, correctIndex] = wrongAnswer;
+
+    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+    question.textContent = currentQuestion.question;
+
+    options.forEach((opt, idx) =>{
+      opt.textContent = letters[idx] + currentQuestion.options[idx];
+    });
+
+    options[selectedIndex]?.classList.add('missed');
+    options[correctIndex]?.classList.add('selected');
+    optionsContainer.style.pointerEvents = 'none';
+
+    disableButtonsAndSkip(currentQuestion);
+    
+    
+        // Restauração de questão correta
+  } else if (correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length === 1) {
+    numberQuestion.textContent = `Fase ${currentQuestion.level}`;
+    question.textContent = currentQuestion.question;
+
+    options.forEach((opt, idx) =>{
+      opt.textContent = letters[idx] + currentQuestion.options[idx];
+    });
+
+    options[correctAnswer]?.classList.add('selected');
+    optionsContainer.style.pointerEvents = 'none';
+
+    disableButtonsAndSkip(currentQuestion);
+  } 
+  if(removedOption){
+    options[removedOption].style.backgroundColor='grey';
+    clueButton.disabled=true;
+  }
+
+
   form.addEventListener('submit',(e)=>{
     e.preventDefault();
     const selectedOptIndex = options.findIndex(opt=>opt.classList.contains('selected'));
