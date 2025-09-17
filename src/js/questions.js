@@ -13,8 +13,9 @@ const lifeSpan = document.querySelector('.menu .vida .lifes');
 const clueSpan = document.querySelector('.menu .ajuda .clues');
 const personagem = document.querySelector('.perguntaContainer img');
 
-let lifes = +localStorage.getItem('lifes') || 3;
-let clues = +localStorage.getItem('clues') || 2;
+// <-- inicializações corrigidas para preservar 0 corretamente -->
+let lifes = Number(localStorage.getItem('lifes') ?? 3);
+let clues = Number(localStorage.getItem('clues') ?? 2);
 
 function updateLives() { if (lifeSpan) lifeSpan.textContent = '❤️'.repeat(lifes); }
 function updateClues() { if (clueSpan) clueSpan.textContent = '💡'.repeat(clues); }
@@ -22,9 +23,10 @@ function updateClues() { if (clueSpan) clueSpan.textContent = '💡'.repeat(clue
 updateLives();
 updateClues();
 
-let currentLevel = +localStorage.getItem('currentLevel') || 1;
-let setupQuestion = localStorage.getItem('setupQuestion') || '';
-let seenQuestions = +localStorage.getItem('seenQuestions') || 1;
+// outras variáveis de estado (também usando ?? para defaults)
+let currentLevel = Number(localStorage.getItem('currentLevel') ?? 1);
+let setupQuestion = localStorage.getItem('setupQuestion') ?? '';
+let seenQuestions = Number(localStorage.getItem('seenQuestions') ?? 1);
 let seenIdQuestions = JSON.parse(localStorage.getItem('seenIdQuestions')) || [];
 
 let wrongAnswer = JSON.parse(localStorage.getItem('wrongAnswer') || 'false');
@@ -43,11 +45,35 @@ const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
 
-if(currentLevel===totalLevels && seenQuestions===1){
+// --- helpers para popup/advice e restart ---
+function restartGame() {
+  localStorage.clear();
+  window.location.reload();
+}
+
+function showAdvice(message, btnText = 'Reiniciar', btnHandler = restartGame) {
+  advicePopup.querySelector('h2').textContent = message;
+  restartButton.textContent = btnText;
+  restartButton.onclick = (e) => {
+    e.preventDefault();
+    btnHandler();
+  };
+
+  background[2].classList.add('shown');
+  setTimeout(() => {
+    advicePopup.classList.add('shown');
+  }, 200);
+}
+
+// configuração inicial do botão (padrão reiniciar)
+restartButton.onclick = restartGame;
+
+// -------- popup final --------
+if (currentLevel > totalLevels) {
   background[1].classList.add('shown');
-  endSpan.textContent = currentLevel+1;
-  setTimeout(() => { endPopup.classList.add('shown'); }, 500)
-  lifes=3; localStorage.setItem('lifes', lifes); updateLives();
+  endSpan.textContent = totalLevels;
+  setTimeout(() => { endPopup.classList.add('shown'); }, 500);
+  lifes = 3; localStorage.setItem('lifes', lifes); updateLives();
 }
 
 nextLevel.addEventListener('click', () =>{
@@ -55,8 +81,10 @@ nextLevel.addEventListener('click', () =>{
   background[1].classList.remove('shown');
 });
 
-if(seenQuestions===1 && currentLevel===1){
-  currentFaseAndTheme = [1,'Árvores'];
+// -------- popup início em todas fases --------
+if (seenQuestions === 1 && currentLevel <= totalLevels) {
+  const temas = ['Árvores', 'Animais', 'Frutas']; // Exemplo
+  const currentFaseAndTheme = [currentLevel, temas[currentLevel-1] || 'Tema'];
   levelText.textContent = `Fase: ${currentFaseAndTheme[0]}`;
   themeText.textContent = `Tema: ${currentFaseAndTheme[1]}`;
   background[0].classList.add('shown');
@@ -145,46 +173,32 @@ function resetButtonsToDefault(){
     })
   }
 
-
-          // Restauração de questão errada
-
-
+  // restauração questão errada/certa
   if (wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 2) {
     const [selectedIndex, correctIndex] = wrongAnswer;
-
     numberQuestion.textContent = `Fase ${currentQuestion.level}`;
     question.textContent = currentQuestion.question;
-
     options.forEach((opt, idx) =>{
       opt.textContent = letters[idx] + currentQuestion.options[idx];
     });
-
     options[selectedIndex]?.classList.add('missed');
     options[correctIndex]?.classList.add('selected');
     optionsContainer.style.pointerEvents = 'none';
-
     disableButtonsAndSkip(currentQuestion);
-    
-    
-        // Restauração de questão correta
   } else if (correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length === 1) {
     numberQuestion.textContent = `Fase ${currentQuestion.level}`;
     question.textContent = currentQuestion.question;
-
     options.forEach((opt, idx) =>{
       opt.textContent = letters[idx] + currentQuestion.options[idx];
     });
-
     options[correctAnswer]?.classList.add('selected');
     optionsContainer.style.pointerEvents = 'none';
-
     disableButtonsAndSkip(currentQuestion);
   } 
   if(removedOption){
     options[removedOption].style.backgroundColor='grey';
     clueButton.disabled=true;
   }
-
 
   form.addEventListener('submit',(e)=>{
     e.preventDefault();
@@ -201,16 +215,13 @@ function resetButtonsToDefault(){
         options[correctIndex].classList.add('selected');
         localStorage.setItem('wrongAnswer',JSON.stringify([selectedOptIndex,correctIndex]));
         localStorage.removeItem('correctAnswer');
-
         lifes--;
         updateLives();
         localStorage.setItem('lifes', lifes);
-
         if(lifes <= 0){
             lifes = 0;
             updateLives();
-            background[2].classList.add('shown');
-            advicePopup.classList.add('shown');
+            showAdvice('Você perdeu todas as vidas!', 'Reiniciar', restartGame);
             return; 
         }
     } else {
@@ -221,27 +232,38 @@ function resetButtonsToDefault(){
     disableButtonsAndSkip(currentQuestion);
   });
 
+  // --- botão de ajuda corrigido ---
   clueButton.addEventListener('click', ()=>{
-    clueButton.disabled=true;
-    const wrongIdx=currentQuestion.getWrong();
-    const corrIdx=Array.from(setupQuestion).findIndex(l=>+l===wrongIdx);
-    if(clues>1){ options[corrIdx].style.backgroundColor='grey'; options[corrIdx].style.pointerEvents='none'; localStorage.setItem('removedOption',corrIdx);}
-    clues--;
-    updateClues(); localStorage.setItem('clues',clues);
-    if(clues===0){
-      localStorage.setItem('clues',clues+1);
-      background[2].classList.add('shown');
-      setTimeout(()=>{
-        advicePopup.querySelector('h2').textContent='Parece que você não tem mais dicas disponíveis...';
-        advicePopup.querySelector('button').textContent='Continuar';
-        advicePopup.classList.add('shown');
-      },500)
+    if (clues <= 0) {
+      showAdvice('Parece que você não tem mais dicas disponíveis...', 'Continuar', () => {
+        advicePopup.classList.remove('shown');
+        background[2].classList.remove('shown');
+      });
+      return;
     }
-  });
 
-  restartButton.addEventListener('click',()=>{
-    localStorage.clear();
-    window.location.reload();
+    clueButton.disabled = true;
+
+    const wrongIdx=currentQuestion.getWrong();
+    const mapping=(setupQuestion||'').split('').map(ch=>+ch);
+    const corrIdx=mapping.findIndex(l=>l===wrongIdx);
+
+    if(clues>1 && corrIdx>=0 && options[corrIdx]){
+      options[corrIdx].style.backgroundColor='grey';
+      options[corrIdx].style.pointerEvents='none';
+      localStorage.setItem('removedOption',corrIdx);
+    }
+
+    clues--;
+    updateClues();
+    localStorage.setItem('clues',clues);
+
+    if(clues===0){
+      showAdvice('Parece que você não tem mais dicas disponíveis...', 'Continuar', () => {
+        advicePopup.classList.remove('shown');
+        background[2].classList.remove('shown');
+      });
+    }
   });
 })();
 
@@ -263,13 +285,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   },100);
 });
 
+// --- avanço de fase corrigido ---
 function handleSkip(){
     if(lifes <= 0){
-        background[2].classList.add('shown');
-        advicePopup.classList.add('shown');
+        showAdvice('Você perdeu todas as vidas!', 'Reiniciar', restartGame);
         return;
     }
-
     localStorage.removeItem('currentQuestionId');
     localStorage.removeItem('removedOption');
     localStorage.removeItem('wrongAnswer');
@@ -280,12 +301,13 @@ function handleSkip(){
     options.forEach(opt => opt.classList.remove('selected','missed'));
     resetButtonsToDefault();
 
-    if(seenQuestions===4){
+    if(seenQuestions >= totalQuestionsPerLevel){
         currentLevel++;
-        seenQuestions=0;
+        seenQuestions = 0;
     }
     seenQuestions++;
     localStorage.setItem('currentLevel',currentLevel);
     localStorage.setItem('seenQuestions',seenQuestions);
     window.location.reload();
 }
+
