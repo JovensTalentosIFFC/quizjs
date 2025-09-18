@@ -13,7 +13,6 @@ const lifeSpan = document.querySelector('.menu .vida .lifes');
 const clueSpan = document.querySelector('.menu .ajuda .clues');
 const personagem = document.querySelector('.perguntaContainer img');
 
-// <-- inicializações corrigidas para preservar 0 corretamente -->
 let lifes = Number(localStorage.getItem('lifes') ?? 3);
 let clues = Number(localStorage.getItem('clues') ?? 2);
 
@@ -23,7 +22,6 @@ function updateClues() { if (clueSpan) clueSpan.textContent = '💡'.repeat(clue
 updateLives();
 updateClues();
 
-// outras variáveis de estado (também usando ?? para defaults)
 let currentLevel = Number(localStorage.getItem('currentLevel') ?? 1);
 let setupQuestion = localStorage.getItem('setupQuestion') ?? '';
 let seenQuestions = Number(localStorage.getItem('seenQuestions') ?? 1);
@@ -47,6 +45,10 @@ const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-chi
 
 function restartGame() {
   localStorage.clear();
+  lifes = 3;
+  clues = 2;
+  localStorage.setItem('lifes', lifes);
+  localStorage.setItem('clues', clues);
   window.location.reload();
 }
 
@@ -72,8 +74,6 @@ if (currentLevel > totalLevels) {
   background[1].classList.add('shown');
   endSpan.textContent = totalLevels;
   setTimeout(() => { endPopup.classList.add('shown'); }, 500);
-  lifes = 3; localStorage.setItem('lifes', lifes); updateLives();
-  clues = 2; localStorage.setItem('clues', clues); updateClues();
 }
 
 nextLevel.addEventListener('click', () =>{
@@ -81,10 +81,9 @@ nextLevel.addEventListener('click', () =>{
   background[1].classList.remove('shown');
 });
 
-// -------- popup início em todas fases --------
 if (seenQuestions === 1 && currentLevel <= totalLevels) {
-  const temas = ['Árvores', 'Animais', 'Frutas']; // Exemplo
-  const currentFaseAndTheme = [currentLevel, temas[currentLevel-1] || 'Tema'];
+  const temas = ['Árvores', 'Água', 'Lixo']; 
+   const currentFaseAndTheme = [currentLevel, temas[currentLevel-1] || 'Tema'];
   levelText.textContent = `Fase: ${currentFaseAndTheme[0]}`;
   themeText.textContent = `Tema: ${currentFaseAndTheme[1]}`;
   background[0].classList.add('shown');
@@ -173,7 +172,6 @@ function resetButtonsToDefault(){
     })
   }
 
-  // restauração questão errada/certa
   if (wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 2) {
     const [selectedIndex, correctIndex] = wrongAnswer;
     numberQuestion.textContent = `Fase ${currentQuestion.level}`;
@@ -232,7 +230,6 @@ function resetButtonsToDefault(){
     disableButtonsAndSkip(currentQuestion);
   });
 
-  // --- botão de ajuda corrigido ---
   clueButton.addEventListener('click', ()=>{
     if (clues <= 0) {
       showAdvice('Parece que você não tem mais dicas disponíveis...', 'Continuar', () => {
@@ -307,6 +304,10 @@ function handleSkip(){
     seenQuestions++;
     localStorage.setItem('currentLevel',currentLevel);
     localStorage.setItem('seenQuestions',seenQuestions);
+
+    if(currentLevel > totalLevels){
+        window.location = 'win.html';
+    }
+
     window.location.reload();
 }
-
