@@ -45,7 +45,6 @@ const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
 
-// --- helpers para popup/advice e restart ---
 function restartGame() {
   localStorage.clear();
   window.location.reload();
@@ -74,6 +73,7 @@ if (currentLevel > totalLevels) {
   endSpan.textContent = totalLevels;
   setTimeout(() => { endPopup.classList.add('shown'); }, 500);
   lifes = 3; localStorage.setItem('lifes', lifes); updateLives();
+  clues = 2; localStorage.setItem('clues', clues); updateClues();
 }
 
 nextLevel.addEventListener('click', () =>{
@@ -248,7 +248,7 @@ function resetButtonsToDefault(){
     const mapping=(setupQuestion||'').split('').map(ch=>+ch);
     const corrIdx=mapping.findIndex(l=>l===wrongIdx);
 
-    if(clues>1 && corrIdx>=0 && options[corrIdx]){
+    if(corrIdx >= 0 && options[corrIdx]){
       options[corrIdx].style.backgroundColor='grey';
       options[corrIdx].style.pointerEvents='none';
       localStorage.setItem('removedOption',corrIdx);
@@ -257,13 +257,6 @@ function resetButtonsToDefault(){
     clues--;
     updateClues();
     localStorage.setItem('clues',clues);
-
-    if(clues===0){
-      showAdvice('Parece que você não tem mais dicas disponíveis...', 'Continuar', () => {
-        advicePopup.classList.remove('shown');
-        background[2].classList.remove('shown');
-      });
-    }
   });
 })();
 
@@ -285,7 +278,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   },100);
 });
 
-// --- avanço de fase corrigido ---
 function handleSkip(){
     if(lifes <= 0){
         showAdvice('Você perdeu todas as vidas!', 'Reiniciar', restartGame);
@@ -304,6 +296,13 @@ function handleSkip(){
     if(seenQuestions >= totalQuestionsPerLevel){
         currentLevel++;
         seenQuestions = 0;
+      
+        lifes = 3;
+        clues = 2;
+        localStorage.setItem('lifes', lifes);
+        localStorage.setItem('clues', clues);
+        updateLives();
+        updateClues();
     }
     seenQuestions++;
     localStorage.setItem('currentLevel',currentLevel);
