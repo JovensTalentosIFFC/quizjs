@@ -11,6 +11,8 @@
 form{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-size: 1.5rem;
     margin-top: 30px;
 }
@@ -23,6 +25,18 @@ input[type="number"] {
     font-size: 1.5rem;
     display: flex;
     flex-direction: column;
+    text-align: center;
+}
+
+p{
+  text-align: center;
+}
+
+.caixapersonagem, #fundo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .respPersonalizar{
@@ -67,9 +81,6 @@ button:hover, .botoes button:active {
     margin-top: 70px;
 }
 
-.caixapersonagem {
-    display: none;
-}
 
 #caixapersonagem.mostrar {
   display: flex;

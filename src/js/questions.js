@@ -1,6 +1,7 @@
 // load configs
 
 const configs = JSON.parse(localStorage.getItem('configs'));
+console.log(configs)
 let optionsLength = 4, totalLevels = configs? configs.fases : 2, totalQuestionsPerLevelOnCsv = 5, questionsPerLevel=configs ? configs.questoes : 3;
 let lifes = +localStorage.getItem('lifes') || 4;
 let clues = +localStorage.getItem('clues') || 2;
@@ -51,6 +52,8 @@ const nextLevel = document.querySelector('.proximaFase');
 const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
+
+// inicio cada fase
 
 if(seenQuestions-1 % questionsPerLevel===0 && currentLevel!==1){
   background[1].classList.add('shown');

@@ -4,7 +4,9 @@ let values = {
   fases: 5,
   questoes: 25,
   vidas: 5,
-  ajudas: 5
+  ajudas: 5,
+  personagens: [],
+  fundos: []
 }
 const form = document.querySelector('form');
 function atualizarValor(sliderId) {
@@ -112,6 +114,7 @@ function verEnter(event) {
             const reader = new FileReader();
             reader.onload = function (e) {
               imgPreview.src = e.target.result;
+              values.personagens.push(e.target.result)
               imgPreview.style.display = 'block';
               verificarTodosArquivosSelecionados(n);
             };
@@ -143,6 +146,7 @@ document.getElementById('uploadFundo').addEventListener('change', function (even
     const reader = new FileReader();
     reader.onload = function (e) {
       previewFundo.src = e.target.result;
+      values.fundos.push(e.target.result)
       previewFundo.style.display = 'block';
     };
     reader.readAsDataURL(file);

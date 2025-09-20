@@ -30,38 +30,22 @@
       <input type="range" id="ajudas" name="ajudas" min="1" max="10" value="5" oninput="atualizarValor('ajudas')">
       <span id="valor-ajudas">5</span>
       <input type="number" id="ajudasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'ajudas', 'ajuda')">
+    
+      
+      <section id="caixapersonagem" class="caixapersonagem">
+        <p>Deseja colocar a foto de um personagem?</p>
+        <input type="number" id="personagem" min="1" max="10" placeholder="Ex: 5" onkeydown="verEnter(event)">
+      </section>
+      
+      <section id="uploadsContainer"></section>
+   
+      <section id="fundo">
+        <p>Deseja colocar a foto de um fundo?</p>
+        <input type="file" id="uploadFundo" accept="image/*">
+        <img id="previewFundo" src="#" alt="" style="max-width:200px; display:none; margin-top:10px;">
+      </section>
       <button type="submit" >Enviar</button>
   </form>
 
-  <section class="pergunta">
-    <p>Deseja personalizar os personagens?</p>
-    <div class="respPersonalizar">
-      <div class="pergBotao">
-        <button type="button" onclick="responder('sim')">Sim</button>
-        <button type="button" onclick="responder('nao')">Não</button>
-      </div>
-      <p id="resposta"></p>
-    </div>
-  </section>
-
-  <section id="caixapersonagem" class="caixapersonagem">
-    <input type="number" id="personagem" min="1" max="10" placeholder="Ex: 5" onkeydown="verEnter(event)">
-  </section>
-
-  <section id="uploadsContainer"></section>
-
-  <p id="Resp"></p>
-
-  <div id="botoes" style="display: none;">
-    <div class="pergBotao">
-      <button type="button" onclick="answer('sim')">Sim</button>
-      <button type="button" onclick="answer('nao')">Não</button>
-    </div>
-  </div>
-
-  <section id="fundo" style="display: none;">
-    <input type="file" id="uploadFundo" accept="image/*">
-    <img id="previewFundo" src="#" alt="" style="max-width:200px; display:none; margin-top:10px;">
-  </section>
 </body>
 </html>
