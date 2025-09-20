@@ -1,7 +1,7 @@
 // load configs
 
 const configs = JSON.parse(localStorage.getItem('configs'));
-let optionsLength = 4, totalLevels = configs.fases, totalQuestionsPerLevel = 5;
+let optionsLength = 4, totalLevels = configs? configs.fases : 2, totalQuestionsPerLevelOnCsv = 5, questionsPerLevel=configs ? configs.questoes : 3;
 let lifes = +localStorage.getItem('lifes') || 4;
 let clues = +localStorage.getItem('clues') || 2;
 
@@ -32,9 +32,13 @@ let setupQuestion = localStorage.getItem('setupQuestion') || '';
 let seenQuestions = +localStorage.getItem('seenQuestions') || 1;
 let seenIdQuestions = JSON.parse(localStorage.getItem('seenIdQuestions')) || [];
 
+
 let wrongAnswer = JSON.parse(localStorage.getItem('wrongAnswer') || 'false');
 let correctAnswer = JSON.parse(localStorage.getItem('correctAnswer') || 'false');
 let removedOption = localStorage.getItem('removedOption');
+
+const currentQuestionSpan = document.querySelector('.topPergunta span:nth-child(2)')
+currentQuestionSpan.textContent = `${seenQuestions}/${questionsPerLevel}`
 
 const form = document.querySelector('form');
 const background = Array.from(document.querySelectorAll('.background'))
@@ -48,17 +52,22 @@ const startLevel = document.querySelector('.inicioFase');
 const levelText = document.querySelector('.popupInicio .faseContainer h2:first-child');
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
 
-if(currentLevel===totalLevels && seenQuestions===1){
+if(seenQuestions-1 % questionsPerLevel===0 && currentLevel!==1){
   background[1].classList.add('shown');
   endSpan.textContent = currentLevel+1;
   setTimeout(() => { endPopup.classList.add('shown'); }, 500)
   lifes=3; localStorage.setItem('lifes', lifes); updateLives();
 }
 
+// 5 f, 2 qt    1, 3, 5, 7, 9
+// 3, 3qt       1, 4, 7   
+
 nextLevel.addEventListener('click', () =>{
   endPopup.classList.remove('shown');
   background[1].classList.remove('shown');
 });
+
+// inicio total
 
 if(seenQuestions===1 && currentLevel===1){
   currentFaseAndTheme = [1,'Árvores'];
@@ -119,12 +128,12 @@ function resetButtonsToDefault(){
   } else {
 
     currentQuestion = currentLevel===1
-      ? questions[parseInt(Math.random()*totalQuestionsPerLevel)]
-      : questions[parseInt(Math.random()*totalQuestionsPerLevel)+totalQuestionsPerLevel];
+      ? questions[parseInt(Math.random()*totalQuestionsPerLevelOnCsv)]
+      : questions[parseInt(Math.random()*totalQuestionsPerLevelOnCsv)+totalQuestionsPerLevelOnCsv];
     while(seenIdQuestions.includes(currentQuestion.id)){
       currentQuestion = currentLevel===1
-        ? questions[parseInt(Math.random()*totalQuestionsPerLevel)]
-        : questions[parseInt(Math.random()*totalQuestionsPerLevel)+totalQuestionsPerLevel];
+        ? questions[parseInt(Math.random()*totalQuestionsPerLevelOnCsv)]
+        : questions[parseInt(Math.random()*totalQuestionsPerLevelOnCsv)+totalQuestionsPerLevelOnCsv];
     }
     localStorage.setItem('currentQuestionId', currentQuestion.id);
     seenIdQuestions.push(currentQuestion.id);
@@ -260,32 +269,29 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 function handleSkip(){
-    if(lifes <= 0){
-        background[2].classList.add('shown');
-        advicePopup.classList.add('shown');
-        return;
-    }
-
-    localStorage.removeItem('currentQuestionId');
-    localStorage.removeItem('removedOption');
-    localStorage.removeItem('wrongAnswer');
-    localStorage.removeItem('correctAnswer');
-    localStorage.removeItem('setupQuestion');
-
-    optionsContainer.style.pointerEvents='all';
-    options.forEach(opt => opt.classList.remove('selected','missed'));
-    resetButtonsToDefault();
-
-    if (currentLevel>=totalLevels){
-      window.location = './win.html'
-    }
-
-    if(seenQuestions===4){
-        currentLevel++;
-        seenQuestions=0;
-    }
-    seenQuestions++;
-    localStorage.setItem('currentLevel',currentLevel);
-    localStorage.setItem('seenQuestions',seenQuestions);
-    window.location.reload();
+  if(lifes <= 0){
+    background[2].classList.add('shown');
+    advicePopup.classList.add('shown');
+    return;
+  }
+  
+  localStorage.removeItem('currentQuestionId');
+  localStorage.removeItem('removedOption');
+  localStorage.removeItem('wrongAnswer');
+  localStorage.removeItem('correctAnswer');
+  localStorage.removeItem('setupQuestion');
+  
+  optionsContainer.style.pointerEvents='all';
+  options.forEach(opt => opt.classList.remove('selected','missed'));
+  resetButtonsToDefault();
+  
+  if(seenQuestions===questionsPerLevel){
+    currentLevel++;
+    seenQuestions=0;
+  }
+  seenQuestions++;
+  localStorage.setItem('currentLevel',currentLevel);
+  localStorage.setItem('seenQuestions',seenQuestions);
+    if (currentLevel>totalLevels) window.location = './win.html'
+    else window.location.reload();
 }

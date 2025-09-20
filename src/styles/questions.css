@@ -284,3 +284,8 @@ aside .ajuda, aside .vida{
   align-items: center;
   flex-direction: column;
 }
+
+.topPergunta{
+  display: flex;
+  justify-content: space-between;
+}
