@@ -11,25 +11,25 @@
   <form>
       
 
-      <label for="slider1">Número de fases:</label>
-      <input type="range" id="slider1" name="fases" min="1" max="10" value="5" oninput="atualizarValor('slider1')">
-      <span id="valor-slider1">5</span>
-      <input type="number" id="fase" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'slider1', 'fase')">
+      <label for="fases">Número de fases:</label>
+      <input type="range" id="fases" name="fases" min="1" max="10" value="5" oninput="atualizarValor('fases')">
+      <span id="valor-fases">5</span>
+      <input type="number" id="fasesInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'fases', 'fase')">
 
-      <label for="slider2">Número de questões por fase:</label>
-      <input type="range" id="slider2" name="questoes" min="2" max="50" value="25" oninput="atualizarValor('slider2')">
-      <span id="valor-slider2">25</span>
-      <input type="number" id="questao" min="2" max="50" placeholder="Digite o valor" onchange="verificaEnter(event, 'slider2', 'questao')">
+      <label for="questoes">Número de questões por fase:</label>
+      <input type="range" id="questoes" name="questoes" min="2" max="50" value="25" oninput="atualizarValor('questoes')">
+      <span id="valor-questoes">25</span>
+      <input type="number" id="questoesInput" min="2" max="50" placeholder="Digite o valor" onchange="verificaEnter(event, 'questoes', 'questao')">
 
-      <label for="slider3">Número de vidas:</label>
-      <input type="range" id="slider3" name="vidas" min="1" max="10" value="5" oninput="atualizarValor('slider3')">
-      <span id="valor-slider3">5</span>
-      <input type="number" id="vida" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'slider3', 'vida')">
+      <label for="vidas">Número de vidas:</label>
+      <input type="range" id="vidas" name="vidas" min="1" max="10" value="5" oninput="atualizarValor('vidas')">
+      <span id="valor-vidas">5</span>
+      <input type="number" id="vidasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'vidas', 'vida')">
 
-      <label for="slider4">Número de ajudas:</label>
-      <input type="range" id="slider4" name="ajudas" min="1" max="10" value="5" oninput="atualizarValor('slider4')">
-      <span id="valor-slider4">5</span>
-      <input type="number" id="ajuda" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'slider4', 'ajuda')">
+      <label for="ajudas">Número de ajudas:</label>
+      <input type="range" id="ajudas" name="ajudas" min="1" max="10" value="5" oninput="atualizarValor('ajudas')">
+      <span id="valor-ajudas">5</span>
+      <input type="number" id="ajudasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'ajudas', 'ajuda')">
       <button type="submit" >Enviar</button>
   </form>
 

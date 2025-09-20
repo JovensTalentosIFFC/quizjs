@@ -1,8 +1,10 @@
+
+
 let values = {
-  slider1: 5,
-  slider2: 25,
-  slider3: 5,
-  slider4: 5
+  fases: 5,
+  questoes: 25,
+  vidas: 5,
+  ajudas: 5
 }
 const form = document.querySelector('form');
 function atualizarValor(sliderId) {
@@ -10,14 +12,8 @@ function atualizarValor(sliderId) {
   const span = document.getElementById('valor-' + sliderId);
   span.textContent = slider.value;
   values[sliderId] = +slider.value
-  const map = {
-    slider1: 'fase',
-    slider2: 'questao',
-    slider3: 'vida',
-    slider4: 'ajuda'
-  };
 
-  const input = document.getElementById(map[sliderId]);
+  const input = document.getElementById(sliderId+'Input');
   input.value = slider.value;
 }
 
@@ -159,5 +155,7 @@ document.getElementById('uploadFundo').addEventListener('change', function (even
 
 form.addEventListener('submit', (e) =>{
   e.preventDefault();
-  console.log(values);
+  // const formatedValues
+  localStorage.setItem('configs', JSON.stringify(values));
+  window.location = './questions.html'
 })

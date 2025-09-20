@@ -1,3 +1,10 @@
+// load configs
+
+const configs = JSON.parse(localStorage.getItem('configs'));
+let optionsLength = 4, totalLevels = configs.fases, totalQuestionsPerLevel = 5;
+let lifes = +localStorage.getItem('lifes') || 4;
+let clues = +localStorage.getItem('clues') || 2;
+
 const numberQuestion = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
 const answerButton = document.querySelector('form .answerButton');
@@ -5,16 +12,14 @@ const clueButton = document.querySelector('form .clueButton')
 const options = Array.from(document.querySelectorAll('.respostas form .labels label'));
 const optionsContainer = document.querySelector('.respostas form .labels');
 
+
 const letters = ['A) ', 'B) ', 'C) ', 'D) '];
 
-let optionsLength = 4, totalLevels = 3, totalQuestionsPerLevel = 5;
 
 const lifeSpan = document.querySelector('.menu .vida .lifes');
 const clueSpan = document.querySelector('.menu .ajuda .clues');
 const personagem = document.querySelector('.perguntaContainer img');
 
-let lifes = +localStorage.getItem('lifes') || 3;
-let clues = +localStorage.getItem('clues') || 2;
 
 function updateLives() { if (lifeSpan) lifeSpan.textContent = '❤️'.repeat(lifes); }
 function updateClues() { if (clueSpan) clueSpan.textContent = '💡'.repeat(clues); }
@@ -107,12 +112,12 @@ function resetButtonsToDefault(){
     acm.push(new Question({id, level, question, options:{0:a,1:b,2:c,3:d}, correct, clue, explanation}));
     return acm;
   },[])
-
   let currentQuestion;
   if(localStorage.getItem('currentQuestionId')){
     const savedId = localStorage.getItem('currentQuestionId');
     currentQuestion = questions.find(q=>q.id==savedId);
   } else {
+
     currentQuestion = currentLevel===1
       ? questions[parseInt(Math.random()*totalQuestionsPerLevel)]
       : questions[parseInt(Math.random()*totalQuestionsPerLevel)+totalQuestionsPerLevel];
@@ -122,7 +127,7 @@ function resetButtonsToDefault(){
         : questions[parseInt(Math.random()*totalQuestionsPerLevel)+totalQuestionsPerLevel];
     }
     localStorage.setItem('currentQuestionId', currentQuestion.id);
-    seenIdQuestions.push(+currentQuestion.id);
+    seenIdQuestions.push(currentQuestion.id);
     localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
   }
 
@@ -143,16 +148,13 @@ function resetButtonsToDefault(){
     })
     localStorage.setItem('setupQuestion', setupQuestion);
   } else{
-    console.log(setupQuestion)
     options.forEach((opt, idx) =>{
-      console.log(setupQuestion[idx], idx)
 
       opt.textContent = letters[idx] + currentQuestion.options[+setupQuestion[idx]];
     })
   }
 
 
-          // Restauração de questão errada
 
 
     // CORREÇÃO: Verifica se tem erro anterior e restaura estado
@@ -234,6 +236,7 @@ function resetButtonsToDefault(){
 
   restartButton.addEventListener('click',()=>{
     localStorage.clear();
+    localStorage.setItem('configs', JSON.stringify(configs));
     window.location.reload();
   });
 })();
@@ -272,6 +275,10 @@ function handleSkip(){
     optionsContainer.style.pointerEvents='all';
     options.forEach(opt => opt.classList.remove('selected','missed'));
     resetButtonsToDefault();
+
+    if (currentLevel>=totalLevels){
+      window.location = './win.html'
+    }
 
     if(seenQuestions===4){
         currentLevel++;
