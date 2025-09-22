@@ -86,10 +86,7 @@ button p{
 }
 
 
-.material-symbols-outlined {
-    color: white;      
-    vertical-align: middle; 
-    transition: all 0.3s; 
+ i{
+  color: white;
+  font-size: 2rem;  
 }
-
-
