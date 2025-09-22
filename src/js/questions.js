@@ -1,10 +1,27 @@
 // load configs
-
 const configs = JSON.parse(localStorage.getItem('configs'));
-console.log(configs)
 let optionsLength = 4, totalLevels = configs? configs.fases : 2, totalQuestionsPerLevelOnCsv = 5, questionsPerLevel=configs ? configs.questoes : 3;
-let lifes = +localStorage.getItem('lifes') || 4;
-let clues = +localStorage.getItem('clues') || 2;
+let lifes=configs ? configs.vidas : 3;
+let clues=configs ? configs.ajudas : 2;
+//  const info = fetch(`../../src/assets/quiz_configs.csv`)
+//  .then(async (res) =>{
+//    const data = await res.text();
+//    let configsCsv = data.split('\n');
+//    const columns = configsCsv[0].split(';');
+//    const values = configsCsv[1].split(';');
+//    configsCsv = Object.fromEntries(columns.map((k, j) => [k, values[j]]))
+
+//    optionsLength = configsCsv.alternativas
+//    totalLevels = configsCsv.fases
+//    totalQuestionsPerLevelOnCsv = configsCsv.questoesPorFaseNoCsv
+//    questionsPerLevel = configsCsv.questoesPorFase
+//    lifes = configsCsv.vidas
+//    clues = configsCsv.ajudas
+//  });
+if(+localStorage.getItem('lifes')) lifes = +localStorage.getItem('lifes');
+if(+localStorage.getItem('clues')) clues = +localStorage.getItem('clues');
+
+console.log(configs)
 
 const numberQuestion = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
