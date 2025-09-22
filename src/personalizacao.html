@@ -11,39 +11,44 @@
   <form>
       
 
-      <label for="fases">Número de fases:</label>
+      <label for="fases">Número de fases: *</label>
       <input type="range" id="fases" name="fases" min="1" max="10" value="5" oninput="atualizarValor('fases')">
       <span id="valor-fases">5</span>
       <input type="number" id="fasesInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'fases', 'fase')">
 
-      <label for="questoes">Número de questões por fase:</label>
+      <label for="questoes">Número de questões por fase: *</label>
       <input type="range" id="questoes" name="questoes" min="2" max="50" value="25" oninput="atualizarValor('questoes')">
       <span id="valor-questoes">25</span>
       <input type="number" id="questoesInput" min="2" max="50" placeholder="Digite o valor" onchange="verificaEnter(event, 'questoes', 'questao')">
 
-      <label for="vidas">Número de vidas:</label>
+      <label for="vidas">Número de vidas: *</label>
       <input type="range" id="vidas" name="vidas" min="1" max="10" value="5" oninput="atualizarValor('vidas')">
       <span id="valor-vidas">5</span>
       <input type="number" id="vidasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'vidas', 'vida')">
 
-      <label for="ajudas">Número de ajudas:</label>
+      <label for="ajudas">Número de ajudas: *</label>
       <input type="range" id="ajudas" name="ajudas" min="1" max="10" value="5" oninput="atualizarValor('ajudas')">
       <span id="valor-ajudas">5</span>
       <input type="number" id="ajudasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'ajudas', 'ajuda')">
     
       
       <section id="caixapersonagem" class="caixapersonagem">
-        <p>Deseja colocar a foto de um personagem?</p>
+        <p>Quantos personagens deseja personalizar?</p>
         <input type="number" id="personagem" min="1" max="10" placeholder="Ex: 5" onkeydown="verEnter(event)">
       </section>
       
       <section id="uploadsContainer"></section>
    
       <section id="fundo">
-        <p>Deseja colocar a foto de um fundo?</p>
+        <p>Personalizar fundo: </p>
         <input type="file" id="uploadFundo" accept="image/*">
         <img id="previewFundo" src="#" alt="" style="max-width:200px; display:none; margin-top:10px;">
       </section>
+      
+      <div class="pergObg">
+      <h3>* Indica uma pergunta obrigatória</h3>
+      </div>
+      
       <button type="submit" >Enviar</button>
   </form>
 

@@ -119,3 +119,16 @@ input{
   border-bottom: 2px solid black;
   font-size: 1.4rem;
 }
+
+.pergObg h3{
+  color: brown;
+  font-weight: normal;
+  font-size: 1.2rem;
+}
+
+.pergObg{
+  display: flex;
+  width: 20vw;
+  margin-top: 3rem;
+}
+
