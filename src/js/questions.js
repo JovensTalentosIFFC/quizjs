@@ -21,7 +21,6 @@ let clues=configs ? configs.ajudas : 2;
 if(+localStorage.getItem('lifes')) lifes = +localStorage.getItem('lifes');
 if(+localStorage.getItem('clues')) clues = +localStorage.getItem('clues');
 
-console.log(configs)
 
 const numberQuestion = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
@@ -37,8 +36,8 @@ const letters = ['A) ', 'B) ', 'C) ', 'D) '];
 const lifeSpan = document.querySelector('.menu .vida .lifes');
 const clueSpan = document.querySelector('.menu .ajuda .clues');
 const personagem = document.querySelector('.perguntaContainer img');
-
-
+console.log(configs.personagens[0])
+personagem.src = configs.personagens[0]
 function updateLives() { if (lifeSpan) lifeSpan.textContent = '❤️'.repeat(lifes); }
 function updateClues() { if (clueSpan) clueSpan.textContent = '💡'.repeat(clues); }
 
@@ -134,7 +133,13 @@ function resetButtonsToDefault(){
   const data = await info.text();
   let questions = data.split('\n');
   questions.shift();
-  personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
+
+  if(!configs){
+    personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`; 
+  } else{
+    personagem.src = configs.personagens[currentLevel-1] ? configs.personagens[currentLevel-1] : configs.personagens[0]
+  }
+
 
   questions = questions.reduce((acm,k)=>{
     const [id, level, question, a,b,c,d, correct, clue, explanation] = k.split(';');
@@ -195,6 +200,20 @@ function resetButtonsToDefault(){
     if(options[selectedIndex]) {
       options[selectedIndex].classList.add('missed');
     }
+    if(options[correctIndex]) {
+      options[correctIndex].classList.add('selected');
+    }
+    
+    // Desabilita interação
+    optionsContainer.style.pointerEvents = 'none';
+    
+    // Configura interface para modo "já respondida"
+    disableButtonsAndSkip(currentQuestion);
+  }
+
+  if(correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length==1){
+    console.log('ok')
+    const [correctIndex] = correctAnswer;
     if(options[correctIndex]) {
       options[correctIndex].classList.add('selected');
     }
