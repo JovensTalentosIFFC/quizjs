@@ -36,8 +36,6 @@ const letters = ['A) ', 'B) ', 'C) ', 'D) '];
 const lifeSpan = document.querySelector('.menu .vida .lifes');
 const clueSpan = document.querySelector('.menu .ajuda .clues');
 const personagem = document.querySelector('.perguntaContainer img');
-console.log(configs.personagens[0])
-personagem.src = configs.personagens[0]
 function updateLives() { if (lifeSpan) lifeSpan.textContent = '❤️'.repeat(lifes); }
 function updateClues() { if (clueSpan) clueSpan.textContent = '💡'.repeat(clues); }
 
@@ -78,8 +76,6 @@ if(seenQuestions-1 % questionsPerLevel===0 && currentLevel!==1){
   lifes=3; localStorage.setItem('lifes', lifes); updateLives();
 }
 
-// 5 f, 2 qt    1, 3, 5, 7, 9
-// 3, 3qt       1, 4, 7   
 
 nextLevel.addEventListener('click', () =>{
   endPopup.classList.remove('shown');
@@ -134,10 +130,14 @@ function resetButtonsToDefault(){
   let questions = data.split('\n');
   questions.shift();
 
-  if(!configs){
+  if(!configs.personagens[0]){
     personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`; 
   } else{
     personagem.src = configs.personagens[currentLevel-1] ? configs.personagens[currentLevel-1] : configs.personagens[0]
+  }
+
+  if(configs.fundos[0]){
+    document.body.style.backgroundImage = `url(${configs.fundos[0]})`
   }
 
 
