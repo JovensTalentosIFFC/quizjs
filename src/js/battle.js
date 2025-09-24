@@ -1,3 +1,9 @@
+const configs = JSON.parse(localStorage.getItem('configs'));
+
+let optionsLength = 4, totalLevels = configs ? configs.fases : 2, totalQuestionsPerLevelOnCsv = 5, questionsPerLevel=configs ? configs.questoes : 4;
+let currentFaseAndTheme;
+
+
 const numberLevel = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
 const answerButton = document.querySelector('form .answerButton');
@@ -9,7 +15,6 @@ const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
 const themeEndPopup = document.querySelector('.theme');
 const tiebreak = document.querySelector('.desempate');
-let optionsLength=4, questionsPerLevel= +localStorage.getItem('questionsPerLevel') || 4, currentFaseAndTheme, questionsLength=10;
 const personagem = document.querySelector('.perguntaContainer img');
 const letters = ["A) ","B) ","C) ","D) "];
 
@@ -47,6 +52,8 @@ scoreTime2Span.textContent = scoreTime2;
 
 // CORREÇÃO: Verificar se wrongAnswer existe e fazer parse correto
 let wrongAnswer = localStorage.getItem('wrongAnswer');
+let correctAnswer = JSON.parse(localStorage.getItem('correctAnswer') || 'false');
+
 let removedOption = localStorage.getItem('removedOption');
 if (wrongAnswer && wrongAnswer !== 'false') {
   try {
@@ -170,32 +177,44 @@ function resetButtonsToDefault(){
 
   let questions = data.split('\n');
   questions.shift();
-  personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`;
-  questions = questions.reduce((acm, k, j) =>{
-    const [id, level, question, a, b, c, d, correct, explanation] = k.split(';');
-    acm.push(new Question({
-      id,
-      level,
-      question,
-      options: {
-        0: a,
-        1: b,
-        2: c,
-        3: d
-      },
-      correct,
-      explanation
-    }))
-    return acm;
-  }, [])
 
-  let currentQuestion = currentLevel===1 ?  questions[parseInt(Math.random()*20)] : questions[parseInt(Math.random()*20)+20]
-  while(seenIdQuestions.includes(currentQuestion.id)){
-    currentQuestion = currentLevel===1 ?  questions[parseInt(Math.random()*5)] : questions[parseInt(Math.random()*5)+5]
+  if(configs){
+    if(!configs.personagens[0]){
+    personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`; 
+    } else{
+      personagem.src = configs.personagens[currentLevel-1] ? configs.personagens[currentLevel-1] : configs.personagens[0]
+    }
+    if(configs.fundos[0]){
+      document.body.style.backgroundImage = `url(${configs.fundos[0]})`
+    }
   }
-  seenIdQuestions.push(currentQuestion.id);
-  localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
-  
+
+
+
+  questions = questions.reduce((acm,k)=>{
+    const [id, level, question, a,b,c,d, correct, explanation] = k.split(';');
+    acm.push(new Question({id, level, question, options:{0:a,1:b,2:c,3:d}, correct, explanation}));
+    return acm;
+  },[])
+  let currentQuestion;
+  if(localStorage.getItem('currentQuestionId')){
+    const savedId = localStorage.getItem('currentQuestionId');
+    currentQuestion = questions.find(q=>q.id==savedId);
+  } else {
+
+    currentQuestion = currentLevel===1
+      ? questions[parseInt(Math.random()*totalQuestionsPerLevelOnCsv)]
+      : questions[parseInt(Math.random()*totalQuestionsPerLevelOnCsv)+totalQuestionsPerLevelOnCsv];
+    while(seenIdQuestions.includes(currentQuestion.id)){
+      currentQuestion = currentLevel===1
+        ? questions[parseInt(Math.random()*totalQuestionsPerLevelOnCsv)]
+        : questions[parseInt(Math.random()*totalQuestionsPerLevelOnCsv)+totalQuestionsPerLevelOnCsv];
+    }
+    localStorage.setItem('currentQuestionId', currentQuestion.id);
+    seenIdQuestions.push(currentQuestion.id);
+    localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
+  }
+
 
   numberLevel.textContent = `Fase ${currentLevel}: ${levelThemes[currentLevel]}`;
   themeText.textContent = levelThemes[currentLevel];
@@ -246,6 +265,20 @@ function resetButtonsToDefault(){
     disableButtonsAndSkip(currentQuestion);
   }
 
+  if(correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length==1){
+    console.log('ok')
+    const [correctIndex] = correctAnswer;
+    if(options[correctIndex]) {
+      options[correctIndex].classList.add('selected');
+    }
+    
+    // Desabilita interação
+    optionsContainer.style.pointerEvents = 'none';
+    
+    // Configura interface para modo "já respondida"
+    disableButtonsAndSkip(currentQuestion);
+  }
+
   if(removedOption){
     options[removedOption].style.backgroundColor='grey';
   }
@@ -275,7 +308,9 @@ function resetButtonsToDefault(){
     if(selectedOptIndex !== correctIndex){
       selectedOpt.classList.add('missed');
       options[correctIndex].classList.add('selected');
+
       localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
+      localStorage.removeItem('correctAnswer');
 
       if(localStorage.getItem("currentTime") == "Time1"){
         scoreTime2+=50;
@@ -291,6 +326,7 @@ function resetButtonsToDefault(){
 
 
       localStorage.removeItem('wrongAnswer');
+      localStorage.setItem('correctAnswer',JSON.stringify([correctIndex]));
       if(localStorage.getItem("currentTime") == "Time1"){
         scoreTime1+=100;
         localStorage.setItem('scoreTime1', scoreTime1);
@@ -341,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function handleSkip() {
 
 
-  if(seenQuestions===4 && currentLevel===2){
+  if(seenQuestions===questionsPerLevel && currentLevel===totalLevels){
       if(scoreTime1!==scoreTime2){ 
         if(scoreTime1>scoreTime2){
             window.location = './winTime1.html';
@@ -356,8 +392,11 @@ function handleSkip() {
   }
 
   console.log('Avançando questão...');
+  localStorage.removeItem('currentQuestionId');
+
   localStorage.removeItem('removedOption');
   localStorage.removeItem('wrongAnswer');
+  localStorage.removeItem('correctAnswer');
   localStorage.removeItem('setupQuestion');
   localStorage.removeItem('currentTime')
 
@@ -371,23 +410,9 @@ function handleSkip() {
   
   resetButtonsToDefault();
   
-  if(seenQuestions===4){
-    questionsPerLevel=4;
-    localStorage.setItem('questionsPerLevel', 4)
-    if(scoreTime1===scoreTime2 && currentLevel===2){
-      console.log('empate')
-      questionsPerLevel=5;
-      localStorage.setItem('questionsPerLevel', 5);
-      
-    } else{
-      seenQuestions=0;
-      localStorage.setItem('seenQuestions', seenQuestions)
-      console.log('not empate')
-      questionsPerLevel=4;
-      currentLevel++;
-      localStorage.setItem('questionsPerLevel', questionsPerLevel)
-    }
-
+  if(seenQuestions===questionsPerLevel){
+    currentLevel++;
+    seenQuestions=0
   }
 
   seenQuestions++;
