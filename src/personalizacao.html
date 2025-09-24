@@ -9,27 +9,40 @@
 </head>
 <body>
   <form>
-      
+      <h1>Deseja personalizar para o modo solo ou modo gincana?</h1>
+      <div class="pergBotao">
+        <div class="botoes">
+          <button type="button">Solo</button>
+          <button type="button">Gincana</button>
+        </div>
+      </div>
+      <div class="containerInput">
+        <label for="fases">Número de fases:</label>
+        <input type="range" id="fases" name="fases" min="1" max="10" value="5" oninput="atualizarValor('fases')">
+        <span id="valor-fases">5</span>
+        <input type="number" id="fasesInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'fases', 'fasesInput')">
+      </div>
 
-      <label for="fases">Número de fases: *</label>
-      <input type="range" id="fases" name="fases" min="1" max="10" value="5" oninput="atualizarValor('fases')">
-      <span id="valor-fases">5</span>
-      <input type="number" id="fasesInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'fases', 'fasesInput')">
+      <div class="containerInput">
+        <label for="questoes">Número de questões por fase:</label>
+        <input type="range" id="questoes" name="questoes" min="2" max="50" value="5" oninput="atualizarValor('questoes')">
+        <span id="valor-questoes">5</span>
+        <input type="number" id="questoesInput" min="2" max="50" placeholder="Digite o valor" onchange="verificaEnter(event, 'questoes', 'questoesInput')">
+      </div>
 
-      <label for="questoes">Número de questões por fase: *</label>
-      <input type="range" id="questoes" name="questoes" min="2" max="50" value="25" oninput="atualizarValor('questoes')">
-      <span id="valor-questoes">25</span>
-      <input type="number" id="questoesInput" min="2" max="50" placeholder="Digite o valor" onchange="verificaEnter(event, 'questoes', 'questoesInput')">
+      <div class="containerInput vidas">
+        <label for="vidas">Número de vidas:</label>
+        <input type="range" id="vidas" name="vidas" min="1" max="10" value="3" oninput="atualizarValor('vidas')">
+        <span id="valor-vidas">3</span>
+        <input type="number" id="vidasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'vidas', 'vidasInput')">
+      </div>
 
-      <label for="vidas">Número de vidas: *</label>
-      <input type="range" id="vidas" name="vidas" min="1" max="10" value="5" oninput="atualizarValor('vidas')">
-      <span id="valor-vidas">5</span>
-      <input type="number" id="vidasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'vidas', 'vidasInput')">
-
-      <label for="ajudas">Número de ajudas: *</label>
-      <input type="range" id="ajudas" name="ajudas" min="1" max="10" value="5" oninput="atualizarValor('ajudas')">
-      <span id="valor-ajudas">5</span>
-      <input type="number" id="ajudasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'ajudas', 'ajudasInput')">
+      <div class="containerInput ajudas">
+        <label for="ajudas">Número de ajudas:</label>
+        <input type="range" id="ajudas" name="ajudas" min="1" max="10" value="2" oninput="atualizarValor('ajudas')">
+        <span id="valor-ajudas">2</span>
+        <input type="number" id="ajudasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'ajudas', 'ajudasInput')">
+      </div>
     
       
       <section id="caixapersonagem" class="caixapersonagem">
@@ -44,10 +57,6 @@
         <input type="file" id="uploadFundo" accept="image/*">
         <img id="previewFundo" src="#" alt="" style="max-width:200px; display:none; margin-top:10px;">
       </section>
-      
-      <div class="pergObg">
-      <h3>* Indica uma pergunta obrigatória</h3>
-      </div>
       
       <button type="submit" >Enviar</button>
   </form>

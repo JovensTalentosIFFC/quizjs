@@ -1,10 +1,44 @@
+const containerVidas = document.querySelector('.containerInput.vidas');
+const containerAjudas = document.querySelector('.containerInput.ajudas');
+const switchModeButton = Array.from(document.querySelectorAll('.pergBotao button'))
+switchModeButton[0].addEventListener('click', () =>{
+  switchModeButton[0].disabled=true
+  switchModeButton[0].style.pointerEvents = 'none'
+  switchModeButton[1].disabled=false;
+  switchModeButton[1].style.pointerEvents = 'all'
+
+  localStorage.setItem('modo', 'solo')
+
+  containerAjudas.style.display = '';
+  containerVidas.style.display = ''
+})
+
+switchModeButton[1].addEventListener('click', () =>{
+  switchModeButton[1].disabled=true
+  switchModeButton[1].style.pointerEvents = 'none'
+  switchModeButton[0].disabled=false;
+  switchModeButton[0].style.pointerEvents = 'all'
+
+  localStorage.setItem('modo', 'gincana')
+
+  containerAjudas.style.display = 'none';
+  containerVidas.style.display = 'none'
+
+})
+
+let modo = localStorage.getItem('modo')
+
+if(modo && modo == "gincana"){
+  containerAjudas.style.display = 'none';
+  containerVidas.style.display = 'none'
+}
 
 
 let values = {
   fases: 5,
-  questoes: 25,
-  vidas: 5,
-  ajudas: 5,
+  questoes: 5,
+  vidas: 3,
+  ajudas: 2,
   personagens: [],
   fundos: []
 }
@@ -89,7 +123,7 @@ function verEnter(event) {
 
     container.innerHTML = '';
 
-    if (!isNaN(n) && n > 0 && n <= 10) {
+    if (!isNaN(n) && n >= 0 && n <= 10) {
       for (let i = 1; i <= n; i++) {
         const div = document.createElement('div');
         div.className = 'upload-container';
@@ -131,7 +165,7 @@ function verEnter(event) {
         container.appendChild(div);
       }
     } else {
-      alert('Digite um número válido, entre 1 e 10.');
+      alert('Digite um número válido, entre 0 e 10.');
     }
 
     inputNum.value = '';
@@ -159,7 +193,15 @@ document.getElementById('uploadFundo').addEventListener('change', function (even
 
 form.addEventListener('submit', (e) =>{
   e.preventDefault();
+  modo = localStorage.getItem('modo')
   // const formatedValues
   localStorage.setItem('configs', JSON.stringify(values));
-  window.location = './questions.html'
+  if(modo === "solo") {
+    window.location = './questions.html'
+    return; 
+  }else if(modo==='gincana'){
+    window.location = './battle.html'
+  } else{
+    alert('Por favor, escolha um modo!')
+  }
 })

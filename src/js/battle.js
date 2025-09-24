@@ -1,6 +1,6 @@
 const configs = JSON.parse(localStorage.getItem('configs'));
 
-let optionsLength = 4, totalLevels = configs ? configs.fases : 2, totalQuestionsPerLevelOnCsv = 5, questionsPerLevel=configs ? configs.questoes : 4;
+let optionsLength = 4, totalLevels = configs ? configs.fases : 2, totalQuestionsPerLevelOnCsv = 20, questionsPerLevel=configs ? configs.questoes : 4;
 let currentFaseAndTheme;
 
 
@@ -67,8 +67,7 @@ if (wrongAnswer && wrongAnswer !== 'false') {
 
 
 
-if(currentLevel===2 && seenQuestions===1){
-  questionsPerLevel=4;
+if(seenQuestions-1 % questionsPerLevel===0 && currentLevel!==1){
   localStorage.setItem('questionsPerLevel', questionsPerLevel);
  // new level 
   background[1].classList.add('shown');
@@ -78,16 +77,16 @@ if(currentLevel===2 && seenQuestions===1){
     endPopup.classList.add('shown');
   }, 500)
 }
-numPergunta.textContent = `${((seenQuestions-1)%5)+1}/${questionsPerLevel}`
+numPergunta.textContent = `${seenQuestions}/${questionsPerLevel}`
 
-if(questionsPerLevel===5) {
+// if(questionsPerLevel===5) {
   
-  tiebreak.classList.add('shown');
-  setTimeout(() =>{
-    tiebreak.classList.remove('shown');
-  }, 2000);
-  seenQuestions--;
-}
+//   tiebreak.classList.add('shown');
+//   setTimeout(() =>{
+//     tiebreak.classList.remove('shown');
+//   }, 2000);
+//   seenQuestions--;
+// }
 
 if(currentTime==='Time1'){
   selectTime1.disabled = true;
@@ -126,9 +125,10 @@ if(seenQuestions===1 && currentLevel===1){
 }
 
 class Question{
-  constructor({id, level, question, options, correct,explanation}){
+  constructor({id, level, theme,question, options, correct,explanation}){
     this.id = id
     this.level = level;
+    this.theme = theme
     this.question = question;
     this.options = options;
     this.correct = correct;
@@ -161,19 +161,9 @@ function resetButtonsToDefault(){
 }
 
 (async () => {
-  const info = await fetch(`../../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`)
+  // const info = await fetch(`../../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`)
+  const info = await fetch(`../../src/assets/quiz_tecnologia.csv`)
   const data = await info.text();
-
-  const temaFasesCsv = await fetch(`../../src/assets/temas_${localStorage.getItem('theme').toLowerCase()}.csv`)
-  let levelThemes = await temaFasesCsv.text();
-  levelThemes = levelThemes.split('\n');
-  levelThemes.shift();
-  
-  levelThemes = levelThemes.reduce((acm, k) =>{
-    const [level, theme] = k.split(';');
-    acm[level] = theme;
-    return acm;
-  }, {})
 
   let questions = data.split('\n');
   questions.shift();
@@ -190,10 +180,14 @@ function resetButtonsToDefault(){
   }
 
 
-
+  let levelThemes = [];
   questions = questions.reduce((acm,k)=>{
-    const [id, level, question, a,b,c,d, correct, explanation] = k.split(';');
-    acm.push(new Question({id, level, question, options:{0:a,1:b,2:c,3:d}, correct, explanation}));
+    const [id, level, theme,question, a,b,c,d, correct, explanation] = k.split(';');
+    const tempQuestion = new Question({id,level, theme,question, options:{0:a,1:b,2:c,3:d}, correct, explanation});
+    acm.push(tempQuestion);
+    if(!levelThemes.includes(tempQuestion.theme)){
+      levelThemes.push(tempQuestion.theme)
+    }
     return acm;
   },[])
   let currentQuestion;
@@ -215,10 +209,10 @@ function resetButtonsToDefault(){
     localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
   }
 
-
-  numberLevel.textContent = `Fase ${currentLevel}: ${levelThemes[currentLevel]}`;
-  themeText.textContent = levelThemes[currentLevel];
-  themeEndPopup.textContent = 'Tema: ' + levelThemes[currentLevel];
+  console.log(levelThemes)
+  numberLevel.textContent = `Fase ${currentLevel}: ${levelThemes[currentLevel-1]}`;
+  themeText.textContent = levelThemes[currentLevel-1];
+  themeEndPopup.textContent = 'Tema: ' + levelThemes[currentLevel-1];
   themeEndPopup.style.fontSize = '1.2rem'
   // CORREÇÃO: Só mostra a pergunta se não há erro anterior
   if (!wrongAnswer) {

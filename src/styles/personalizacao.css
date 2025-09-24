@@ -17,6 +17,12 @@ form{
     margin-top: 30px;
 }
 
+form h1{
+  font-weight: 500;
+  width: 700px;
+  text-align: center;
+}
+
 input[type="number"] {
     margin-bottom: 1.5%;
 }
@@ -50,6 +56,14 @@ p{
     gap: 30px;
 }
 
+.pergBotao{
+  margin-bottom: 100px;
+}
+
+.pergBotao button:disabled{
+  background-color: rgb(156, 155, 155);
+}
+
 button{
     cursor: pointer;
     background-color: aliceblue;
@@ -69,10 +83,6 @@ button:active, .botoes button:active {
 button:hover, .botoes button:active {
   box-shadow: 4px 4px 0 rgb(10, 142, 185);
   transform: translateY(2px);
-}
-
-.botoes{
-    background-color: aqua;
 }
 
 #resposta{
@@ -132,3 +142,12 @@ input{
   margin-top: 3rem;
 }
 
+.containerInput{
+  display: flex;
+  flex-direction: column;
+}
+
+label{
+  width: 400px;
+  text-align: center;
+}
