@@ -42,6 +42,47 @@ let values = {
   personagens: [],
   fundos: []
 }
+
+//persornalizacao csv
+// personalizacao.js
+document.getElementById('csv').addEventListener('change', function (event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const text = e.target.result;
+      const linhas = text.split('\n').map(l => l.trim()).filter(l => l);
+
+      // Ignora cabeçalho se existir
+      if (linhas[0].toLowerCase().includes("pergunta")) {
+        linhas.shift();
+      }
+
+      // Formato esperado: Pergunta,Correta,Alternativa1,Alternativa2,Alternativa3
+      const perguntas = linhas.map((linha, idx) => {
+        const [pergunta, correta, ...alternativas] = linha.split(',');
+
+        const options = {};
+        alternativas.forEach((alt, i) => options[i] = alt);
+
+        return {
+          id: idx + 1,
+          level: 1, // pode expandir depois para ter fases
+          question: pergunta,
+          options,
+          correct: alternativas.indexOf(correta), // índice da resposta correta
+          clue: "",
+          explanation: ""
+        };
+      });
+
+      values.perguntas = perguntas;
+      console.log("✅ Perguntas importadas do CSV:", perguntas);
+    };
+    reader.readAsText(file, 'UTF-8');
+  }
+});
+
 const form = document.querySelector('form');
 function atualizarValor(sliderId) {
   const slider = document.getElementById(sliderId);

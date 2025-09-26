@@ -1,4 +1,26 @@
 const configs = JSON.parse(localStorage.getItem('configs'));
+(async () => {
+    let questions = [];
+
+    if (configs && configs.perguntas && configs.perguntas.length > 0) {
+        // CSV do usuário
+        questions = configs.perguntas.map(p => new Question(p));
+        console.log("✅ Usando CSV do usuário");
+    } else {
+        // CSV padrão
+        const info = await fetch(`../../src/assets/solo.csv`);
+        const data = await info.text();
+        const linhas = data.split('\n').slice(1);
+        questions = linhas.map((k, idx) => {
+            const [id, level, question, a,b,c,d, correct, clue, explanation] = k.split(';');
+            return new Question({id, level, question, options:{0:a,1:b,2:c,3:d}, correct, clue, explanation});
+        });
+        console.log("⚠️ Usando CSV padrão");
+    }
+
+    // ... resto do código para exibir perguntas ...
+})();
+
 
 let optionsLength = 4, totalLevels = configs ? configs.fases : 2, totalQuestionsPerLevelOnCsv = 20, questionsPerLevel=configs ? configs.questoes : 4;
 let currentFaseAndTheme;
