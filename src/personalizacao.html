@@ -43,8 +43,12 @@
         <span id="valor-ajudas">2</span>
         <input type="number" id="ajudasInput" min="1" max="10" placeholder="Digite o valor" onchange="verificaEnter(event, 'ajudas', 'ajudasInput')">
       </div>
-    
-      
+
+      <div class="containerInput csv">
+        <label for="csv">Importar CSV:</label>
+        <input type="file" id="csv" accept=".csv">
+      </div>
+
       <section id="caixapersonagem" class="caixapersonagem">
         <p>Quantos personagens deseja personalizar?</p>
         <input type="number" id="personagem" min="1" max="10" placeholder="Ex: 5" onkeydown="verEnter(event)">
