@@ -23,8 +23,8 @@ form h1{
   text-align: center;
 }
 
-input[type="number"] {
-    margin-bottom: 1.5%;
+.containerInput{
+    margin-bottom: 3%;
 }
 
 .pergunta{
@@ -36,6 +36,7 @@ input[type="number"] {
 
 p{
   text-align: center;
+  margin: 0;
 }
 
 .caixapersonagem, #fundo{
@@ -61,7 +62,8 @@ p{
 }
 
 .pergBotao button:disabled{
-  background-color: rgb(156, 155, 155);
+  background-color: rgb(191, 223, 223);
+ color: black;
 }
 
 button{
@@ -108,8 +110,9 @@ button:hover, .botoes button:active {
     flex-direction: column;
 }
 
-.upload-container input[type=file]{
+.upload-container input[type="file"], .containerInput input[type="file"], #uploadFundo {
     font-size: 1rem;
+    width: 100%;
 }
 
 .upload-container{
@@ -150,4 +153,20 @@ input{
 label{
   width: 400px;
   text-align: center;
+}
+
+input[type="file"]{
+  margin-top: 7%;
+}
+
+#caixapersonagem p{
+  margin-bottom: 7%;
+}
+
+#fundo p{
+  margin-top: 12%;
+}
+
+.enviarform{
+  margin-top: 5%;
 }

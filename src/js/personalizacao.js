@@ -109,9 +109,11 @@ function moverSlider(sliderId, inputId) {
 }
 
 function verificaEnter(event, sliderId, inputId) {
+  if (event.key === 'Enter'){
   event.preventDefault();
   moverSlider(sliderId, inputId);
   atualizarValor(sliderId)
+  }
 }
 
 function responder(resposta) {
