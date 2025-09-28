@@ -45,42 +45,48 @@ let values = {
 
 //persornalizacao csv
 // personalizacao.js
+// personalizacao.js - Correção para processar o CSV no formato esperado
 document.getElementById('csv').addEventListener('change', function (event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const text = e.target.result;
-      const linhas = text.split('\n').map(l => l.trim()).filter(l => l);
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const text = e.target.result;
+            const linhas = text.split('\n').map(l => l.trim()).filter(l => l);
 
-      // Ignora cabeçalho se existir
-      if (linhas[0].toLowerCase().includes("pergunta")) {
-        linhas.shift();
-      }
+            // Se o CSV for do usuário, ele precisa ter o cabeçalho id;level;theme;question;a;b;c;d;correct;explanation
+            // Ignora cabeçalho
+            if (linhas[0] && linhas[0].toLowerCase().startsWith("id;level;theme")) {
+                linhas.shift();
+            }
 
-      // Formato esperado: Pergunta,Correta,Alternativa1,Alternativa2,Alternativa3
-      const perguntas = linhas.map((linha, idx) => {
-        const [pergunta, correta, ...alternativas] = linha.split(',');
+            const perguntas = linhas.map((linha) => {
+                // Usar ';' como delimitador para ser consistente com o arquivo padrão
+                const [id, level, theme, question, a, b, c, d, correct, explanation] = linha.split(';');
 
-        const options = {};
-        alternativas.forEach((alt, i) => options[i] = alt);
+                // O 'correct' agora é o índice (0, 1, 2, ou 3) lido diretamente
+                // Certifique-se de que todas as 10 colunas estão presentes
+                if (!id || !level || !theme || !question || !a || !b || !c || !d || !correct || !explanation) {
+                    console.error("⚠️ Linha do CSV em formato incorreto:", linha);
+                    return null; // Ignora linhas mal formatadas
+                }
 
-        return {
-          id: idx + 1,
-          level: 1, // pode expandir depois para ter fases
-          question: pergunta,
-          options,
-          correct: alternativas.indexOf(correta), // índice da resposta correta
-          clue: "",
-          explanation: ""
+                return {
+                    id: +id,
+                    level: +level,
+                    theme: theme,
+                    question: question,
+                    options: { 0: a, 1: b, 2: c, 3: d },
+                    correct: +correct, // Deve ser um número (0, 1, 2 ou 3)
+                    explanation: explanation
+                };
+            }).filter(p => p !== null); // Remove qualquer linha que tenha falhado
+
+            values.perguntas = perguntas;
+            console.log("✅ Perguntas importadas do CSV do usuário:", perguntas);
         };
-      });
-
-      values.perguntas = perguntas;
-      console.log("✅ Perguntas importadas do CSV:", perguntas);
-    };
-    reader.readAsText(file, 'UTF-8');
-  }
+        reader.readAsText(file, 'UTF-8');
+    }
 });
 
 const form = document.querySelector('form');
