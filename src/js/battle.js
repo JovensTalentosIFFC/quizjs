@@ -22,7 +22,13 @@ class Question{
     }
 }
 
-let optionsLength = 4, totalLevels = configs ? configs.fases : 2, totalQuestionsPerLevelOnCsv = 20, questionsPerLevel=configs ? configs.questoes : 4;
+let optionsLength = 4;
+
+
+// Função que calcula o número de perguntas da fase atual
+function atualizarQuestionsPerLevel(level) {
+    return questions.filter(q => +q.level === +level).length;
+}
 
 const numberLevel = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
@@ -121,6 +127,12 @@ function selectOption(selectedOpt){
                 levelThemes.push(q.theme)
             }
         });
+        // Número total de fases
+        totalLevels = [...new Set(questions.map(q => +q.level))].length;
+
+        // Número de perguntas da fase atual
+        questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
+
 
     } else {
         // Usar CSV padrão
@@ -141,6 +153,13 @@ function selectOption(selectedOpt){
         }, []);
 
         console.log("⚠️ Usando CSV padrão");
+
+        // Número total de fases
+        totalLevels = [...new Set(questions.map(q => +q.level))].length;
+
+        // Número de perguntas da fase atual
+        questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
+
     }
 
     let currentQuestion;
@@ -327,7 +346,7 @@ if(nextLevel) nextLevel.addEventListener('click', () =>{
 
 // Lógica de Popup de Início de Jogo/Fase
 if(seenQuestions===1 && currentLevel===1 && startPopup && background[0] && levelText && themeText && startLevel){
-    const firstTheme = levelThemes[0] || 'Tema'; // pega o primeiro tema carregado
+    const firstTheme = levelThemes[0] || 'Tema';
     currentFaseAndTheme = [1, firstTheme]; 
     
     levelText.textContent = `Fase: ${currentFaseAndTheme[0]}`;
@@ -343,52 +362,51 @@ if(seenQuestions===1 && currentLevel===1 && startPopup && background[0] && level
     })
 }
 
+
 function handleSkip() {
-    // Se terminou todas as questões da fase atual
-    if(seenQuestions === questionsPerLevel){
-        if(currentLevel < totalLevels){ 
-            // Há próxima fase, então avança
-            currentLevel++;
-            seenQuestions = 0;
-        } else {
-            // Não há próxima fase → fim do jogo
-            if(scoreTime1 !== scoreTime2){ 
-                if(scoreTime1 > scoreTime2){
-                    window.location = './winTime1.html';
-                    return;
-                } else if(scoreTime2 > scoreTime1){
-                    window.location = './winTime2.html';
-                    return;
-                }
+    if(seenQuestions===questionsPerLevel && currentLevel===totalLevels){
+        if(scoreTime1!==scoreTime2){ 
+            if(scoreTime1>scoreTime2){
+                window.location = './winTime1.html';
+                return;
             }
-            // Caso empate ou qualquer outra situação, mostrar desempate ou tela final
-            if(tiebreak) tiebreak.classList.add('shown');
-            return; // não recarrega mais
+            else if(scoreTime2>scoreTime1){
+                window.location = './winTime2.html';
+                return;
+            }
         }
     }
 
-    // Atualiza o número de questões vistas
-    seenQuestions++;
-    localStorage.setItem('currentLevel', currentLevel);
-    localStorage.setItem('seenQuestions', seenQuestions);
-
-    // Limpa dados temporários da questão atual
+    console.log('Avançando questão...');
     localStorage.removeItem('currentQuestionId');
     localStorage.removeItem('removedOption');
     localStorage.removeItem('wrongAnswer');
     localStorage.removeItem('correctAnswer');
     localStorage.removeItem('setupQuestion');
-    localStorage.removeItem('currentTime');
+    localStorage.removeItem('currentTime')
 
     if (optionsContainer) optionsContainer.style.pointerEvents = 'all';
-    options.forEach(opt => opt.classList.remove('selected', 'missed'));
+    
+    options.forEach(opt => {
+        opt.classList.remove('selected', 'missed');
+    });
     
     resetButtonsToDefault();
+    
+    if(seenQuestions===questionsPerLevel){
+        currentLevel++;
+        seenQuestions=0
+    }
 
-    // Recarrega a página para carregar a próxima questão/fase
+    // Recalcula o número de perguntas da fase atual
+    questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
+
+    seenQuestions++;
+    localStorage.setItem('currentLevel', currentLevel);
+    localStorage.setItem('seenQuestions', seenQuestions);
+
     window.location.reload();
 }
-
 
 // Ativar o handleSkip no botão 'Avançar'
 document.addEventListener('DOMContentLoaded', () => {
