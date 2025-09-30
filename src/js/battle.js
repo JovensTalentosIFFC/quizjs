@@ -136,7 +136,7 @@ function selectOption(selectedOpt){
 
     } else {
         // Usar CSV padrão
-        const info = await fetch(`../../src/assets/quiz_tecnologia.csv`); 
+        const info = await fetch(`../../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`); 
         const data = await info.text();
 
         let tempQuestions = data.split('\n');

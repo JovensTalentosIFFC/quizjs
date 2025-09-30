@@ -1,7 +1,7 @@
 // load configs
 const configs = JSON.parse(localStorage.getItem('configs'));
 // totalLevels agora será atualizado dinamicamente com base no CSV do usuário ou configs.fases
-let optionsLength = 4, totalLevels = configs ? configs.fases : 2, totalQuestionsPerLevelOnCsv = 5, questionsPerLevel=configs ? configs.questoes : 3;
+let optionsLength = 4, totalLevels = configs ? +configs.fases : 2, totalQuestionsPerLevelOnCsv = 5, questionsPerLevel=configs ? configs.questoes : 3;
 let lifes=configs ? configs.vidas : 3;
 let clues=configs ? configs.ajudas : 2;
 
@@ -130,8 +130,6 @@ function resetButtonsToDefault(){
     isUsingUserCsv = true;
     console.log("✅ Usando CSV do usuário no modo Solo.");
     
-    // Atualiza o total de fases baseado no CSV do usuário, se aplicável
-    totalLevels = [...new Set(questions.map(q => +q.level))].length;
     
   } else {
     // ==============================================
@@ -148,23 +146,25 @@ function resetButtonsToDefault(){
       // Vamos tentar carregar o CSV padrão com todas as colunas possíveis:
       const columns = k.split(';');
       // Assumindo que o CSV padrão tem menos colunas que o do usuário, vamos mapear o que for possível
-      const [id, level, questionText, a, b, c, d, correct, clue, explanation] = columns;
+      const [id, level, theme, questionText, a, b, c, d, correct, clue, explanation] = columns;
 
-      acm.push(new Question({id, level, question: questionText, options:{0:a,1:b,2:c,3:d}, correct, clue, explanation}));
+      acm.push(new Question({id, level, theme, question: questionText, options:{0:a,1:b,2:c,3:d}, correct, clue, explanation}));
       return acm;
     },[])
     console.log("⚠️ Usando CSV padrão (solo.csv) no modo Solo.");
   }
 
-  if(!configs.personagens[0]){
+  if(configs){
+  if(!configs.personagens[0]){
     personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`; 
   } else{
     personagem.src = configs.personagens[currentLevel-1] ? configs.personagens[currentLevel-1] : configs.personagens[0]
   }
-
   if(configs.fundos[0]){
     document.body.style.backgroundImage = `url(${configs.fundos[0]})`
   }
+}
+
 
 
   let currentQuestion;
@@ -191,7 +191,7 @@ function resetButtonsToDefault(){
     localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
   } else {
       console.error("Nenhuma pergunta disponível para a Fase:", currentLevel);
-      if(currentLevel > totalLevels) window.location = './win.html';
+      if(currentLevel+1 > totalLevels && seenQuestions === questionsPerLevel) window.location = './win.html';
       return;
   }
   
@@ -357,6 +357,10 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 function handleSkip(){
+  if (currentLevel+1 > totalLevels && seenQuestions === questionsPerLevel){
+    window.location = './win.html'
+    return
+  }
   if(lifes <= 0){
     background[2].classList.add('shown');
     advicePopup.classList.add('shown');
@@ -380,6 +384,5 @@ function handleSkip(){
   seenQuestions++;
   localStorage.setItem('currentLevel',currentLevel);
   localStorage.setItem('seenQuestions',seenQuestions);
-    if (currentLevel > totalLevels) window.location = './win.html'
-    else window.location.reload();
+  window.location.reload();
 }

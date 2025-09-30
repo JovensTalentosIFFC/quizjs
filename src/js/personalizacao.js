@@ -62,7 +62,7 @@ document.getElementById('csv').addEventListener('change', function (event) {
 
             const perguntas = linhas.map((linha) => {
                 // Usar ';' como delimitador para ser consistente com o arquivo padrão
-                const [id, level, theme, question, a, b, c, d, correct, explanation] = linha.split(';');
+                const [id, level, theme, question, a, b, c, d, correct, clue, explanation] = linha.split(';');
 
                 // O 'correct' agora é o índice (0, 1, 2, ou 3) lido diretamente
                 // Certifique-se de que todas as 10 colunas estão presentes
@@ -71,7 +71,7 @@ document.getElementById('csv').addEventListener('change', function (event) {
                     return null; // Ignora linhas mal formatadas
                 }
 
-                return {
+                return modo === 'gincana' ?  {
                     id: +id,
                     level: +level,
                     theme: theme,
@@ -79,7 +79,16 @@ document.getElementById('csv').addEventListener('change', function (event) {
                     options: { 0: a, 1: b, 2: c, 3: d },
                     correct: +correct, // Deve ser um número (0, 1, 2 ou 3)
                     explanation: explanation
-                };
+                } : {
+                  id: +id,
+                  level: +level,
+                  theme: theme,
+                  question: question,
+                  options: { 0: a, 1: b, 2: c, 3: d },
+                  correct: +correct, // Deve ser um número (0, 1, 2 ou 3)
+                  clue: clue,
+                  explanation: explanation
+                }
             }).filter(p => p !== null); // Remove qualquer linha que tenha falhado
 
             values.perguntas = perguntas;
