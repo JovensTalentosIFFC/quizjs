@@ -56,7 +56,7 @@ const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-chi
 // inicio cada fase
 if (seenQuestions - 1 % questionsPerLevel === 0 && currentLevel !== 1) {
   background[1].classList.add('shown');
-  endSpan.textContent = currentLevel + 1;
+  endSpan.textContent = currentLevel;
   setTimeout(() => { endPopup.classList.add('shown'); }, 500);
 
   // resetar vidas
