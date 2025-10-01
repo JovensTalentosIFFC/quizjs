@@ -22,8 +22,8 @@ h1, p, ul, li, button {
 }
 
 button{
-    background-color: rgb(37, 37, 74);
-    color: white;
+    background-color: rgb(69, 93, 116);
+    color: aliceblue;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -48,11 +48,11 @@ button{
 
 button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 4px 4px rgb(32, 58, 82);
 }
 
 button:active {
   transform: translateY(1px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px rgba(17, 52, 72, 0.979);
 }
 

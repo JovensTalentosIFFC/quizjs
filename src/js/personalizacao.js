@@ -263,3 +263,5 @@ form.addEventListener('submit', (e) =>{
     alert('Por favor, escolha um modo!')
   }
 })
+
+
