@@ -2,21 +2,21 @@ const configs = JSON.parse(localStorage.getItem('configs'));
 let questions = [];
 let levelThemes = [];
 
-class Question{
-    constructor({id, level, theme,question, options, correct,explanation}){
-        this.id = id
+class Question {
+    constructor({ id, level, theme, question, options, correct, explanation }) {
+        this.id = id;
         this.level = level;
-        this.theme = theme
+        this.theme = theme;
         this.question = question;
         this.options = options;
         this.correct = correct;
         this.explanation = explanation;
     }
 
-    getWrong(){
-        let wrongAnswer = parseInt(Math.random()*4);
-        while(wrongAnswer=== +this.correct){
-            wrongAnswer = parseInt(Math.random()*4);
+    getWrong() {
+        let wrongAnswer = parseInt(Math.random() * 4);
+        while (wrongAnswer === +this.correct) {
+            wrongAnswer = parseInt(Math.random() * 4);
         }
         return wrongAnswer;
     }
@@ -24,8 +24,6 @@ class Question{
 
 let optionsLength = 4;
 
-
-// Função que calcula o número de perguntas da fase atual
 function atualizarQuestionsPerLevel(level) {
     return questions.filter(q => +q.level === +level).length;
 }
@@ -37,14 +35,11 @@ const answerButton = document.querySelector('form .answerButton');
 const optionsContainer = document.querySelector('.respostas form .labels');
 const options = optionsContainer ? Array.from(optionsContainer.querySelectorAll('label')) : [];
 
-const selectTime1 = document.querySelector(".time1 button")
-const selectTime2 = document.querySelector(".time2 button")
 const scoreTime1Span = document.querySelector('.pontosTime1');
 const scoreTime2Span = document.querySelector('.pontosTime2');
 const themeEndPopup = document.querySelector('.theme');
-const tiebreak = document.querySelector('.desempate');
 const personagem = document.querySelector('.perguntaContainer img');
-const letters = ["A) ","B) ","C) ","D) "];
+const letters = ["A) ", "B) ", "C) ", "D) "];
 
 const form = document.querySelector('form');
 const background = Array.from(document.querySelectorAll('.background'))
@@ -72,11 +67,10 @@ document.querySelector('body').style.backgroundImage = `url('./assets/Projeto-Qu
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
 
-// CORREÇÃO: Verificar se wrongAnswer existe e fazer parse correto
 let wrongAnswer = localStorage.getItem('wrongAnswer');
 let correctAnswer = JSON.parse(localStorage.getItem('correctAnswer') || 'false');
-
 let removedOption = localStorage.getItem('removedOption');
+
 if (wrongAnswer && wrongAnswer !== 'false') {
     try {
         wrongAnswer = JSON.parse(wrongAnswer);
@@ -86,7 +80,6 @@ if (wrongAnswer && wrongAnswer !== 'false') {
 } else {
     wrongAnswer = false;
 }
-
 
 function disableButtonsAndSkip(q) {
     if (!answerButton || !personagem || !question) return;
@@ -98,19 +91,19 @@ function disableButtonsAndSkip(q) {
 
 function resetButtonsToDefault() {
     if (!answerButton || !question) return;
-    answerButton.textContent = 'Responder'; 
+    answerButton.textContent = 'Responder';
     answerButton.classList.remove('skip');
-    question.style.fontSize = ''; 
+    question.style.fontSize = '';
 }
 
-function selectOption(selectedOpt){
+function selectOption(selectedOpt) {
     if (wrongAnswer) {
         return;
     }
-    
+
     selectedOpt.classList.toggle('selected');
-    options.forEach(opt =>{
-        if(selectedOpt !== opt){
+    options.forEach(opt => {
+        if (selectedOpt !== opt) {
             opt.classList.remove('selected');
         }
     })
@@ -118,25 +111,16 @@ function selectOption(selectedOpt){
 
 (async () => {
     if (configs && configs.perguntas && configs.perguntas.length > 0) {
-        //Usar CSV do usuário 
         questions = configs.perguntas.map(p => new Question(p));
-        console.log("Usando CSV do usuário");
-
         questions.forEach(q => {
             if (!levelThemes.includes(q.theme)) {
                 levelThemes.push(q.theme)
             }
         });
-        // Número total de fases
         totalLevels = [...new Set(questions.map(q => +q.level))].length;
-
-        // Número de perguntas da fase atual
         questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
-
-
     } else {
-        // Usar CSV padrão
-        const info = await fetch(`../../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`); 
+        const info = await fetch(`../../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`);
         const data = await info.text();
 
         let tempQuestions = data.split('\n');
@@ -152,14 +136,8 @@ function selectOption(selectedOpt){
             return acm;
         }, []);
 
-        console.log("⚠️ Usando CSV padrão");
-
-        // Número total de fases
         totalLevels = [...new Set(questions.map(q => +q.level))].length;
-
-        // Número de perguntas da fase atual
         questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
-
     }
 
     let currentQuestion;
@@ -168,13 +146,11 @@ function selectOption(selectedOpt){
         currentQuestion = questions.find(q => q.id == savedId);
     } else {
         const questionsForCurrentLevel = questions.filter(q => q.level == currentLevel);
-        
         let availableQuestions = questionsForCurrentLevel.filter(q => !seenIdQuestions.includes(q.id));
-        
         if (availableQuestions.length === 0) {
             availableQuestions = questionsForCurrentLevel;
         }
-        
+
         currentQuestion = availableQuestions[parseInt(Math.random() * availableQuestions.length)];
 
         if (currentQuestion) {
@@ -183,75 +159,76 @@ function selectOption(selectedOpt){
             localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
         } else {
             console.error("Nenhuma questão encontrada para o level:", currentLevel);
-            return; 
+            return;
         }
     }
 
-    if(configs){
-        if(personagem){
-            if(!configs.personagens[0]){
-                personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel-1)%3)+1}.png`; 
-            } else{
-                personagem.src = configs.personagens[currentLevel-1] ? configs.personagens[currentLevel-1] : configs.personagens[0]
+    if (configs) {
+        if (personagem) {
+            if (!configs.personagens[0]) {
+                personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel - 1) % 3) + 1}.png`;
+            } else {
+                personagem.src = configs.personagens[currentLevel - 1] ? configs.personagens[currentLevel - 1] : configs.personagens[0]
             }
         }
-        if(configs.fundos[0]){
+        if (configs.fundos[0]) {
             document.body.style.backgroundImage = `url(${configs.fundos[0]})`
         }
     }
 
-    console.log(levelThemes)
-    if (numberLevel) numberLevel.textContent = `Fase ${currentLevel}: ${levelThemes[currentLevel-1] || 'Tema'}`;
-    if (themeText) themeText.textContent = levelThemes[currentLevel-1] || 'Tema';
+    if (numberLevel) numberLevel.textContent = `Fase ${currentLevel}: ${levelThemes[currentLevel - 1] || 'Tema'}`;
+    if (themeText) themeText.textContent = levelThemes[currentLevel - 1] || 'Tema';
     if (themeEndPopup) {
-        themeEndPopup.textContent = 'Tema: ' + (levelThemes[currentLevel-1] || 'Tema');
+        themeEndPopup.textContent = 'Tema: ' + (levelThemes[currentLevel - 1] || 'Tema');
         themeEndPopup.style.fontSize = '1.2rem'
     }
-    
+
+    // 🔥 Atualiza o contador de perguntas
+    if (numPergunta) {
+        numPergunta.textContent = `${seenQuestions}/${questionsPerLevel}`;
+    }
+
     if (!wrongAnswer && question) {
         question.textContent = currentQuestion.question;
     }
-    
-  
+
     let seenOption = [];
-    if(options.length > 0) {
-        if(setupQuestion.length < optionsLength){
-            options.forEach((opt, idx) =>{
-                let randomOption = parseInt(Math.random()*optionsLength);
-                while(seenOption.includes(randomOption)){
-                    randomOption = parseInt(Math.random()*optionsLength);
+    if (options.length > 0) {
+        if (setupQuestion.length < optionsLength) {
+            options.forEach((opt, idx) => {
+                let randomOption = parseInt(Math.random() * optionsLength);
+                while (seenOption.includes(randomOption)) {
+                    randomOption = parseInt(Math.random() * optionsLength);
                 }
                 seenOption.push(randomOption);
                 setupQuestion += randomOption;
-
                 opt.textContent = `${letters[idx]} ${currentQuestion.options[randomOption]}`;
             })
             localStorage.setItem('setupQuestion', setupQuestion);
-        } else{
-            options.forEach((opt, idx) =>{
+        } else {
+            options.forEach((opt, idx) => {
                 opt.textContent = `${letters[idx]} ${currentQuestion.options[setupQuestion[idx]]}`;
             })
         }
     }
-    
-    if(wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 2 && optionsContainer){
+
+    if (wrongAnswer && Array.isArray(wrongAnswer) && wrongAnswer.length === 2 && optionsContainer) {
         const [selectedIndex, correctIndex] = wrongAnswer;
-        if(options[selectedIndex]) options[selectedIndex].classList.add('missed');
-        if(options[correctIndex]) options[correctIndex].classList.add('selected');
+        if (options[selectedIndex]) options[selectedIndex].classList.add('missed');
+        if (options[correctIndex]) options[correctIndex].classList.add('selected');
         optionsContainer.style.pointerEvents = 'none';
         disableButtonsAndSkip(currentQuestion);
     }
 
-    if(correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length==1 && optionsContainer){
-        // ... (Seu código de restauração de acerto)
+    if (correctAnswer && Array.isArray(correctAnswer) && correctAnswer.length == 1 && optionsContainer) {
         const [correctIndex] = correctAnswer;
-        if(options[correctIndex]) options[correctIndex].classList.add('selected');
+        if (options[correctIndex]) options[correctIndex].classList.add('selected');
         optionsContainer.style.pointerEvents = 'none';
         disableButtonsAndSkip(currentQuestion);
     }
 
-    if(removedOption && options[removedOption]){
-        options[removedOption].style.backgroundColor='grey';
+    if (removedOption && options[removedOption]) {
+        options[removedOption].style.backgroundColor = 'grey';
     }
 
     if (form) {
@@ -260,124 +237,57 @@ function selectOption(selectedOpt){
 
             const selectedOptIndex = options.findIndex(opt => Array.from(opt.classList).includes('selected')) ?? -1
             const selectedOpt = options[selectedOptIndex];
-            
-            if(selectedOptIndex === -1){
+
+            if (selectedOptIndex === -1) {
                 alert('Por favor, selecione uma opção!');
                 return;
             }
 
-            if(!localStorage.getItem('currentTime')){
+            if (!localStorage.getItem('currentTime')) {
                 alert('Por favor, escolha um time!');
                 return;
             }
-            
+
             if (optionsContainer) optionsContainer.style.pointerEvents = 'none';
             let correctIndex = Array.from(setupQuestion).findIndex(k => k == currentQuestion.correct);
-            
-            // =========================== wrong answer
-            if(selectedOptIndex !== correctIndex){
+
+            if (selectedOptIndex !== correctIndex) {
                 selectedOpt.classList.add('missed');
                 options[correctIndex].classList.add('selected');
 
                 localStorage.setItem('wrongAnswer', JSON.stringify([selectedOptIndex, correctIndex]));
                 localStorage.removeItem('correctAnswer');
 
-                if(localStorage.getItem("currentTime") == "Time1"){
-                    scoreTime2+=50;
+                if (localStorage.getItem("currentTime") == "Time1") {
+                    scoreTime2 += 50;
                     localStorage.setItem('scoreTime2', scoreTime2);
-                    if(scoreTime2Span) scoreTime2Span.textContent = scoreTime2;
-                } else if(localStorage.getItem('currentTime') === "Time2"){
-                    scoreTime1+=50;
+                    if (scoreTime2Span) scoreTime2Span.textContent = scoreTime2;
+                } else if (localStorage.getItem('currentTime') === "Time2") {
+                    scoreTime1 += 50;
                     localStorage.setItem('scoreTime1', scoreTime1);
-                    if(scoreTime1Span) scoreTime1Span.textContent = scoreTime1;
+                    if (scoreTime1Span) scoreTime1Span.textContent = scoreTime1;
                 }
 
-            } else { // ============================================ correct answer
+            } else {
                 localStorage.removeItem('wrongAnswer');
-                localStorage.setItem('correctAnswer',JSON.stringify([correctIndex]));
-                if(localStorage.getItem("currentTime") == "Time1"){
-                    scoreTime1+=100;
+                localStorage.setItem('correctAnswer', JSON.stringify([correctIndex]));
+                if (localStorage.getItem("currentTime") == "Time1") {
+                    scoreTime1 += 100;
                     localStorage.setItem('scoreTime1', scoreTime1);
-                    if(scoreTime1Span) scoreTime1Span.textContent = scoreTime1;
-                } else if(localStorage.getItem('currentTime') === "Time2"){
-                    scoreTime2+=100;
+                    if (scoreTime1Span) scoreTime1Span.textContent = scoreTime1;
+                } else if (localStorage.getItem('currentTime') === "Time2") {
+                    scoreTime2 += 100;
                     localStorage.setItem('scoreTime2', scoreTime2);
-                    if(scoreTime2Span) scoreTime2Span.textContent = scoreTime2;
+                    if (scoreTime2Span) scoreTime2Span.textContent = scoreTime2;
                 }
             }
 
             disableButtonsAndSkip(currentQuestion);
         });
     }
-    
-})(); 
-
-if(seenQuestions-1 % questionsPerLevel===0 && currentLevel!==1 && endPopup && background[1] && endSpan && themeEndPopup){
-    localStorage.setItem('questionsPerLevel', questionsPerLevel);
-    background[1].classList.add('shown');
-    endSpan.textContent = currentLevel;
-    if(currentTheme) themeEndPopup.textContent = currentTheme;
-    setTimeout(() =>{
-        endPopup.classList.add('shown');
-    }, 500)
-}
-if(numPergunta) numPergunta.textContent = `${seenQuestions}/${questionsPerLevel}`
-
-if(currentTime==='Time1'){
-    if (selectTime1) {
-        selectTime1.disabled = true;
-        selectTime1.textContent = 'Selecionado';
-    }
-    localStorage.setItem( "currentTime" , "Time1" )
-    if (selectTime2) selectTime2.disabled = false;
-} else if(currentTime==='Time2'){
-    if (selectTime2) {
-        selectTime2.disabled=true;
-        selectTime2.textContent = 'Selecionado';
-    }
-    localStorage.setItem( "currentTime", "Time2" )
-    if (selectTime1) selectTime1.disabled=false;
-}
-
-if(nextLevel) nextLevel.addEventListener('click', () =>{
-    if (endPopup) endPopup.classList.remove('shown');
-    if (background[1]) background[1].classList.remove('shown');
-})
-
-// Lógica de Popup de Início de Jogo/Fase
-if(seenQuestions===1 && currentLevel===1 && startPopup && background[0] && levelText && themeText && startLevel){
-    const firstTheme = levelThemes[0] || 'Tema';
-    currentFaseAndTheme = [1, firstTheme]; 
-    
-    levelText.textContent = `Fase: ${currentFaseAndTheme[0]}`;
-    themeText.textContent = `Tema: ${currentFaseAndTheme[1]}`;
-
-    background[0].classList.add('shown');
-    setTimeout(() =>{
-        startPopup.classList.add('shown');
-    }, 500)
-    startLevel.addEventListener('click', () =>{
-        startPopup.classList.remove('shown');
-        background[0].classList.remove('shown');
-    })
-}
-
+})();
 
 function handleSkip() {
-    if(seenQuestions===questionsPerLevel && currentLevel===totalLevels){
-        if(scoreTime1!==scoreTime2){ 
-            if(scoreTime1>scoreTime2){
-                window.location = './winTime1.html';
-                return;
-            }
-            else if(scoreTime2>scoreTime1){
-                window.location = './winTime2.html';
-                return;
-            }
-        }
-    }
-
-    console.log('Avançando questão...');
     localStorage.removeItem('currentQuestionId');
     localStorage.removeItem('removedOption');
     localStorage.removeItem('wrongAnswer');
@@ -386,19 +296,18 @@ function handleSkip() {
     localStorage.removeItem('currentTime')
 
     if (optionsContainer) optionsContainer.style.pointerEvents = 'all';
-    
+
     options.forEach(opt => {
         opt.classList.remove('selected', 'missed');
     });
-    
+
     resetButtonsToDefault();
-    
-    if(seenQuestions===questionsPerLevel){
+
+    if (seenQuestions === questionsPerLevel) {
         currentLevel++;
-        seenQuestions=0
+        seenQuestions = 0
     }
 
-    // Recalcula o número de perguntas da fase atual
     questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
 
     seenQuestions++;
@@ -408,7 +317,6 @@ function handleSkip() {
     window.location.reload();
 }
 
-// Ativar o handleSkip no botão 'Avançar'
 document.addEventListener('DOMContentLoaded', () => {
     if (answerButton) {
         answerButton.addEventListener('click', (e) => {
@@ -420,33 +328,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Funções de Seleção de Time
-const selectTime1Function = () =>{
+// ======================== Seleção de times =========================
+const selectTime1Function = () => {
+    const selectTime1 = document.querySelector('.time1 .escolhaTime');
+    const selectTime2 = document.querySelector('.time2 .escolhaTime');
+
     if (selectTime1) {
         selectTime1.disabled = true;
         selectTime1.textContent = 'Selecionado';
     }
-    if(selectTime2 && selectTime2.textContent==='Selecionado') selectTime2.textContent='Selecionar';
-    localStorage.setItem( "currentTime" , "Time1" )
+    if (selectTime2 && selectTime2.textContent === 'Selecionado') {
+        selectTime2.textContent = 'Selecionar';
+    }
+    localStorage.setItem("currentTime", "Time1");
     if (selectTime2) selectTime2.disabled = false;
 }
 
-const selectTime2Function = () =>{
+const selectTime2Function = () => {
+    const selectTime1 = document.querySelector('.time1 .escolhaTime');
+    const selectTime2 = document.querySelector('.time2 .escolhaTime');
+
     if (selectTime2) {
-        selectTime2.disabled=true;
+        selectTime2.disabled = true;
         selectTime2.textContent = 'Selecionado';
     }
-    if(selectTime1 && selectTime1.textContent==='Selecionado') selectTime1.textContent='Selecionar';
-    localStorage.setItem( "currentTime", "Time2" )
-    if (selectTime1) selectTime1.disabled=false;
+    if (selectTime1 && selectTime1.textContent === 'Selecionado') {
+        selectTime1.textContent = 'Selecionar';
+    }
+    localStorage.setItem("currentTime", "Time2");
+    if (selectTime1) selectTime1.disabled = false;
 }
 
-if (selectTime1) selectTime1.addEventListener('click', selectTime1Function)
-document.addEventListener('keydown', ({ key }) =>{
-    if(key==='1') selectTime1Function();
-})
+const btnTime1 = document.querySelector('.time1 .escolhaTime');
+const btnTime2 = document.querySelector('.time2 .escolhaTime');
 
-if (selectTime2) selectTime2.addEventListener('click', selectTime2Function);
-document.addEventListener('keydown', ({ key }) =>{
-    if(key==='2') selectTime2Function();
-})
+if (btnTime1) btnTime1.addEventListener('click', selectTime1Function);
+if (btnTime2) btnTime2.addEventListener('click', selectTime2Function);
+
+document.addEventListener('keydown', ({ key }) => {
+    if (key === '1') selectTime1Function();
+    if (key === '2') selectTime2Function();
+});

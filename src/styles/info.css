@@ -19,6 +19,7 @@ h1, p, ul, li, button {
     margin: 10px;
     font-family: 'Poppins', sans-serif;
     margin-top: 20px;
+    font-size: 15px;
 }
 
 button{
