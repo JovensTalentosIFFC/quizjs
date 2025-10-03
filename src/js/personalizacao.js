@@ -1,6 +1,7 @@
 const containerVidas = document.querySelector('.containerInput.vidas');
 const containerAjudas = document.querySelector('.containerInput.ajudas');
 const switchModeButton = Array.from(document.querySelectorAll('.pergBotao button'))
+const csvInput = document.querySelector('#csv');
 switchModeButton[0].addEventListener('click', () =>{
   switchModeButton[0].disabled=true
   switchModeButton[0].style.pointerEvents = 'none'
@@ -46,57 +47,7 @@ let values = {
 //persornalizacao csv
 // personalizacao.js
 // personalizacao.js - Correção para processar o CSV no formato esperado
-document.getElementById('csv').addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const text = e.target.result;
-            const linhas = text.split('\n').map(l => l.trim()).filter(l => l);
-
-            // Se o CSV for do usuário, ele precisa ter o cabeçalho id;level;theme;question;a;b;c;d;correct;explanation
-            // Ignora cabeçalho
-            if (linhas[0] && linhas[0].toLowerCase().startsWith("id;level;theme")) {
-                linhas.shift();
-            }
-
-            const perguntas = linhas.map((linha) => {
-                // Usar ';' como delimitador para ser consistente com o arquivo padrão
-                const [id, level, theme, question, a, b, c, d, correct, clue, explanation] = linha.split(';');
-
-                // O 'correct' agora é o índice (0, 1, 2, ou 3) lido diretamente
-                // Certifique-se de que todas as 10 colunas estão presentes
-                if (!id || !level || !theme || !question || !a || !b || !c || !d || !correct || !explanation) {
-                    console.error("⚠️ Linha do CSV em formato incorreto:", linha);
-                    return null; // Ignora linhas mal formatadas
-                }
-
-                return modo === 'gincana' ?  {
-                    id: +id,
-                    level: +level,
-                    theme: theme,
-                    question: question,
-                    options: { 0: a, 1: b, 2: c, 3: d },
-                    correct: +correct, // Deve ser um número (0, 1, 2 ou 3)
-                    explanation: explanation
-                } : {
-                  id: +id,
-                  level: +level,
-                  theme: theme,
-                  question: question,
-                  options: { 0: a, 1: b, 2: c, 3: d },
-                  correct: +correct, // Deve ser um número (0, 1, 2 ou 3)
-                  clue: clue,
-                  explanation: explanation
-                }
-            }).filter(p => p !== null); // Remove qualquer linha que tenha falhado
-
-            values.perguntas = perguntas;
-            console.log("✅ Perguntas importadas do CSV do usuário:", perguntas);
-        };
-        reader.readAsText(file, 'UTF-8');
-    }
-});
+document.getElementById('csv').addEventListener('change', loadCsv);
 
 const form = document.querySelector('form');
 function atualizarValor(sliderId) {
@@ -265,3 +216,47 @@ form.addEventListener('submit', (e) =>{
 })
 
 
+function loadCsv() {
+    const file = csvInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const text = e.target.result;
+            const linhas = text.split('\n').map(l => l.trim()).filter(l => l);
+
+            // Se o CSV for do usuário, ele precisa ter o cabeçalho id;level;theme;question;a;b;c;d;correct;explanation
+            // Ignora cabeçalho
+            if (linhas[0] && linhas[0].toLowerCase().startsWith("id;level;theme")) {
+                linhas.shift();
+            }
+
+            const perguntas = linhas.map((linha) => {
+                // Usar ';' como delimitador para ser consistente com o arquivo padrão
+                const [id, level, theme, question, a, b, c, d, correct, explanation] = linha.split(';');
+
+                // O 'correct' agora é o índice (0, 1, 2, ou 3) lido diretamente
+                // Certifique-se de que todas as 10 colunas estão presentes
+                if (!id || !level || !theme || !question || !a || !b || !c || !d || !correct || !explanation) {
+                    console.error("⚠️ Linha do CSV em formato incorreto:", linha);
+                    return null; // Ignora linhas mal formatadas
+                }
+
+                return {
+                    id: +id,
+                    level: +level,
+                    theme: theme,
+                    question: question,
+                    options: { 0: a, 1: b, 2: c, 3: d },
+                    correct: +correct, // Deve ser um número (0, 1, 2 ou 3)
+                    explanation: explanation
+                } 
+            }).filter(p => p !== null); // Remove qualquer linha que tenha falhado
+
+            values.perguntas = perguntas;
+            console.log("✅ Perguntas importadas do CSV do usuário:", perguntas);
+        };
+        reader.readAsText(file, 'UTF-8');
+    }
+}
+loadCsv();
+console.log(values.perguntas);

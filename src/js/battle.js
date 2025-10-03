@@ -2,6 +2,10 @@ const configs = JSON.parse(localStorage.getItem('configs'));
 let questions = [];
 let levelThemes = [];
 
+let   totalLevels = configs ? +configs.fases : 2,
+  totalQuestionsPerLevelOnCsv = 5,
+  questionsPerLevel = configs ? configs.questoes : 3;
+
 class Question {
     constructor({ id, level, theme, question, options, correct, explanation }) {
         this.id = id;
@@ -23,10 +27,6 @@ class Question {
 }
 
 let optionsLength = 4;
-
-function atualizarQuestionsPerLevel(level) {
-    return questions.filter(q => +q.level === +level).length;
-}
 
 const numberLevel = document.querySelector('aside .perguntaContainer .pergunta span')
 const question = document.querySelector('aside .perguntaContainer .pergunta p')
@@ -63,7 +63,7 @@ let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let seenIdQuestions = JSON.parse(localStorage.getItem('seenIdQuestions')) || [];
 let seenQuestions = +localStorage.getItem('seenQuestions') || 1;
 let currentTheme = localStorage.getItem('theme');
-document.querySelector('body').style.backgroundImage = `url('./assets/Projeto-Quiz/tela${currentTheme}.png')`
+// document.querySelector('body').style.backgroundImage = `url('./assets/Projeto-Quiz/tela${currentTheme}.png')`
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
 
@@ -117,8 +117,6 @@ function selectOption(selectedOpt) {
                 levelThemes.push(q.theme)
             }
         });
-        totalLevels = [...new Set(questions.map(q => +q.level))].length;
-        questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
     } else {
         const info = await fetch(`../../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`);
         const data = await info.text();
@@ -136,8 +134,6 @@ function selectOption(selectedOpt) {
             return acm;
         }, []);
 
-        totalLevels = [...new Set(questions.map(q => +q.level))].length;
-        questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
     }
 
     let currentQuestion;
@@ -173,6 +169,8 @@ function selectOption(selectedOpt) {
         }
         if (configs.fundos[0]) {
             document.body.style.backgroundImage = `url(${configs.fundos[0]})`
+        } else{
+          document.body.style.backgroundImage = `url('/src/assets/Projeto-Quiz/telaInicial.png')`
         }
     }
 
@@ -288,6 +286,21 @@ function selectOption(selectedOpt) {
 })();
 
 function handleSkip() {
+
+  if((currentLevel+1 > totalLevels && seenQuestions === questionsPerLevel) || localStorage.getItem('isOnTiebreak')){
+     console.log(localStorage.getItem('isOnTiebreak'))
+    if(scoreTime1>scoreTime2){
+      window.location = './winTime1.html'
+      return
+    } else if(scoreTime1<scoreTime2){
+      window.location = './winTime2.html'
+      return
+    }
+
+    localStorage.setItem('isOnTiebreak', 'true');
+
+  }
+
     localStorage.removeItem('currentQuestionId');
     localStorage.removeItem('removedOption');
     localStorage.removeItem('wrongAnswer');
@@ -308,7 +321,6 @@ function handleSkip() {
         seenQuestions = 0
     }
 
-    questionsPerLevel = atualizarQuestionsPerLevel(currentLevel);
 
     seenQuestions++;
     localStorage.setItem('currentLevel', currentLevel);

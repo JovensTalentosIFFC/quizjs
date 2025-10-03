@@ -100,14 +100,13 @@ nextLevel.addEventListener('click', () => {
 // REMOVIDO: O popup de início agora é tratado dentro da função assíncrona.
 
 class Question {
-  constructor({ id, level, theme, question, options, correct, clue, explanation }) {
+  constructor({ id, level, theme, question, options, correct, explanation }) {
     this.id = id;
     this.level = level;
     this.theme = theme || '';
     this.question = question;
     this.options = options;
     this.correct = correct;
-    this.clue = clue || '';
     this.explanation = explanation;
   }
   getWrong() {
@@ -161,7 +160,6 @@ function resetButtonsToDefault() {
         c,
         d,
         correct,
-        clue,
         explanation,
       ] = columns;
       acm.push(
@@ -172,7 +170,6 @@ function resetButtonsToDefault() {
           question: questionText,
           options: { 0: a, 1: b, 2: c, 3: d },
           correct,
-          clue,
           explanation,
         })
       );
@@ -210,14 +207,14 @@ function resetButtonsToDefault() {
     levelText.textContent = `Fase: ${currentLevel}`;
     themeText.textContent = `Tema: ${themeName}`;
 
-    background[0].classList.add('shown');
-    setTimeout(() => {
-      startPopup.classList.add('shown');
-    }, 500);
-    startLevel.addEventListener('click', () => {
-      startPopup.classList.remove('shown');
-      background[0].classList.remove('shown');
-    });
+//     background[0].classList.add('shown');
+//     setTimeout(() => {
+//       startPopup.classList.add('shown');
+//     }, 500);
+//     startLevel.addEventListener('click', () => {
+//       startPopup.classList.remove('shown');
+//       background[0].classList.remove('shown');
+//     });
   }
   // FIM DA CORREÇÃO
 
@@ -347,17 +344,6 @@ function resetButtonsToDefault() {
       setTimeout(() => {
         advicePopup.querySelector('h2').textContent =
           'Parece que você não tem mais dicas disponíveis...';
-        restartButton.textContent = 'Continuar';
-        advicePopup.classList.add('shown');
-      }, 500);
-      return;
-    }
-
-    if (isUsingUserCsv && !currentQuestion.clue) {
-      background[2].classList.add('shown');
-      setTimeout(() => {
-        advicePopup.querySelector('h2').textContent =
-          'As perguntas personalizadas não possuem dicas.';
         restartButton.textContent = 'Continuar';
         advicePopup.classList.add('shown');
       }, 500);
