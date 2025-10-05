@@ -170,3 +170,9 @@ input[type="file"]{
 .enviarform{
   margin-top: 5%;
 }
+
+.aviso{
+  color: brown;
+  margin-top: 2rem;
+  font-size: 2rem;
+}
