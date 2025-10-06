@@ -34,15 +34,53 @@ if(modo && modo == "gincana"){
   containerVidas.style.display = 'none'
 }
 
-
+const configs = JSON.parse(localStorage.getItem('configs'));
 let values = {
-  fases: 5,
-  questoes: 5,
-  vidas: 3,
-  ajudas: 2,
-  personagens: [],
-  fundos: []
+  fases: configs ? configs.fases : 5,
+  vidas: configs ? configs.vidas : 3,
+  ajudas: configs ? configs.ajudas : 2,
+  personagens: configs ? configs.personagens : [],
+  fundos: configs ? configs.fundos :[],
+  questoes: configs ? configs.questoes : [],
 }
+
+
+let inputFases = document.getElementById('fasesInput');
+let sliderFases = document.getElementById('fases');
+let valorFases = document.getElementById('valor-fases');
+
+let inputQuestoes = document.getElementById('questoesInput');
+let sliderQuestoes = document.getElementById('questoes');
+let valorQuestoes = document.getElementById('valor-questoes');
+
+let inputVidas = document.getElementById('vidasInput');
+let sliderVidas = document.getElementById('vidas');
+let valorVidas = document.getElementById('valor-vidas');
+
+let inputAjudas = document.getElementById('ajudasInput');
+let sliderAjudas = document.getElementById('ajudas');
+let valorAjudas = document.getElementById('valor-ajudas');
+
+// Atualiza os valores conforme o objeto configs
+if(configs){
+  inputFases.value = configs.fases;
+  sliderFases.value = configs.fases;
+  valorFases.textContent = configs.fases;
+
+  inputQuestoes.value = configs.questoes;
+  sliderQuestoes.value = configs.questoes;
+  valorQuestoes.textContent = configs.questoes;
+
+  inputVidas.value = configs.vidas;
+  sliderVidas.value = configs.vidas;
+  valorVidas.textContent = configs.vidas;
+
+  inputAjudas.value = configs.ajudas;
+  sliderAjudas.value = configs.ajudas;
+  valorAjudas.textContent = configs.ajudas;
+}
+
+
 
 //persornalizacao csv
 // personalizacao.js

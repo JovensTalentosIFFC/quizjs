@@ -3,7 +3,8 @@
 body{
     background-image: url(/src/assets/Projeto-Quiz/Informações.png);
     
-    background-size: 100% 100%;
+    background-size: 120% 120%;
+    background-position: center;
     height: 90vh;
     display: flex;
     justify-content: center;
