@@ -176,3 +176,9 @@ input[type="file"]{
   margin-top: 2rem;
   font-size: 2rem;
 }
+
+
+.enviarform:disabled{
+  pointer-events: none;
+  background-color: grey;
+}

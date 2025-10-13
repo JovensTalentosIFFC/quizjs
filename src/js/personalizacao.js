@@ -1,6 +1,10 @@
 const containerVidas = document.querySelector('.containerInput.vidas');
 const containerAjudas = document.querySelector('.containerInput.ajudas');
 const switchModeButton = Array.from(document.querySelectorAll('.pergBotao button'))
+
+let levelsQuantity= localStorage.getItem('levelsQuantity') || 0;
+
+
 const csvInput = document.querySelector('#csv');
 switchModeButton[0].addEventListener('click', () =>{
   switchModeButton[0].disabled=true
@@ -34,6 +38,8 @@ if(modo && modo == "gincana"){
   containerVidas.style.display = 'none'
 }
 
+const submitFormButton = document.querySelector('.enviarform')
+
 const configs = JSON.parse(localStorage.getItem('configs'));
 let values = {
   fases: configs ? configs.fases : 5,
@@ -41,7 +47,7 @@ let values = {
   ajudas: configs ? configs.ajudas : 2,
   personagens: configs ? configs.personagens : [],
   fundos: configs ? configs.fundos :[],
-  questoes: configs ? configs.questoes : [],
+  questoes: configs ? configs.questoes : 5,
 }
 
 
@@ -89,6 +95,8 @@ document.getElementById('csv').addEventListener('change', loadCsv);
 
 const form = document.querySelector('form');
 function atualizarValor(sliderId) {
+  submitFormButton.disabled=false
+
   const slider = document.getElementById(sliderId);
   const span = document.getElementById('valor-' + sliderId);
   span.textContent = slider.value;
@@ -99,12 +107,14 @@ function atualizarValor(sliderId) {
 }
 
 function moverSlider(sliderId, inputId) {
+  submitFormButton.disabled=false
   const input = document.getElementById(inputId);
   const slider = document.getElementById(sliderId);
   const span = document.getElementById('valor-' + sliderId);
   const valor = parseInt(input.value);
 
   if (!isNaN(valor) && valor >= parseInt(slider.min) && valor <= parseInt(slider.max)) {
+
     slider.value = valor;
     span.textContent = valor;
   } else {
@@ -240,6 +250,15 @@ document.getElementById('uploadFundo').addEventListener('change', function (even
 
 form.addEventListener('submit', (e) =>{
   e.preventDefault();
+
+  if(levelsQuantity<valorFases.textContent){
+    alert('Insira um número de fases correspondente com o csv!')
+    submitFormButton.disabled=true
+    return;
+  } else{
+    submitFormButton.disabled=false
+  }
+
   modo = localStorage.getItem('modo')
   // const formatedValues
   localStorage.setItem('configs', JSON.stringify(values));
@@ -267,7 +286,6 @@ function loadCsv() {
             if (linhas[0] && linhas[0].toLowerCase().startsWith("id;level;theme")) {
                 linhas.shift();
             }
-
             const perguntas = linhas.map((linha) => {
                 // Usar ';' como delimitador para ser consistente com o arquivo padrão
                 const [id, level, theme, question, a, b, c, d, correct, explanation] = linha.split(';');
@@ -278,7 +296,7 @@ function loadCsv() {
                     console.error("⚠️ Linha do CSV em formato incorreto:", linha);
                     return null; // Ignora linhas mal formatadas
                 }
-
+                if(level>levelsQuantity) levelsQuantity=level;
                 return {
                     id: +id,
                     level: +level,
@@ -289,7 +307,8 @@ function loadCsv() {
                     explanation: explanation
                 } 
             }).filter(p => p !== null); // Remove qualquer linha que tenha falhado
-
+            
+            console.log(levelsQuantity, valorFases.textContent)
             values.perguntas = perguntas;
             console.log("✅ Perguntas importadas do CSV do usuário:", perguntas);
         };
