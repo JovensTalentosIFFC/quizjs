@@ -259,6 +259,14 @@ form.addEventListener('submit', (e) =>{
     submitFormButton.disabled=false
   }
 
+  if(values.perguntas.length/levelsQuantity < valorQuestoes.textContent){
+    alert('Insira um número de perguntas correspondente com o csv!')
+    submitFormButton.disabled=true
+    return;
+  } else{
+    submitFormButton.disabled=false
+  }
+
   modo = localStorage.getItem('modo')
   // const formatedValues
   localStorage.setItem('configs', JSON.stringify(values));
