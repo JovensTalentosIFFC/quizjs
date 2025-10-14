@@ -232,7 +232,7 @@ function resetButtonsToDefault() {
     currentQuestion = questions.find((q) => q.id == savedId);
   } else if (availableQuestions.length > 0) {
     currentQuestion =
-      availableQuestions[parseInt(Math.random() * availableQuestions.length)];
+    availableQuestions[parseInt(Math.random() * availableQuestions.length)];
     localStorage.setItem('currentQuestionId', currentQuestion.id);
     seenIdQuestions.push(currentQuestion.id);
     localStorage.setItem('seenIdQuestions', JSON.stringify(seenIdQuestions));
@@ -355,14 +355,14 @@ function resetButtonsToDefault() {
     const corrIdx = Array.from(setupQuestion).findIndex(
       (l) => +l === wrongIdx
     );
-    if (corrIdx !== -1) {
+    if (corrIdx !== -1 && !localStorage.getItem('removedOption')) {
       options[corrIdx].style.backgroundColor = 'grey';
       options[corrIdx].style.pointerEvents = 'none';
       localStorage.setItem('removedOption', corrIdx);
+      clues--;
+      updateClues();
+      localStorage.setItem('clues', clues);
     }
-    clues--;
-    updateClues();
-    localStorage.setItem('clues', clues);
 
     setTimeout(() => {
       if (clues > 0) clueButton.disabled = false;

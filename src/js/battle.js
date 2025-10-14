@@ -317,8 +317,10 @@ function handleSkip() {
     resetButtonsToDefault();
 
     if (seenQuestions === questionsPerLevel) {
-        currentLevel++;
-        seenQuestions = 0
+        if(!localStorage.getItem('isOnTiebreak')){
+          currentLevel++;
+          seenQuestions = 0
+        }
     }
 
 
