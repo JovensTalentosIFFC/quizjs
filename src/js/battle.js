@@ -174,7 +174,7 @@ function selectOption(selectedOpt) {
         }
     }
 
-    if (numberLevel) numberLevel.textContent = `Fase ${currentLevel}: ${levelThemes[currentLevel - 1] || 'Tema'}`;
+    if (numberLevel) numberLevel.textContent = `Fase ${currentLevel}: ${levelThemes[currentLevel - 1] || 'Água'}`;
     if (themeText) themeText.textContent = levelThemes[currentLevel - 1] || 'Tema';
     if (themeEndPopup) {
         themeEndPopup.textContent = 'Tema: ' + (levelThemes[currentLevel - 1] || 'Tema');
