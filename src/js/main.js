@@ -1,7 +1,9 @@
 console.log("working")
 
 
-localStorage.clear();
+window.addEventListener('DOMContentLoaded', () => {
+  localStorage.clear();
+});
 
 const redirectToQuestions = () =>{
   localStorage.setItem('solo', 1);

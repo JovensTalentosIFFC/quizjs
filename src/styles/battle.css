@@ -9,7 +9,7 @@
 }
 
 body {
-  background-image: url(src/assets/Projeto-Quiz/telaPadrao.png);
+  background-image: url(../assets/Projeto-Quiz/telaPadrao.png);
   background-size: cover;
   height: 90vh;
   display: flex;

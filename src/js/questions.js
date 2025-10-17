@@ -55,6 +55,12 @@ let removedOption = localStorage.getItem('removedOption');
 const currentQuestionSpan = document.querySelector(
   '.topPergunta span:nth-child(2)'
 );
+
+
+const pathsSolo = {
+  pathCsv: `../src/assets/solo.csv`,
+  // pathPersonagem
+}
 currentQuestionSpan.textContent = `${seenQuestions}/${questionsPerLevel}`;
 
 const form = document.querySelector('form');
@@ -144,7 +150,7 @@ function resetButtonsToDefault() {
     isUsingUserCsv = true;
     console.log('✅ Usando CSV do usuário no modo Solo.');
   } else {
-    const info = await fetch(`../../src/assets/solo.csv`);
+    const info = await fetch(pathsSolo.pathCsv);
     const data = await info.text();
     let tempQuestions = data.split('\n');
     tempQuestions.shift();

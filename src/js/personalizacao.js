@@ -230,6 +230,8 @@ function verEnter(event) {
 }
 
 document.getElementById('uploadFundo').addEventListener('change', function (event) {
+  submitFormButton.disabled=false
+
   const file = event.target.files[0];
   const previewFundo = document.getElementById('previewFundo');
 
@@ -282,6 +284,7 @@ form.addEventListener('submit', (e) =>{
 
 
 function loadCsv() {
+  submitFormButton.disabled=false
     const file = csvInput.files[0];
     if (file) {
         const reader = new FileReader();
