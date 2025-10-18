@@ -59,7 +59,7 @@ const currentQuestionSpan = document.querySelector(
 
 const pathsSolo = {
   pathCsv: `../src/assets/solo.csv`,
-  // pathPersonagem
+  pathTeacher: '../src/assets/Projeto-Quiz/professor.png'
 }
 currentQuestionSpan.textContent = `${seenQuestions}/${questionsPerLevel}`;
 
@@ -128,7 +128,7 @@ function disableButtonsAndSkip(currentQuestion) {
   clueButton.style.display = 'none';
   answerButton.textContent = 'Avançar';
   answerButton.classList.add('skip');
-  personagem.src = './assets/Projeto-Quiz/professor.png';
+  personagem.src = pathsSolo.pathTeacher;
   question.textContent = currentQuestion.explanation;
   question.style.fontSize = '1.2rem';
 }
@@ -186,7 +186,7 @@ function resetButtonsToDefault() {
 
   if (configs) {
     if (!configs.personagens[0]) {
-      personagem.src = `./assets/Projeto-Quiz/personagem${
+      personagem.src = `../src/assets/Projeto-Quiz/personagem${
         ((currentLevel - 1) % 3) + 1
       }.png`;
     } else {
