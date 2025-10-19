@@ -132,7 +132,6 @@ function disableButtonsAndSkip(currentQuestion) {
   personagem.src = pathsSolo.pathTeacher;
 console.log(personagem.src)
   question.textContent = currentQuestion.explanation;
-  question.style.fontSize = '1.2rem';
 }
 
 function resetButtonsToDefault() {
