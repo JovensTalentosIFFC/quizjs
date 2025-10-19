@@ -59,7 +59,8 @@ const currentQuestionSpan = document.querySelector(
 
 const pathsSolo = {
   pathCsv: `../src/assets/solo.csv`,
-  pathTeacher: '../src/assets/Projeto-Quiz/professor.png'
+  pathTeacher: '../src/assets/Projeto-Quiz/professor.png',
+  pathPersonagem: '../src/assets/Projeto-Quiz/personagem'
 }
 currentQuestionSpan.textContent = `${seenQuestions}/${questionsPerLevel}`;
 
@@ -187,9 +188,9 @@ function resetButtonsToDefault() {
 
   if (configs) {
     if (!configs.personagens[0]) {
-      personagem.src = `../src/assets/Projeto-Quiz/personagem${
-        ((currentLevel - 1) % 3) + 1
-      }.png`;
+      personagem.src = pathsSolo.pathPersonagem + 
+        (((currentLevel - 1) % 3) + 1) + 
+      '.png';
       console.log(personagem.src)
     } else {
       personagem.src = configs.personagens[currentLevel - 1]
