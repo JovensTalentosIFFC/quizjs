@@ -129,6 +129,7 @@ function disableButtonsAndSkip(currentQuestion) {
   answerButton.textContent = 'Avançar';
   answerButton.classList.add('skip');
   personagem.src = pathsSolo.pathTeacher;
+console.log(personagem.src)
   question.textContent = currentQuestion.explanation;
   question.style.fontSize = '1.2rem';
 }
@@ -189,10 +190,12 @@ function resetButtonsToDefault() {
       personagem.src = `../src/assets/Projeto-Quiz/personagem${
         ((currentLevel - 1) % 3) + 1
       }.png`;
+      console.log(personagem.src)
     } else {
       personagem.src = configs.personagens[currentLevel - 1]
         ? configs.personagens[currentLevel - 1]
         : configs.personagens[0];
+      console.log(personagem.src)
     }
     if (configs.fundos[0]) {
       document.body.style.backgroundImage = `url(${configs.fundos[0]})`;
