@@ -2,14 +2,13 @@ console.log("working")
 
 
 
-window.addEventListener('DOMContentLoaded', () => {
-  for (let i = localStorage.length - 1; i >= 0; i--) {
-    let key = localStorage.key(i);
-    console.log(key)
-    localStorage.removeItem(key);
-  }
-  localStorage.clear();
-});
+for (let i = localStorage.length - 1; i >= 0; i--) {
+  let key = localStorage.key(i);
+  console.log(key)
+  localStorage.removeItem(key);
+}
+localStorage.clear();
+
 
 const redirectToQuestions = () =>{
   localStorage.setItem('solo', 1);

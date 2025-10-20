@@ -63,7 +63,7 @@ let currentLevel = +localStorage.getItem('currentLevel') || 1;
 let seenIdQuestions = JSON.parse(localStorage.getItem('seenIdQuestions')) || [];
 let seenQuestions = +localStorage.getItem('seenQuestions') || 1;
 let currentTheme = localStorage.getItem('theme');
-// document.querySelector('body').style.backgroundImage = `url('./assets/Projeto-Quiz/tela${currentTheme}.png')`
+document.querySelector('body').style.backgroundImage = `url('../src/assets/Projeto-Quiz/tela${currentTheme}.png')`
 let currentQuestionId = +localStorage.getItem('currentQuestionId') || 1;
 let setupQuestion = localStorage.getItem('setupQuestion') || '';
 

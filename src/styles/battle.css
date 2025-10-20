@@ -334,3 +334,98 @@ aside{
 .time1 p, .time2 p{
   font-size: 1.6rem;
 }
+
+
+@media (max-width: 1480px){
+  .perguntaContainer{
+    width: 600px;
+  }
+
+  aside .perguntaContainer *, aside .perguntaContainer .topPergunta span{
+    font-size: 1rem;
+  }
+
+  .times, .times div p, .times div button{
+    font-size: .7rem;
+  }
+
+  .times{
+    height: 140px;
+    width: 500px;
+  }
+}
+
+@media (max-width: 1128px){
+
+  aside{
+    height: 300px;
+  }
+  
+  aside .perguntaContainer img{
+    max-width: 160px;
+  }
+
+  .perguntaContainer .pergunta{
+    max-height: 170px;
+  }
+
+  .perguntaContainer{
+    width: 104%;
+  }
+
+
+
+  aside .times{
+    position: fixed;
+    bottom: 30px;
+    left: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+}
+
+@media (max-width: 611px){
+  .respostas{
+    width: 320px;
+    padding: 20px;
+    height: 400px;
+  }
+
+   aside .perguntaContainer *, aside .perguntaContainer .topPergunta span{
+    font-size: .7rem;
+  }
+
+   aside .perguntaContainer img{
+    max-width: 90px;
+  }
+
+  aside{
+    height: 300px;
+    padding: 30px;
+  }
+
+  .perguntaContainer .pergunta{
+   
+  }
+
+
+
+
+  .respostas form *{
+    font-size: .7rem;
+    gap: 2px;
+  }
+
+  .respostas form .labels label{
+    font-size: .7rem;
+  }
+
+  aside .times{
+    width: 90%;
+  }
+}

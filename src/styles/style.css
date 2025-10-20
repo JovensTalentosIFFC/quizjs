@@ -16,6 +16,7 @@ body{
    display: flex;
    justify-content: center;
    align-items: center;
+   backdrop-filter: brightness(80%);
 }
 
 .inicio button, .gincana button {
@@ -30,16 +31,21 @@ body{
   background: linear-gradient(135deg, #0b9033, #88b14d);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  margin-top: 770px;
-  margin-right: 90px;
-  margin-left: 90px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
   transition: all 0.3s ease;
   border: none;
+}
+
+.botoesContainer{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  bottom: 20px;
 }
 
 button p{
@@ -48,13 +54,8 @@ button p{
 }
 
 .inicio button:hover, .gincana button:hover {
-  transform: translateY(-3px);
+  margin-bottom: 20px;
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
-}
-
-.inicio button:active, .gincana button:active {
-  transform: translateY(1px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 .menu {
@@ -89,4 +90,28 @@ button p{
  i{
   color: white;
   font-size: 2rem;  
+}
+
+@media (max-width: 918px){
+  body{
+    background-size: 900px;
+    background-repeat: repeat;
+  }
+
+  .botoesContainer button{
+    font-size: 1.4rem;
+    width: 200px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 530px){
+  body{
+    background-size: 600px;
+  }
+
+  .botoesContainer{
+    gap: 10px;
+    flex-direction: column;
+  }
 }

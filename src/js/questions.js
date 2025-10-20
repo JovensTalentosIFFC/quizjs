@@ -190,17 +190,19 @@ function resetButtonsToDefault() {
       personagem.src = pathsSolo.pathPersonagem + 
         (((currentLevel - 1) % 3) + 1) + 
       '.png';
-      console.log(personagem.src)
     } else {
       personagem.src = configs.personagens[currentLevel - 1]
         ? configs.personagens[currentLevel - 1]
         : configs.personagens[0];
-      console.log(personagem.src)
     }
     if (configs.fundos[0]) {
       document.body.style.backgroundImage = `url(${configs.fundos[0]})`;
     }
-  }
+  } else{
+  personagem.src = pathsSolo.pathPersonagem + 
+  (((currentLevel - 1) % 3) + 1) + 
+  '.png';
+}
 
   const questionsForCurrentLevel = questions.filter(
     (q) => +q.level === currentLevel
