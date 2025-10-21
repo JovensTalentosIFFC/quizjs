@@ -85,7 +85,7 @@ function disableButtonsAndSkip(q) {
     if (!answerButton || !personagem || !question) return;
     answerButton.textContent = 'Avançar'
     answerButton.classList.add('skip');
-    personagem.src = './assets/Projeto-Quiz/professor.png';
+    personagem.src = '../src/assets/Projeto-Quiz/professor.png';
     question.textContent = q.explanation;
 }
 
@@ -118,7 +118,8 @@ function selectOption(selectedOpt) {
             }
         });
     } else {
-        const info = await fetch(`../../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`);
+        const info = await fetch(`../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`);
+        console.log(localStorage.getItem('theme'))
         const data = await info.text();
 
         let tempQuestions = data.split('\n');

@@ -9,7 +9,7 @@
 }
 
 body {
-  background-image: url(../assets/Projeto-Quiz/telaPadrao.png);
+  background-image: url(../src/assets/Projeto-Quiz/telaPadrao.png);
   background-size: cover;
   height: 90vh;
   display: flex;
@@ -409,9 +409,6 @@ aside{
     padding: 30px;
   }
 
-  .perguntaContainer .pergunta{
-   
-  }
 
 
 
@@ -427,5 +424,11 @@ aside{
 
   aside .times{
     width: 90%;
+    gap: 10px;
   }
+
+  aside .times button{
+    width: 20px;
+  }
+
 }
