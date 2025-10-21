@@ -3,7 +3,6 @@
 body{
     background-image: url('../assets/Projeto-Quiz/Informações.png');
     
-    background-size: 120% 120%;
     background-position: center;
     height: 90vh;
     display: flex;
@@ -58,3 +57,8 @@ button:active {
   box-shadow: 4px 4px rgba(17, 52, 72, 0.979);
 }
 
+@media (max-width: 918px){
+  ul{
+    width: 95%;
+  }
+}
