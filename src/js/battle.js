@@ -165,7 +165,7 @@ function selectOption(selectedOpt) {
     if (configs) {
         if (personagem) {
             if (!configs.personagens[0]) {
-                personagem.src = `./assets/Projeto-Quiz/personagem${((currentLevel - 1) % 3) + 1}.png`;
+                personagem.src = `../src/assets/Projeto-Quiz/personagem${((currentLevel - 1) % 3) + 1}.png`;
             } else {
                 personagem.src = configs.personagens[currentLevel - 1] ? configs.personagens[currentLevel - 1] : configs.personagens[0]
             }
@@ -173,7 +173,7 @@ function selectOption(selectedOpt) {
         if (configs.fundos[0]) {
             document.body.style.backgroundImage = `url(${configs.fundos[0]})`
         } else{
-          document.body.style.backgroundImage = `url('/src/assets/Projeto-Quiz/telaInicial.png')`
+          document.body.style.backgroundImage = `url('../src/assets/Projeto-Quiz/telaInicial.png')`
         }
     }
 

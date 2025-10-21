@@ -8,10 +8,10 @@
 }
 
 body{
-   background-image: url('../assets/Projeto-Quiz/telaInicial.png');
+   background-image: url('../src/assets/Projeto-Quiz/telaInicial.png');
    background-size:cover;
    background-repeat: no-repeat;
-   height: 100vh;
+   height: 90vh;
    width: 100%;
    display: flex;
    justify-content: center;
