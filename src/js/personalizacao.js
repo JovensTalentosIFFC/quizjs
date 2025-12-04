@@ -2,14 +2,13 @@ const containerVidas = document.querySelector('.containerInput.vidas');
 const containerAjudas = document.querySelector('.containerInput.ajudas');
 const switchModeButton = Array.from(document.querySelectorAll('.pergBotao button'))
 
-let levelsQuantity= localStorage.getItem('levelsQuantity') || 0;
-
+let levelsQuantity = localStorage.getItem('levelsQuantity') || 0;
 
 const csvInput = document.querySelector('#csv');
-switchModeButton[0].addEventListener('click', () =>{
-  switchModeButton[0].disabled=true
+switchModeButton[0].addEventListener('click', () => {
+  switchModeButton[0].disabled = true
   switchModeButton[0].style.pointerEvents = 'none'
-  switchModeButton[1].disabled=false;
+  switchModeButton[1].disabled = false;
   switchModeButton[1].style.pointerEvents = 'all'
 
   localStorage.setItem('modo', 'solo')
@@ -18,10 +17,10 @@ switchModeButton[0].addEventListener('click', () =>{
   containerVidas.style.display = ''
 })
 
-switchModeButton[1].addEventListener('click', () =>{
-  switchModeButton[1].disabled=true
+switchModeButton[1].addEventListener('click', () => {
+  switchModeButton[1].disabled = true
   switchModeButton[1].style.pointerEvents = 'none'
-  switchModeButton[0].disabled=false;
+  switchModeButton[0].disabled = false;
   switchModeButton[0].style.pointerEvents = 'all'
 
   localStorage.setItem('modo', 'gincana')
@@ -33,7 +32,7 @@ switchModeButton[1].addEventListener('click', () =>{
 
 let modo = localStorage.getItem('modo')
 
-if(modo && modo == "gincana"){
+if (modo && modo == "gincana") {
   containerAjudas.style.display = 'none';
   containerVidas.style.display = 'none'
 }
@@ -46,10 +45,9 @@ let values = {
   vidas: configs ? configs.vidas : 3,
   ajudas: configs ? configs.ajudas : 2,
   personagens: configs ? configs.personagens : [],
-  fundos: configs ? configs.fundos :[],
+  fundos: configs ? configs.fundos : [],
   questoes: configs ? configs.questoes : 5,
 }
-
 
 let inputFases = document.getElementById('fasesInput');
 let sliderFases = document.getElementById('fases');
@@ -67,8 +65,8 @@ let inputAjudas = document.getElementById('ajudasInput');
 let sliderAjudas = document.getElementById('ajudas');
 let valorAjudas = document.getElementById('valor-ajudas');
 
-// Atualiza os valores conforme o objeto configs
-if(configs){
+// Atualiza valores do configs
+if (configs) {
   inputFases.value = configs.fases;
   sliderFases.value = configs.fases;
   valorFases.textContent = configs.fases;
@@ -86,35 +84,29 @@ if(configs){
   valorAjudas.textContent = configs.ajudas;
 }
 
-
-
-//persornalizacao csv
-// personalizacao.js
-// personalizacao.js - Correção para processar o CSV no formato esperado
 document.getElementById('csv').addEventListener('change', loadCsv);
 
 const form = document.querySelector('form');
 function atualizarValor(sliderId) {
-  submitFormButton.disabled=false
+  submitFormButton.disabled = false
 
   const slider = document.getElementById(sliderId);
   const span = document.getElementById('valor-' + sliderId);
   span.textContent = slider.value;
   values[sliderId] = +slider.value
 
-  const input = document.getElementById(sliderId+'Input');
+  const input = document.getElementById(sliderId + 'Input');
   input.value = slider.value;
 }
 
 function moverSlider(sliderId, inputId) {
-  submitFormButton.disabled=false
+  submitFormButton.disabled = false
   const input = document.getElementById(inputId);
   const slider = document.getElementById(sliderId);
   const span = document.getElementById('valor-' + sliderId);
   const valor = parseInt(input.value);
 
   if (!isNaN(valor) && valor >= parseInt(slider.min) && valor <= parseInt(slider.max)) {
-
     slider.value = valor;
     span.textContent = valor;
   } else {
@@ -123,10 +115,10 @@ function moverSlider(sliderId, inputId) {
 }
 
 function verificaEnter(event, sliderId, inputId) {
-  if (event.key === 'Enter'){
-  event.preventDefault();
-  moverSlider(sliderId, inputId);
-  atualizarValor(sliderId)
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    moverSlider(sliderId, inputId);
+    atualizarValor(sliderId)
   }
 }
 
@@ -230,7 +222,7 @@ function verEnter(event) {
 }
 
 document.getElementById('uploadFundo').addEventListener('change', function (event) {
-  submitFormButton.disabled=false
+  submitFormButton.disabled = false
 
   const file = event.target.files[0];
   const previewFundo = document.getElementById('previewFundo');
@@ -249,82 +241,93 @@ document.getElementById('uploadFundo').addEventListener('change', function (even
   }
 });
 
+// ➤ FUNÇÃO NOVA — aplica padrão 5 se o usuário não escolher nada
+function aplicarPadraoSeNaoSelecionado() {
 
-form.addEventListener('submit', (e) =>{
-  e.preventDefault();
-
-  if(levelsQuantity<valorFases.textContent){
-    alert('Insira um número de fases correspondente com o csv!')
-    submitFormButton.disabled=true
-    return;
-  } else{
-    submitFormButton.disabled=false
+  if (!inputFases.value || inputFases.value.trim() === "") {
+    values.fases = 5;
+    inputFases.value = 5;
+    sliderFases.value = 5;
+    valorFases.textContent = 5;
   }
 
-  if(values.perguntas.length/levelsQuantity < valorQuestoes.textContent){
-    alert('Insira um número de perguntas correspondente com o csv!')
-    submitFormButton.disabled=true
+  if (!inputQuestoes.value || inputQuestoes.value.trim() === "") {
+    values.questoes = 5;
+    inputQuestoes.value = 5;
+    sliderQuestoes.value = 5;
+    valorQuestoes.textContent = 5;
+  }
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  aplicarPadraoSeNaoSelecionado(); // ➤ AQUI!
+
+  if (levelsQuantity < values.fases) {
+    alert('Insira um número de fases correspondente com o csv!')
+    submitFormButton.disabled = true
     return;
-  } else{
-    submitFormButton.disabled=false
+  }
+
+  if (values.perguntas.length / levelsQuantity < values.questoes) {
+    alert('Insira um número de perguntas correspondente com o csv!')
+    submitFormButton.disabled = true
+    return;
   }
 
   modo = localStorage.getItem('modo')
-  // const formatedValues
+
   localStorage.setItem('configs', JSON.stringify(values));
-  if(modo === "solo") {
+
+  if (modo === "solo") {
     window.location = './questions.html'
-    return; 
-  }else if(modo==='gincana'){
+    return;
+  } else if (modo === 'gincana') {
     window.location = './battle.html'
-  } else{
+  } else {
     alert('Por favor, escolha um modo!')
   }
 })
 
-
 function loadCsv() {
-  submitFormButton.disabled=false
-    const file = csvInput.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const text = e.target.result;
-            const linhas = text.split('\n').map(l => l.trim()).filter(l => l);
+  submitFormButton.disabled = false
+  const file = csvInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const text = e.target.result;
+      const linhas = text.split('\n').map(l => l.trim()).filter(l => l);
 
-            // Se o CSV for do usuário, ele precisa ter o cabeçalho id;level;theme;question;a;b;c;d;correct;explanation
-            // Ignora cabeçalho
-            if (linhas[0] && linhas[0].toLowerCase().startsWith("id;level;theme")) {
-                linhas.shift();
-            }
-            const perguntas = linhas.map((linha) => {
-                // Usar ';' como delimitador para ser consistente com o arquivo padrão
-                const [id, level, theme, question, a, b, c, d, correct, explanation] = linha.split(';');
+      if (linhas[0] && linhas[0].toLowerCase().startsWith("id;level;theme")) {
+        linhas.shift();
+      }
 
-                // O 'correct' agora é o índice (0, 1, 2, ou 3) lido diretamente
-                // Certifique-se de que todas as 10 colunas estão presentes
-                if (!id || !level || !theme || !question || !a || !b || !c || !d || !correct || !explanation) {
-                    console.error("⚠️ Linha do CSV em formato incorreto:", linha);
-                    return null; // Ignora linhas mal formatadas
-                }
-                if(level>levelsQuantity) levelsQuantity=level;
-                return {
-                    id: +id,
-                    level: +level,
-                    theme: theme,
-                    question: question,
-                    options: { 0: a, 1: b, 2: c, 3: d },
-                    correct: +correct, // Deve ser um número (0, 1, 2 ou 3)
-                    explanation: explanation
-                } 
-            }).filter(p => p !== null); // Remove qualquer linha que tenha falhado
-            
-            console.log(levelsQuantity, valorFases.textContent)
-            values.perguntas = perguntas;
-            console.log("✅ Perguntas importadas do CSV do usuário:", perguntas);
-        };
-        reader.readAsText(file, 'UTF-8');
-    }
+      const perguntas = linhas.map((linha) => {
+        const [id, level, theme, question, a, b, c, d, correct, explanation] = linha.split(';');
+
+        if (!id || !level || !theme || !question || !a || !b || !c || !d || !correct || !explanation) {
+          console.error("⚠️ Linha do CSV em formato incorreto:", linha);
+          return null;
+        }
+
+        if (level > levelsQuantity) levelsQuantity = level;
+
+        return {
+          id: +id,
+          level: +level,
+          theme,
+          question,
+          options: { 0: a, 1: b, 2: c, 3: d },
+          correct: +correct,
+          explanation
+        }
+      }).filter(p => p !== null);
+
+      values.perguntas = perguntas;
+    };
+    reader.readAsText(file, 'UTF-8');
+  }
 }
 loadCsv();
 console.log(values.perguntas);
