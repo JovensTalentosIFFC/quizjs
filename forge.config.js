@@ -14,7 +14,7 @@ module.exports = {
       },
     },
     {
-      name: '@electron-forge/maker-zip',
+      name: '@rabbitholesyndrome/electron-forge-maker-portable',
       platforms: ['win32'],
     },
   ],
