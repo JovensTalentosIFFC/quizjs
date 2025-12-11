@@ -8,14 +8,13 @@ module.exports = {
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
-      config: {
-        name: 'BYQuiz'
-      },
-    },
-    {
       name: '@rabbitholesyndrome/electron-forge-maker-portable',
       platforms: ['win32'],
+       config: {
+      portable: {
+        artifactName: 'BYQuiz.exe'  // Nome limpo do EXE
+      }
+    }
     },
   ],
   plugins: [
