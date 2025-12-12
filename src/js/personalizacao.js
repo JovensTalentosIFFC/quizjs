@@ -48,6 +48,7 @@ let values = {
   fundos: configs ? configs.fundos : [],
   questoes: configs ? configs.questoes : 5,
 }
+console.log(values)
 
 let inputFases = document.getElementById('fasesInput');
 let sliderFases = document.getElementById('fases');
@@ -67,19 +68,15 @@ let valorAjudas = document.getElementById('valor-ajudas');
 
 // Atualiza valores do configs
 if (configs) {
-  inputFases.value = configs.fases;
   sliderFases.value = configs.fases;
   valorFases.textContent = configs.fases;
 
-  inputQuestoes.value = configs.questoes;
   sliderQuestoes.value = configs.questoes;
   valorQuestoes.textContent = configs.questoes;
 
-  inputVidas.value = configs.vidas;
   sliderVidas.value = configs.vidas;
   valorVidas.textContent = configs.vidas;
 
-  inputAjudas.value = configs.ajudas;
   sliderAjudas.value = configs.ajudas;
   valorAjudas.textContent = configs.ajudas;
 }
@@ -95,8 +92,6 @@ function atualizarValor(sliderId) {
   span.textContent = slider.value;
   values[sliderId] = +slider.value
 
-  const input = document.getElementById(sliderId + 'Input');
-  input.value = slider.value;
 }
 
 function moverSlider(sliderId, inputId) {
@@ -114,13 +109,13 @@ function moverSlider(sliderId, inputId) {
   }
 }
 
-function verificaEnter(event, sliderId, inputId) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    moverSlider(sliderId, inputId);
-    atualizarValor(sliderId)
-  }
-}
+// function verificaEnter(event, sliderId, inputId) {
+//   if (event.key === 'Enter') {
+//     event.preventDefault();
+//     moverSlider(sliderId, inputId);
+//     atualizarValor(sliderId)
+//   }
+// }
 
 function responder(resposta) {
   const respostaP = document.getElementById('resposta');
@@ -242,27 +237,26 @@ document.getElementById('uploadFundo').addEventListener('change', function (even
 });
 
 // ➤ FUNÇÃO NOVA — aplica padrão 5 se o usuário não escolher nada
-function aplicarPadraoSeNaoSelecionado() {
+// function aplicarPadraoSeNaoSelecionado() {
 
-  if (!inputFases.value || inputFases.value.trim() === "") {
-    values.fases = 5;
-    inputFases.value = 5;
-    sliderFases.value = 5;
-    valorFases.textContent = 5;
-  }
+//   if (!inputFases.value || inputFases.value.trim() === "") {
+//     values.fases = 5;
+//     inputFases.value = 5;
+//     sliderFases.value = 5;
+//     valorFases.textContent = 5;
+//   }
 
-  if (!inputQuestoes.value || inputQuestoes.value.trim() === "") {
-    values.questoes = 5;
-    inputQuestoes.value = 5;
-    sliderQuestoes.value = 5;
-    valorQuestoes.textContent = 5;
-  }
-}
+//   if (!inputQuestoes.value || inputQuestoes.value.trim() === "") {
+//     values.questoes = 5;
+//     inputQuestoes.value = 5;
+//     sliderQuestoes.value = 5;
+//     valorQuestoes.textContent = 5;
+//   }
+// }
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  aplicarPadraoSeNaoSelecionado(); // ➤ AQUI!
 
   if (levelsQuantity < values.fases) {
     alert('Insira um número de fases correspondente com o csv!')
