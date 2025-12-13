@@ -4,6 +4,22 @@
   "description": "",
   "type": "module",
   "main": "./src/electron.js",
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "./src/assets/Projeto-Quiz/coruja.png"
+      },
+      "makers": [
+        {
+          "name": "@rabbitholesyndrome/electron-forge-maker-portable",
+          "platforms": [
+            "win32"
+          ]
+        }
+      ],
+      "publishers": []
+    }
+  },
   "scripts": {
     "start": "electron-forge start",
     "dist": "electron-builder",
