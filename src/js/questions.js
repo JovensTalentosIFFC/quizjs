@@ -1,6 +1,10 @@
 // load configs
 const configs = JSON.parse(localStorage.getItem('configs'));
+const returnButton = document.querySelector('nav i');
 
+returnButton.addEventListener('click', () =>{
+  window.history.back();
+})
 // totalLevels agora será atualizado dinamicamente com base no CSV do usuário ou configs.fases
 let optionsLength = 4,
   totalLevels = configs ? +configs.fases : 2,

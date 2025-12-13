@@ -53,6 +53,11 @@ const levelText = document.querySelector('.popupInicio .faseContainer h2:first-c
 const themeText = document.querySelector('.popupInicio .faseContainer h2:nth-child(2)');
 const numPergunta = document.querySelector('.topPergunta .numPergunta');
 const currentTime = localStorage.getItem('currentTime');
+const returnButton = document.querySelector('nav i');
+
+returnButton.addEventListener('click', () =>{
+  window.history.back();
+})
 
 let scoreTime1 = +localStorage.getItem('scoreTime1') || 0;
 let scoreTime2 = +localStorage.getItem('scoreTime2') || 0;

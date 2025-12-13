@@ -1,3 +1,9 @@
+const returnButton = document.querySelector('nav i');
+
+returnButton.addEventListener('click', () =>{
+  window.history.back();
+})
+
 for (let i = localStorage.length - 1; i >= 0; i--) {
   let key = localStorage.key(i);
   console.log(key)
