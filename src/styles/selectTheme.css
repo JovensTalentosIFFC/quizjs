@@ -23,6 +23,18 @@ p{
     font-family: 'Poppins', sans-serif;
     color: white;
 }
+nav{
+  position: fixed;
+
+  width: 100%;
+  bottom: 20px;
+  left: 0;
+}
+
+nav i{
+  font-size: 3rem;
+  cursor: pointer;
+}
 
 button{
     font-family: 'Poppins', sans-serif;

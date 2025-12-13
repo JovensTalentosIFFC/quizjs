@@ -1,6 +1,11 @@
 const containerVidas = document.querySelector('.containerInput.vidas');
 const containerAjudas = document.querySelector('.containerInput.ajudas');
 const switchModeButton = Array.from(document.querySelectorAll('.pergBotao button'))
+const returnButton = document.querySelector('nav i');
+
+returnButton.addEventListener('click', () =>{
+  window.history.back();
+})
 
 let levelsQuantity = localStorage.getItem('levelsQuantity') || 0;
 
