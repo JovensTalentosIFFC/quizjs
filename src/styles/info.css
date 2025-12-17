@@ -24,7 +24,7 @@ h1, p, ul, li, button {
 nav{
   position: fixed;
 
-  width: 100%;
+  width: 20%;
   bottom: 20px;
   left: 20px;
 }
