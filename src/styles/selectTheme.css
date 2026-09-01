@@ -1,102 +1,123 @@
+/* ===== Fontes ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;0,800;1,900&display=swap');
 
+/* ===== Reset básico ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===== Garante altura total da página (fundo cobre a tela inteira) ===== */
+html, body {
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* ===== Body / fundo ===== */
 body {
     background-image: url(../assets/Projeto-Quiz/telaEscolherTema.png);
-    font-family: 'Poppins', sans-serif;
-    background-position: 20px;
+    background-position: center;
     background-attachment: fixed;
     background-size: cover;
-    background-position: center; 
     background-repeat: no-repeat;
     padding: 40px;
     transition: 2s;
+
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
 
-}    
-
-p{
+/* ===== Texto de instrução ===== */
+p {
     display: flex;
     font-size: 3rem;
     margin-top: 5rem;
-    font-family: 'Poppins', sans-serif;
     color: white;
 }
-nav{
-  position: fixed;
 
-  width: 20%;
-  bottom: 20px;
-  left: 20px;
+/* ===== Navegação (botão voltar) ===== */
+nav {
+    position: fixed;
+    width: 20%;
+    bottom: 20px;
+    left: 20px;
 }
 
-nav i{
-  font-size: 3rem;
-  cursor: pointer;
-  color: white;
-}
-
-button{
-    font-family: 'Poppins', sans-serif;
-    font-weight: initial;
-    text-align: center;
-    justify-content: center;
-    font-size: 2rem;
-    padding: 20px 34px;
-    border: none;
+nav i {
+    font-size: 3rem;
     cursor: pointer;
-    border-radius: 1rem;
     color: white;
+}
+
+/* ===== Botões de tema ===== */
+button {
     font-weight: 600;
+    font-size: 2rem;
     letter-spacing: 4px;
     text-align: center;
+    justify-content: center;
+
+    padding: 20px 34px;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    cursor: pointer;
+
     background: linear-gradient(135deg, #afffB3, #70e000);
     transition: .4s;
 }
-button:first-child:hover ~ body{
- background-image: url(../assets/Projeto-Quiz/telaEsportes.png); 
+
+button:hover {
+    padding: 20px 50px;
+    box-shadow: 0 10px rgb(0, 153, 255);
+    letter-spacing: 6px;
 }
 
-button:hover{
-  padding: 20px 50px;
-  box-shadow: 0 10px rgb(0, 153, 255);
-  letter-spacing: 6px;
+button:first-child:hover ~ body {
+    background-image: url(../assets/Projeto-Quiz/telaEsportes.png);
 }
 
-.container{
-    display: flex;
-    gap: 5rem;
-}
-
-.itens{
+/* ===== Layout dos botões ===== */
+.itens {
     display: flex;
     flex-direction: column;
-    width: 700px;
     align-items: center;
+    width: 700px;
     gap: 2rem;
 }
 
-.lastButton{
+.container {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.lastButton {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5rem;
     margin-top: 1.2rem;
 }
 
-img{
+/* ===== Imagens ===== */
+img {
     display: flex;
     width: 100px;
 }
 
-@media (max-width: 786px){
-  *{
-    font-size: .4rem;
-  }
+/* ===== Responsivo ===== */
+@media (max-width: 786px) {
+    * {
+        font-size: .4rem;
+    }
 
-  body{
-    background-size: 600px;
-    background-repeat: repeat;
-  }
-
-  button{
-  }
+    body {
+        background-size: 600px;
+        background-repeat: repeat;
+    }
 }

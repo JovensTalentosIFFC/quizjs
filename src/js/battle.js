@@ -2,9 +2,19 @@ const configs = JSON.parse(localStorage.getItem('configs'));
 let questions = [];
 let levelThemes = [];
 
-let   totalLevels = configs ? +configs.fases : 2,
-  totalQuestionsPerLevelOnCsv = 5,
-  questionsPerLevel = configs ? configs.questoes : 3;
+// normaliza texto do tema (remove acentos, minúsculas, espaço -> "_")
+// usado pra montar o nome do arquivo CSV corretamente
+function slugify(str) {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // remove acentos
+    .toLowerCase()
+    .replace(/\s+/g, '_');            // espaço -> underline
+}
+
+let   totalLevels = configs ? +configs.fases : 2,
+  totalQuestionsPerLevelOnCsv = 5,
+  questionsPerLevel = configs ? configs.questoes : 3;
 
 class Question {
     constructor({ id, level, theme, question, options, correct, explanation }) {
@@ -125,7 +135,7 @@ function selectOption(selectedOpt) {
             }
         });
     } else {
-        const info = await fetch(`../src/assets/quiz_${localStorage.getItem('theme').toLowerCase()}.csv`);
+        const info = await fetch(`../src/assets/quiz_${slugify(localStorage.getItem('theme'))}.csv`);
         console.log(localStorage.getItem('theme'))
         const data = await info.text();
 
@@ -133,6 +143,7 @@ function selectOption(selectedOpt) {
         tempQuestions.shift();
 
         questions = tempQuestions.reduce((acm, k) => {
+            if (!k.trim()) return acm; // ignora linha vazia (ex: quebra de linha no fim do arquivo)
             const [id, level, theme, qText, a, b, c, d, correct, explanation] = k.split(';');
             const tempQuestion = new Question({ id, level, theme, question: qText, options: { 0: a, 1: b, 2: c, 3: d }, correct, explanation });
             acm.push(tempQuestion);
@@ -142,6 +153,13 @@ function selectOption(selectedOpt) {
             return acm;
         }, []);
 
+        // sem configs customizados, calcula fases/perguntas com base no CSV real do tema
+        // em vez de assumir sempre "2 fases de 3 perguntas"
+        if (!configs) {
+            const niveisUnicos = [...new Set(questions.map(q => +q.level))];
+            totalLevels = niveisUnicos.length;
+            questionsPerLevel = questions.filter(q => +q.level === niveisUnicos[0]).length;
+        }
     }
 
     let currentQuestion;
